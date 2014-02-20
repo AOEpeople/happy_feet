@@ -1,8 +1,8 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = array(
-	'title'                         => 'Footnotes',
-	'description'                   => 'Inserts footnotes',
+	'title'                         => 'Happy Feet',
+	'description'                   => 'Handles happy footnotes',
 	'category'                      => 'plugin',
 	'author'                        => 'AOE',
 	'author_email'                  => 'dev@aoe.com',
