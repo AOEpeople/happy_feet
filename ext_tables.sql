@@ -24,7 +24,7 @@ CREATE TABLE tx_happyfeet_domain_model_footnote (
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	starttime int(11) DEFAULT '0' NOT NULL,
 	endtime int(11) DEFAULT '0' NOT NULL,
-	index_number int(11) NOT NULL,
+	index_number int(11) DEFAULT '0' NOT NULL,
 	title varchar(255) DEFAULT '' NOT NULL,
 	header varchar(255) DEFAULT '' NOT NULL,
 	description text NOT NULL,
