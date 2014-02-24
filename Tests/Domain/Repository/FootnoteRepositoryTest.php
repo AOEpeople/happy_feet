@@ -76,25 +76,9 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      * @test
      * @expectedException Tx_Extbase_Persistence_Exception_IllegalObjectType
      */
-    public function shouldThrwoExceptionWithInvalidObject()
+    public function shouldThrowExceptionWithInvalidObject()
     {
         $footnote = new Tx_HappyFeet_Service_FootnoteService();
         $this->repository->add( $footnote );
     }
-
-    /**
-     * @test
-     */
-    public function shouldAddIndex()
-    {
-        $this->markTestSkipped();
-        $footnote = new Tx_HappyFeet_Domain_Model_Footnote();
-        $objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-        $persistenceManager = $objectManager->get('Tx_Extbase_Persistence_Manager');
-        $this->repository->add( $footnote );
-        $persistenceManager->persistAll();
-
-        $footnote = $this->repository->findOneByIndexNumber(1);
-        $this->assertInstanceOf(Tx_HappyFeet_Domain_Model_Footnote, $footnote );
-    }
-} 
+}
