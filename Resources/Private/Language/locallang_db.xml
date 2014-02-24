@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'happy_feet'
+		</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_happyfeet_domain_model_footnote">Happy Feet Footnote</label>
+			<label index="tx_happyfeet_domain_model_footnote.tab.access">Access</label>
+			<label index="tx_happyfeet_domain_model_footnote.index_number">Index</label>
+			<label index="tx_happyfeet_domain_model_footnote.title">Title</label>
+			<label index="tx_happyfeet_domain_model_footnote.header">Header</label>
+			<label index="tx_happyfeet_domain_model_footnote.description">Description</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tx_happyfeet_domain_model_footnote">Happy Feet Fußnote</label>
+			<label index="tx_happyfeet_domain_model_footnote.tab.access">Zugriff</label>
+			<label index="tx_happyfeet_domain_model_footnote.index_number">Index</label>
+			<label index="tx_happyfeet_domain_model_footnote.title">Titel</label>
+			<label index="tx_happyfeet_domain_model_footnote.header">Header</label>
+			<label index="tx_happyfeet_domain_model_footnote.description">Beschreibung</label>
+		</languageKey>
+	</data>
+</T3locallang>

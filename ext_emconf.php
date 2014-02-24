@@ -1,7 +1,7 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = array(
-	'title'                         => 'Happy Feet',
+	'title'                         => 'Happy Feet Footnotes',
 	'description'                   => 'Handles happy footnotes',
 	'category'                      => 'plugin',
 	'author'                        => 'AOE',
@@ -20,9 +20,11 @@ $EM_CONF[$_EXTKEY] = array(
 	'lockType'                      => '',
 	'author_company'                => '',
 	'version'                       => '1.0.dev',
-
 	'constraints'                   => array(
-		'depends'   => array(
+		'depends' => array(
+			'cms'   => '',
+			'typo3' => '4.5.0-0.0.0',
+			'php'   => '5.3.0-0.0.0',
 		),
 		'conflicts' => array(),
 		'suggests'  => array(),

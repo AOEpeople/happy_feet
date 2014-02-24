@@ -29,34 +29,50 @@
  * @subpackage Domain_Repository
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persistence_Repository
+{
 
-	/**
-	 * Returns the smallest index which is not used.
-	 *
-	 * @return integer
-	 */
-	public function getLowestFreeIndex() {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
-		$query->statement('SELECT MIN(index) from ' . strtolower($this->objectType) . ' WHERE deleted=0');
-		$minIndex = (integer) $query->execute();
-		return $minIndex; // @todo calculate the next free index.
-	}
+    /**
+     * Returns the smallest index which is not used.
+     *
+     * @return integer
+     */
+    public function getLowestFreeIndex()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setReturnRawQueryResult(true);
+        $query->statement('SELECT index from ' . strtolower($this->objectType) . ' WHERE deleted=0');
+        $index   = 1;
+        $results = $query->execute();
+        if (false === is_array($results) || sizeof($results) < 1) {
+            return $index;
+        }
+        $indexes = array();
+        foreach ($results as $result) {
+            $indexes[] = (integer)$result['index'];
+        }
+        for ($$index = 1; $index <= sizeof($indexes) + 1; $index++) {
+            if (false === in_array($index, $indexes)) {
+                break;
+            }
+        }
+        return $index;
+    }
 
-	/**
-	 * @param Tx_HappyFeet_Domain_Model_Footnote $object
-	 * @throws Tx_Extbase_Persistence_Exception_IllegalObjectType
-	 */
-	public function add($object) {
-		/** @var Tx_HappyFeet_Domain_Model_Footnote $object */
-		if (FALSE === ($object instanceof $this->objectType)) {
-			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
-				'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
-				1392911702
-			);
-		}
-		$object->setIndex($this->getLowestFreeIndex());
-		parent::add($object);
-	}
+    /**
+     * @param Tx_HappyFeet_Domain_Model_Footnote $object
+     * @throws Tx_Extbase_Persistence_Exception_IllegalObjectType
+     */
+    public function add($object)
+    {
+        /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
+        if (false === ($object instanceof $this->objectType)) {
+            throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
+                'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
+                1392911702
+            );
+        }
+        $object->setIndex($this->getLowestFreeIndex());
+        parent::add($object);
+    }
 }
