@@ -41,7 +41,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setReturnRawQueryResult(true);
-        $query->statement('SELECT index from ' . strtolower($this->objectType) . ' WHERE deleted=0');
+        $query->statement('SELECT index_number from ' . strtolower($this->objectType) . ' WHERE deleted=0');
         $index   = 1;
         $results = $query->execute();
         if (false === is_array($results) || sizeof($results) < 1) {
