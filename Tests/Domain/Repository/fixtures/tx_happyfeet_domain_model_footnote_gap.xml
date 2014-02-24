@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<tx_happyfeet_domain_model_footnote>
+		<uid>1</uid>
+		<pid>1</pid>
+		<index_number>1</index_number>
+		<title>0</title>
+		<header></header>
+		<description></description>
+		<deleted>0</deleted>
+	</tx_happyfeet_domain_model_footnote>
+	<tx_happyfeet_domain_model_footnote>
+		<uid>2</uid>
+		<pid>1</pid>
+		<index_number>3</index_number>
+		<title>0</title>
+		<header></header>
+		<description></description>
+		<deleted>0</deleted>
+	</tx_happyfeet_domain_model_footnote>
+</dataset>

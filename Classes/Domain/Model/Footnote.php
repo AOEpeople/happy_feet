@@ -30,90 +30,81 @@
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Model_Footnote extends Tx_Extbase_DomainObject_AbstractEntity
-{
+class Tx_HappyFeet_Domain_Model_Footnote extends Tx_Extbase_DomainObject_AbstractEntity {
 
-    /**
-     * @var integer
-     */
-    protected $index;
+	/**
+	 * @var integer
+	 */
+	protected $indexNumber;
 
-    /**
-     * @var string
-     */
-    protected $title;
+	/**
+	 * @var string
+	 */
+	protected $title;
 
-    /**
-     * @var string
-     */
-    protected $header;
+	/**
+	 * @var string
+	 */
+	protected $header;
 
-    /**
-     * @var string
-     */
-    protected $description;
+	/**
+	 * @var string
+	 */
+	protected $description;
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
+	/**
+	 * @param string $description
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
 
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
 
-    /**
-     * @param string $header
-     */
-    public function setHeader($header)
-    {
-        $this->header = $header;
-    }
+	/**
+	 * @param string $header
+	 */
+	public function setHeader($header) {
+		$this->header = $header;
+	}
 
-    /**
-     * @return string
-     */
-    public function getHeader()
-    {
-        return $this->header;
-    }
+	/**
+	 * @return string
+	 */
+	public function getHeader() {
+		return $this->header;
+	}
 
-    /**
-     * @param integer $index
-     */
-    public function setIndex($index)
-    {
-        $this->index = $index;
-    }
+	/**
+	 * @param integer $index
+	 */
+	public function setIndexNumber($index) {
+		$this->indexNumber = $index;
+	}
 
-    /**
-     * @return integer
-     */
-    public function getIndex()
-    {
-        return $this->index;
-    }
+	/**
+	 * @return integer
+	 */
+	public function getIndexNumber() {
+		return $this->indexNumber;
+	}
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
+	/**
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
 
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
+	/**
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
 }

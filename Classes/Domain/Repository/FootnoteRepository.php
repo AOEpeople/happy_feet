@@ -33,6 +33,20 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
 {
 
     /**
+     * @return void
+     */
+    public function initializeObject()
+    {
+        /** @var $defaultQuerySettings Tx_Extbase_Persistence_Typo3QuerySettings */
+        $defaultQuerySettings = $this->objectManager->get( 'Tx_Extbase_Persistence_Typo3QuerySettings' );
+        $defaultQuerySettings->setRespectStoragePage( false );
+        $defaultQuerySettings->setRespectSysLanguage( false );
+        $defaultQuerySettings->setRespectEnableFields( false );
+        $this->setDefaultQuerySettings( $defaultQuerySettings );
+
+    }
+
+    /**
      * Returns the smallest index which is not used.
      *
      * @return integer
@@ -40,19 +54,19 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function getLowestFreeIndex()
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setReturnRawQueryResult(true);
-        $query->statement('SELECT index_number from ' . strtolower($this->objectType) . ' WHERE deleted=0');
-        $index   = 1;
+        $query->getQuerySettings()->setReturnRawQueryResult( true );
+        $query->statement( 'SELECT index_number from ' . strtolower( $this->objectType ) . ' WHERE deleted=0' );
+        $index = 1;
         $results = $query->execute();
-        if (false === is_array($results) || sizeof($results) < 1) {
+        if (false === is_array( $results ) || sizeof( $results ) < 1) {
             return $index;
         }
         $indexes = array();
         foreach ($results as $result) {
-            $indexes[] = (integer)$result['index'];
+            $indexes[] = (integer) $result['index_number'];
         }
-        for ($$index = 1; $index <= sizeof($indexes) + 1; $index++) {
-            if (false === in_array($index, $indexes)) {
+        for ($index = 1; $index <= sizeof( $indexes ) + 1; $index++) {
+            if (false === in_array( $index, $indexes )) {
                 break;
             }
         }
@@ -62,17 +76,18 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     /**
      * @param Tx_HappyFeet_Domain_Model_Footnote $object
      * @throws Tx_Extbase_Persistence_Exception_IllegalObjectType
+     * @return void
      */
     public function add($object)
     {
         /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
-        if (false === ($object instanceof $this->objectType)) {
+        if (false === ( $object instanceof $this->objectType )) {
             throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
             );
         }
-        $object->setIndex($this->getLowestFreeIndex());
-        parent::add($object);
+        $object->setIndexNumber( $this->getLowestFreeIndex() );
+        parent::add( $object );
     }
 }
