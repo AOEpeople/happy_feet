@@ -81,7 +81,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function add($object)
     {
         /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
-        if (false === ( $object instanceof $this->objectType )) {
+        if (false === ( $object instanceof Tx_HappyFeet_Domain_Model_Footnote)) {
             throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
