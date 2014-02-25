@@ -90,4 +90,17 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $object->setIndexNumber( $this->getLowestFreeIndex() );
         parent::add( $object );
     }
+	/**
+	 * @param array $uIds
+	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 */
+	public function getFootNoteByIds(array $uIds) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage( false );
+		$query->getQuerySettings()->setRespectSysLanguage( false );
+		$query->getQuerySettings()->setRespectEnableFields( true );
+		$query->matching($query->in('uid', $uIds));
+
+		return $query->execute();
+	}
 }

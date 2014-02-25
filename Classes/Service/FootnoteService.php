@@ -5,7 +5,6 @@
  * Date: 21.02.14
  * Time: 12:52
  */
-
 class Tx_HappyFeet_Service_FootnoteService {
 
 	/**
@@ -15,18 +14,39 @@ class Tx_HappyFeet_Service_FootnoteService {
 	 * @throws UnexpectedValueException
 	 * @return string The wrapped index value
 	 */
-	public function render($footnoteUids, $conf = array())  {
+	public function renderItemList($footnoteUids, $conf = array()) {
 		// footnote-UID's are defined inside a FCE
-		if(array_key_exists('userFunc', $conf) && array_key_exists('field', $conf)) {
-			$footnoteUids = $this->cObj->getCurrentVal();
+		if (array_key_exists ( 'userFunc', $conf ) && array_key_exists ( 'field', $conf )) {
+			$footnoteUids = $this->cObj->getCurrentVal ();
 		}
 
-		$footNotes = explode(',', $footnoteUids);
-		$content = '';
-		foreach($footNotes as $uId) {
-			$content .= '<br/>Die Ausgewählte Uid ist: '.$uId;
+		$footNotes = explode ( ',', $footnoteUids );
+		$footNoteRepository = new Tx_HappyFeet_Domain_Repository_FootnoteRepository();
+
+		$footNotesList = $footNoteRepository->getFootNoteByIds ( $footNotes );
+
+		foreach ( $footNotesList as $footNote ) {
+			/** @var Tx_HappyFeet_Domain_Model_Footnote $foot */
+			$content .= '<h2>' . $footNote->getTitle () . '</h2>';
+			$content .= '<p>' . $footNote->getDescription () . '</p>';
+
 		}
 
 		return $content;
 	}
+
+	/**
+	 * @param string $footnoteUids
+	 * @param array $conf
+	 * @return mixed
+	 */
+	public function getFootIds($footnoteUids, $conf = array()) {
+		return print_r ( $this->cObj, true );
+		// footnote-UID's are defined inside a FCE
+		if (array_key_exists ( 'userFunc', $conf ) && array_key_exists ( 'field', $conf )) {
+			$footnoteUids = $this->cObj->getCurrentVal ();
+		}
+		return print_r ( $footnoteUids, true );
+	}
+
 }
