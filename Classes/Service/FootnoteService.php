@@ -25,6 +25,7 @@ class Tx_HappyFeet_Service_FootnoteService {
 
 		$footNotesList = $footNoteRepository->getFootNoteByIds ( $footNotes );
 
+        $content = "";
 		foreach ( $footNotesList as $footNote ) {
 			/** @var Tx_HappyFeet_Domain_Model_Footnote $foot */
 			$content .= '<h2>' . $footNote->getTitle () . '</h2>';
