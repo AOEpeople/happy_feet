@@ -29,7 +29,6 @@ class Tx_HappyFeet_Service_FootnoteService {
 			/** @var Tx_HappyFeet_Domain_Model_Footnote $foot */
 			$content .= '<h2>' . $footNote->getTitle () . '</h2>';
 			$content .= '<p>' . $footNote->getDescription () . '</p>';
-
 		}
 
 		return $content;
@@ -38,15 +37,13 @@ class Tx_HappyFeet_Service_FootnoteService {
 	/**
 	 * @param string $footnoteUids
 	 * @param array $conf
-	 * @return mixed
+	 * @return string
 	 */
 	public function getFootIds($footnoteUids, $conf = array()) {
-		return print_r ( $this->cObj, true );
-		// footnote-UID's are defined inside a FCE
+		$footnoteUids = '';
 		if (array_key_exists ( 'userFunc', $conf ) && array_key_exists ( 'field', $conf )) {
-			$footnoteUids = $this->cObj->getCurrentVal ();
+			$footnoteUids = $this->cObj->data['field_footnote_content'];
 		}
-		return print_r ( $footnoteUids, true );
+		return  $footnoteUids;
 	}
-
 }
