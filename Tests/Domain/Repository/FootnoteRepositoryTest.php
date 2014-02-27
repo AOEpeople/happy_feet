@@ -39,7 +39,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function shouldGetDefaultIndexWhenNoRecordsAvailable()
     {
-        $lowestIndex = $this->repository->getLowestFreeIndex();
+        $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals( 1, $lowestIndex );
     }
     /**
@@ -48,7 +48,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function shouldGetLowestIndex()
     {
         $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote.xml' );
-        $lowestIndex = $this->repository->getLowestFreeIndex();
+        $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals( 1, $lowestIndex );
     }
 
@@ -58,7 +58,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function shouldGetIndexWithGap()
     {
         $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml' );
-        $lowestIndex = $this->repository->getLowestFreeIndex();
+        $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals( 2, $lowestIndex );
     }
 
@@ -68,7 +68,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function shouldGetNextIndexInRow()
     {
         $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml' );
-        $lowestIndex = $this->repository->getLowestFreeIndex();
+        $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals( 3, $lowestIndex );
     }
 
