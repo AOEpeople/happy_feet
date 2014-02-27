@@ -78,7 +78,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function shouldThrowExceptionWithInvalidObject()
     {
-        $footnote = new Tx_HappyFeet_Service_FootnoteService();
+        $footnote = new stdClass();
         $this->repository->add( $footnote );
     }
 }
