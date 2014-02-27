@@ -12,22 +12,12 @@
  * Render Footnotes for FCE
  */
 
-class Tx_HappyFeet_Service_FCEFootnoteService {
+class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstract {
+	/**
+	 * @var Tx_HappyFeet_Service_Rendering
+	 */
+	private $footnoteRenderer;
 
-	/**
-	 * @var Tx_HappyFeet_Domain_Repository_FootnoteRepository
-	 */
-	private $repository;
-	/**
-	 * @param Tx_HappyFeet_Domain_Repository_FootnoteRepository $repository
-	 */
-	public function __construct(Tx_HappyFeet_Domain_Repository_FootnoteRepository $repository = null) {
-		if ($repository === null) {
-			$this->repository = new Tx_HappyFeet_Domain_Repository_FootnoteRepository();
-		} else {
-			$this->repository = $repository;
-		}
-	}
 	/**
 	 *
 	 * @param string $footnoteUids comma separated list of uid's of the "tx_aoefootnote_item" record
@@ -41,16 +31,24 @@ class Tx_HappyFeet_Service_FCEFootnoteService {
 		}
 
 		$footNotes = explode ( ',', $footnoteUids );
+		return  $this->getRenderingService()->renderFootnotes( $footNotes );
+	}
 
-		$footNotesList = $this->repository->getFootnotesByUids ( $footNotes );
+	/**
+	 * @param Tx_HappyFeet_Service_Rendering $footnoteRenderer
+	 */
+	public function injectRenderingService(Tx_HappyFeet_Service_Rendering $footnoteRenderer)
+	{
+		$this->footnoteRenderer = $footnoteRenderer;
+	}
 
-		$content = '';
-		foreach ( $footNotesList as $footNote ) {
-			/** @var Tx_HappyFeet_Domain_Model_Footnote $foot */
-			$content .= '<h2>' . $footNote->getTitle () . '</h2>';
-			$content .= '<p>' . $footNote->getDescription () . '</p>';
+	/**
+	 * @return Tx_HappyFeet_Service_Rendering
+	 */
+	private function getRenderingService(){
+		if(!$this->footnoteRenderer instanceof Tx_HappyFeet_Service_Rendering){
+			$this->footnoteRenderer = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
 		}
-
-		return $content;
+		return $this->footnoteRenderer;
 	}
 }

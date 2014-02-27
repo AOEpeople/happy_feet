@@ -18,42 +18,41 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	private $repository;
 	/**
-	 *
+	 * setup
 	 */
-	public function setUp(){
-		$this->repository = $this->getMock('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
-		$this->service = new Tx_HappyFeet_Service_FCEFootnoteService($this->repository);
+	public function setUp() {
+		$this->service = new Tx_HappyFeet_Service_FCEFootnoteService();
+		$this->renderer = $this->getMock ( 'Tx_HappyFeet_Service_Rendering' );
 	}
 
 	/**
 	 * @test
 	 * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList
 	 */
-	public function shouldRenderItemList(){
-		$content = $this->service->renderItemList('1,2');
-		$this->assertEquals('', $content);
+	public function shouldRenderItemList() {
+		$this->renderer->expects ( $this->any () )->method ( 'renderFootnotes' )->will ( $this->returnValue ( '' ) );
+		$this->service->injectRenderingService ( $this->renderer );
+		$content = $this->service->renderItemList ( '1,2' );
+		$this->assertEquals ( '', $content );
 	}
 	/**
 	 * @test
 	 * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList
 	 */
 	public function shouldRenderItemListWithConf() {
+		$this->renderer->expects ( $this->any () )->method ( 'renderFootnotes' )->will ( $this->returnValue ( 'contentString' ) );
+		$this->service->injectRenderingService ( $this->renderer );
 		$footNotesList = array();
-		$footnote = $this->getMock('Tx_HappyFeet_Domain_Model_Footnote');
-		$footnote->expects($this->any())->method('getTitle')->will($this->returnValue('A'));
-		$footnote->expects($this->any())->method('getDescription')->will($this->returnValue('B'));
+		$footnote = $this->getMock ( 'Tx_HappyFeet_Domain_Model_Footnote' );
 		$footNotesList[] = $footnote;
-		$footnote = $this->getMock('Tx_HappyFeet_Domain_Model_Footnote');
-		$footnote->expects($this->any())->method('getTitle')->will($this->returnValue('C'));
-		$footnote->expects($this->any())->method('getDescription')->will($this->returnValue('D'));
+		$footnote = $this->getMock ( 'Tx_HappyFeet_Domain_Model_Footnote' );
+		$footnote->expects ( $this->any () )->method ( 'getDescription' )->will ( $this->returnValue ( 'D' ) );
 		$footNotesList[] = $footnote;
-		$this->repository->expects($this->any())->method('getFootnotesByUids')->will($this->returnValue($footNotesList));
-		$conf = array('userFunc'=>'', 'field'=>'');
-		$this->service->cObj = $this->getMock('tslib_cObj');
-		$content = $this->service->renderItemList('1,2', $conf);
-		$this->assertContains('A',$content);
-		$this->assertContains('B',$content);
-		$this->assertContains('C',$content);
-		$this->assertContains('D',$content);
+
+		$conf = array('userFunc' => '', 'field' => '');
+		$this->service->cObj = $this->getMock ( 'tslib_cObj' );
+		$content = $this->service->renderItemList ( '1,2', $conf );
+
+		$this->assertContains ( 'contentString', $content );
 	}
-} 
+}
