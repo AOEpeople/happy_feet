@@ -94,7 +94,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      * @param array $uIds
      * @return array|Tx_Extbase_Persistence_QueryResultInterface
      */
-    public function getFootNoteByIds(array $uIds)
+    public function getFootnotesByIds(array $uIds)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage( false );

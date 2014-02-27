@@ -23,7 +23,7 @@ class Tx_HappyFeet_Service_FootnoteService {
 		$footNotes = explode ( ',', $footnoteUids );
 		$footNoteRepository = new Tx_HappyFeet_Domain_Repository_FootnoteRepository();
 
-		$footNotesList = $footNoteRepository->getFootNoteByIds ( $footNotes );
+		$footNotesList = $footNoteRepository->getFootnotesByIds ( $footNotes );
 
         $content = "";
 		foreach ( $footNotesList as $footNote ) {
