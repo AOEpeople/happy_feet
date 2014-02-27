@@ -91,18 +91,16 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
             )
         ),
         'index_number'     => Array(
-            "exclude" => 1,
-            "label"   => 'LLL:EXT:happyfeet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.index_number',
-            "config"  => Array(
-                "type" => "input",
-                "size" => "5",
-                "max"  => "5",
-                "eval" => "trim,nospace",
+            'exclude' => 1,
+            'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.index_number',
+            'config'  => Array(
+                'type' => 'none',
+                'size' => 30,
             )
         ),
         'title'            => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:happyfeet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.title',
+            'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.title',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -111,7 +109,7 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
         ),
         'header'           => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:happyfeet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.header',
+            'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.header',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -120,12 +118,12 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
         ),
         'description'      => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:happyfeet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.description',
+            'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.description',
             'config'  => array(
-                "type" => "text",
-                "cols" => "30",
-                "rows" => "5",
-                "eval" => "required"
+                'type' => 'text',
+                'cols' => '30',
+                'rows' => '5',
+                'eval' => 'required'
             )
         )
     )
