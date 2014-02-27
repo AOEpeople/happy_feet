@@ -25,6 +25,8 @@
  ***************************************************************/
 
 /**
+ * Repository for Tx_HappyFeet_Domain_Model_Footnote objects.
+ *
  * @package HappyFeet
  * @subpackage Domain_Repository
  * @author Timo Fuchs <timo.fuchs@aoe.com>
@@ -50,7 +52,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      *
      * @return integer
      */
-    public function getLowestFreeIndex()
+    public function getLowestFreeIndexNumber()
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setReturnRawQueryResult( true );
@@ -86,7 +88,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
                 1392911702
             );
         }
-        $object->setIndexNumber( $this->getLowestFreeIndex() );
+        $object->setIndexNumber( $this->getLowestFreeIndexNumber() );
         parent::add( $object );
     }
 
@@ -105,7 +107,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     }
 
     /**
-     * @param int $uid
+     * @param integer $uid
      * @return Tx_HappyFeet_Domain_Model_Footnote
      */
     public function getFootnoteByUid($uid)
