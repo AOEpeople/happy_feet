@@ -42,23 +42,22 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private $view;
 
     /**
-     * @param Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository
-     * @return void
-     */
-    public function injectFootnoteRepository(Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository)
-    {
-        $this->footnoteRepository = $footnoteRepository;
-    }
-
-    /**
      * @param array $uids
      * @return string
      */
     public function renderFootnotes(array $uids)
     {
         $view = $this->createView();
-        $view->assign( 'footnotes', $this->footnoteRepository->getFootnotesByUids( $uids ) );
+        $view->assign( 'footnotes', $this->getFootnoteRepository()->getFootnotesByUids( $uids ) );
         return $view->render( 'Markup' );
+    }
+
+    /**
+     * @return Tx_HappyFeet_Domain_Repository_FootnoteRepository
+     */
+    protected function getFootnoteRepository()
+    {
+        return $this->getObjectManager()->get( 'Tx_HappyFeet_Domain_Repository_FootnoteRepository' );
     }
 
     /**
