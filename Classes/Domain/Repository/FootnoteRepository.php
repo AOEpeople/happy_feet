@@ -91,16 +91,16 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         parent::add( $object );
     }
     /**
-     * @param array $uIds
+     * @param array $uids
      * @return array|Tx_Extbase_Persistence_QueryResultInterface
      */
-    public function getFootnotesByIds(array $uIds)
+    public function getFootnotesByUids(array $uids)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage( false );
         $query->getQuerySettings()->setRespectSysLanguage( false );
         $query->getQuerySettings()->setRespectEnableFields( true );
-        $query->matching( $query->in( 'uid', $uIds ) );
+        $query->matching( $query->in( 'uid', $uids ) );
 
         return $query->execute();
     }
@@ -109,7 +109,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      * @param int $uid
      * @return Tx_HappyFeet_Domain_Model_Footnote
      */
-    public function getFootNoteById($uid)
+    public function getFootnoteByUid($uid)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage( false );
