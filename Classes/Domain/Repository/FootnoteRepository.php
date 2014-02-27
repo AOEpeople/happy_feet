@@ -43,7 +43,6 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $defaultQuerySettings->setRespectSysLanguage( false );
         $defaultQuerySettings->setRespectEnableFields( false );
         $this->setDefaultQuerySettings( $defaultQuerySettings );
-
     }
 
     /**
@@ -90,6 +89,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $object->setIndexNumber( $this->getLowestFreeIndex() );
         parent::add( $object );
     }
+
     /**
      * @param array $uids
      * @return array|Tx_Extbase_Persistence_QueryResultInterface
@@ -101,7 +101,6 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $query->getQuerySettings()->setRespectSysLanguage( false );
         $query->getQuerySettings()->setRespectEnableFields( true );
         $query->matching( $query->in( 'uid', $uids ) );
-
         return $query->execute();
     }
 
