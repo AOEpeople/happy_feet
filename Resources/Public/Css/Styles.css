@@ -1,0 +1,7 @@
+.footnote {}
+
+.footnote .footnote__link {}
+
+.footnote .footnote__content {
+	display: none;
+}
