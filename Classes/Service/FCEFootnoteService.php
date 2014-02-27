@@ -1,11 +1,17 @@
 <?php
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2014 AOE GmbH <dev@aoe.com>
+ * All rights reserved
+ *
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 /**
  * Render Footnotes for FCE
- * Created by PhpStorm.
- * User: bilal.arslan
- * Date: 21.02.14
- * Time: 12:52
  */
+
 class Tx_HappyFeet_Service_FCEFootnoteService {
 
 	/**

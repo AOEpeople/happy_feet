@@ -22,7 +22,7 @@ class Tx_HappyFeet_Service_FCEFootnoteIdServiceTest extends Tx_Phpunit_TestCase 
 	 * @method Tx_HappyFeet_Service_FCEFootnoteService:getFootIds
 	 */
 	public function shouldGetFootnoteIds(){
-		$foonoteIds = $this->service->getFootIds('');
+		$foonoteIds = $this->service->getFootnoteIds('');
 		$this->assertEquals('', $foonoteIds);
 	}
 } 
