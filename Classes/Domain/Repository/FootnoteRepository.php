@@ -105,18 +105,4 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $query->matching( $query->in( 'uid', $uids ) );
         return $query->execute();
     }
-
-    /**
-     * @param integer $uid
-     * @return Tx_HappyFeet_Domain_Model_Footnote
-     */
-    public function getFootnoteByUid($uid)
-    {
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage( false );
-        $query->getQuerySettings()->setRespectSysLanguage( false );
-        $query->getQuerySettings()->setRespectEnableFields( true );
-        $query->matching( $query->equals( 'uid', $uid ) );
-        return $query->execute()->getFirst();
-    }
 }

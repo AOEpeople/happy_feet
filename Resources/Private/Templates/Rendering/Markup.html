@@ -1,4 +1,13 @@
-<sup class="footnote" data-footnote data-footnote-title="{footnote.header}">
-    <a href="#" class="footnote__link">{footnote.uid}</a>
-    <span class="footnote__content">{footnote.description}</span>
+<sup class="footnote" data-footnote>
+    <a href="#" class="footnote__link">
+        <f:for each="{footnotes}" as="footnote" iteration="iterator">
+            <f:if condition="{iterator.index} > 0">,</f:if>{footnote.indexNumber}
+        </f:for>
+    </a>
+    <span class="footnote__content">
+        <f:for each="{footnotes}" as="footnote">
+            <h2>{footnote.header}</h2>
+            <p>{footnote.description}</p>
+        </f:for>
+    </span>
 </sup>

@@ -5,11 +5,10 @@
  * @subpackage Service_Test
  * @author Kevin Fuchs <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
+class Tx_HappyFeet_Typo3_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
 {
-
     /**
-     * @var Tx_HappyFeet_Service_LinkHandler
+     * @var Tx_HappyFeet_Typo3_Service_LinkHandler
      */
     private $linkHandler;
 
@@ -18,11 +17,11 @@ class Tx_HappyFeet_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
      */
     public function setUp()
     {
-        $renderingService = $this->getMock( 'Tx_HappyFeet_Service_Rendering', array('renderFootnote') );
-        $renderingService->expects( $this->any() )->method( 'renderFootnote' )->will(
+        $renderingService = $this->getMock( 'Tx_HappyFeet_Service_Rendering', array('renderFootnotes') );
+        $renderingService->expects( $this->any() )->method( 'renderFootnotes' )->will(
             $this->returnValue( 'FOOTNOTE:4711' )
         );
-        $linkHandler = $this->getMock( 'Tx_HappyFeet_Service_LinkHandler', array('getRenderingService') );
+        $linkHandler = $this->getMock( 'Tx_HappyFeet_Typo3_Service_LinkHandler', array('getRenderingService') );
         $linkHandler->expects( $this->any() )->method( 'getRenderingService' )->will(
             $this->returnValue( $renderingService )
         );
