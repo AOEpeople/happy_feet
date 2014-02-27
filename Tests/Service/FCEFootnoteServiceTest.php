@@ -33,16 +33,6 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase {
 		$content = $this->service->renderItemList('1,2');
 		$this->assertEquals('', $content);
 	}
-
-	/**
-	 * test method getFootIds
-	 * @test
-	 * @method Tx_HappyFeet_Service_FCEFootnoteService:getFootIds
-	 */
-	public function shouldGetFootnoteIds(){
-		$foonoteIds = $this->service->getFootIds('');
-		$this->assertEquals('', $foonoteIds);
-	}
 	/**
 	 * @test
 	 * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList

@@ -47,17 +47,4 @@ class Tx_HappyFeet_Service_FCEFootnoteService {
 
 		return $content;
 	}
-
-	/**
-	 * @param string $footnoteUids
-	 * @param array $conf
-	 * @return string
-	 */
-	public function getFootIds($footnoteUids, $conf = array()) {
-		$footnoteUids = '';
-		if (array_key_exists ( 'userFunc', $conf ) && array_key_exists ( 'field', $conf )) {
-			$footnoteUids = $this->cObj->data['field_footnote_content'];
-		}
-		return $footnoteUids;
-	}
 }
