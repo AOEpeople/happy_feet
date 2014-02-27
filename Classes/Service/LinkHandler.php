@@ -7,7 +7,7 @@ if (!defined( 'TYPO3_MODE' )) {
 /**
  * @package HappyFeet
  * @subpackage Service_Test
- * @author Timo Fuchs <kevin.schu@aoe.com>
+ * @author Kevin Schu <kevin.schu@aoe.com>
  */
 class Tx_HappyFeet_Service_LinkHandler extends Tx_HappyFeet_Service_Abstract
 {
@@ -20,7 +20,7 @@ class Tx_HappyFeet_Service_LinkHandler extends Tx_HappyFeet_Service_Abstract
      * @param string $linktxt
      * @param array $typoLinkConfiguration TypoLink Configuration array
      * @param string $linkHandlerKeyword Define the identifier that an record is given
-     * @param string $linkHandlerValue Table and uid of the requested record like "tx_aoefootnote_item:2"
+     * @param string $linkHandlerValue Table and uid of the requested record like "tx_happyfeet_domain_model_footnote:2"
      * @param string $linkParams Full link params like "footnote:tx_aoefootnote_item:2"
      * @param tslib_cObj $pObj
      * @return string
@@ -35,6 +35,14 @@ class Tx_HappyFeet_Service_LinkHandler extends Tx_HappyFeet_Service_Abstract
     }
 
     /**
+     * @return Tx_HappyFeet_Service_Rendering
+     */
+    protected function getRenderingService()
+    {
+        return $this->getObjectManager()->get( 'Tx_HappyFeet_Service_Rendering' );
+    }
+
+    /**
      * @param $str
      * @return int
      */
@@ -42,13 +50,5 @@ class Tx_HappyFeet_Service_LinkHandler extends Tx_HappyFeet_Service_Abstract
     {
         $parts = explode( ':', $str );
         return (int) $parts[1];
-    }
-
-    /**
-     * @return Tx_HappyFeet_Service_Rendering
-     */
-    private function getRenderingService()
-    {
-        return $this->getObjectManager()->get( 'Tx_HappyFeet_Service_Rendering' );
     }
 }

@@ -38,7 +38,6 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     protected function createView()
     {
         if (null === $this->view) {
-            /** @var Tx_Fluid_View_StandaloneView $view */
             $this->view = $this->getObjectManager()->create( 'Tx_Fluid_View_StandaloneView' );
             $this->view->setTemplatePathAndFilename( $this->getTemplatePathAndFilename() );
         }
@@ -52,15 +51,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     {
         return t3lib_extMgm::extPath(
             'happy_feet',
-            'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering'
+            'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
         );
-    }
-
-    /**
-     * @return Tx_HappyFeet_Domain_Repository_FootnoteRepository
-     */
-    protected function getFootnoteRepository()
-    {
-        return $this->getObjectManager()->get( 'Tx_HappyFeet_Domain_Repository_FootnoteRepository' );
     }
 }
