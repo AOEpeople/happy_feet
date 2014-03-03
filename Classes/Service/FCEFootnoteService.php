@@ -11,7 +11,6 @@
 /**
  * Render Footnotes for FCE
  */
-
 class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstract {
 	/**
 	 * @var Tx_HappyFeet_Service_Rendering
@@ -29,25 +28,26 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
 		if (array_key_exists ( 'userFunc', $conf ) && array_key_exists ( 'field', $conf )) {
 			$footnoteUids = $this->cObj->getCurrentVal ();
 		}
-
 		$footNotes = explode ( ',', $footnoteUids );
-		return  $this->getRenderingService()->renderFootnotes( $footNotes );
+		if (is_array ( $footNotes ) && count ( $footNotes ) > 0) {
+			return $this->getRenderingService ()->renderFootnotes ( $footNotes );
+		}
+		return '';
 	}
 
 	/**
 	 * @param Tx_HappyFeet_Service_Rendering $footnoteRenderer
 	 */
-	public function injectRenderingService(Tx_HappyFeet_Service_Rendering $footnoteRenderer)
-	{
+	public function injectRenderingService(Tx_HappyFeet_Service_Rendering $footnoteRenderer) {
 		$this->footnoteRenderer = $footnoteRenderer;
 	}
 
 	/**
 	 * @return Tx_HappyFeet_Service_Rendering
 	 */
-	private function getRenderingService(){
-		if(!$this->footnoteRenderer instanceof Tx_HappyFeet_Service_Rendering){
-			$this->footnoteRenderer = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
+	private function getRenderingService() {
+		if (!$this->footnoteRenderer instanceof Tx_HappyFeet_Service_Rendering) {
+			$this->footnoteRenderer = $this->getObjectManager ()->get ( 'Tx_HappyFeet_Service_Rendering' );
 		}
 		return $this->footnoteRenderer;
 	}
