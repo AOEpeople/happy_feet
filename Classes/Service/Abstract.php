@@ -33,7 +33,7 @@ abstract class Tx_HappyFeet_Service_Abstract
     /**
      * @var Tx_Extbase_Object_ObjectManager
      */
-    protected $objectManager;
+    private $objectManager;
 
     /**
      * @return object|Tx_Extbase_Object_ObjectManager
