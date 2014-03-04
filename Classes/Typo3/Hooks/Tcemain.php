@@ -30,7 +30,7 @@
  * @subpackage Typo3_Hooks
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Typo3_Hooks_Tcemain
+class Tx_HappyFeet_Typo3_Hooks_Tcemain extends Tx_HappyFeet_Service_Abstract
 {
     /**
      * @param string $status
@@ -58,7 +58,7 @@ class Tx_HappyFeet_Typo3_Hooks_Tcemain
      */
     protected function getFootnoteRepository()
     {
-        return t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get(
+        return $this->getObjectManager()->get(
             'Tx_HappyFeet_Domain_Repository_FootnoteRepository'
         );
     }
