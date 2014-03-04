@@ -55,7 +55,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
             return '';
         }
         $footnoteUids = $this->getCObj()->getCurrentVal();
-        if (strlen($footnoteUids) < 1) {
+        if (empty($footnoteUids)) {
             return '';
         }
         return $this->getRenderingService()->renderFootnotes(explode(',', $footnoteUids));
