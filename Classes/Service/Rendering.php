@@ -57,7 +57,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     protected function getFootnoteRepository()
     {
-        return $this->getObjectManager()->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
+        if (null === $this->footnoteRepository) {
+            $this->footnoteRepository = $this->getObjectManager()->get(
+                'Tx_HappyFeet_Domain_Repository_FootnoteRepository'
+            );
+        }
+        return $this->footnoteRepository;
     }
 
     /**
