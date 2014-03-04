@@ -47,9 +47,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     public function renderFootnotes(array $uids)
     {
+        if (empty( $uids )) {
+            return '';
+        }
         $view = $this->createView();
-        $view->assign('footnotes', $this->getFootnoteRepository()->getFootnotesByUids($uids));
-        return $view->render('Markup');
+        $view->assign( 'footnotes', $this->getFootnoteRepository()->getFootnotesByUids( $uids ) );
+        return $view->render( 'Markup' );
     }
 
     /**
@@ -71,8 +74,8 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private function createView()
     {
         if (null === $this->view) {
-            $this->view = $this->getObjectManager()->create('Tx_Fluid_View_StandaloneView');
-            $this->view->setTemplatePathAndFilename($this->getTemplatePathAndFilename());
+            $this->view = $this->getObjectManager()->create( 'Tx_Fluid_View_StandaloneView' );
+            $this->view->setTemplatePathAndFilename( $this->getTemplatePathAndFilename() );
         }
         return $this->view;
     }
@@ -84,7 +87,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     {
         return t3lib_extMgm::extPath(
             'happy_feet',
-                'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
+            'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
         );
     }
 }
