@@ -1,15 +1,16 @@
 {namespace hf=Tx_HappyFeet_ViewHelpers}<hf:flatify>
     <sup class="footnote" data-footnote>
         <a href="#" class="footnote__link">
-        <f:for each="{footnotes}" as="footnote" iteration="iterator">
-            <f:if condition="{iterator.index} > 0">,</f:if>
-            {footnote.indexNumber}
-        </f:for>
+            <f:for each="{footnotes}" as="footnote" iteration="iterator">
+                {footnote.indexNumber}<f:if condition="{iterator.isLast} == 0">, </f:if>
+            </f:for>
         </a>
         <span class="footnote__content">
             <f:for each="{footnotes}" as="footnote">
-                <h2>{footnote.header}</h2>
-                <p>{footnote.description}</p>
+                <h2 class="footnote__content-headline">{footnote.header}</h2>
+                <div class="footnote__content-text">
+                    <f:format.html>{footnote.description}</f:format.html>
+                </div>
             </f:for>
         </span>
     </sup>
