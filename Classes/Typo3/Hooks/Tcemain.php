@@ -32,7 +32,6 @@
  */
 class Tx_HappyFeet_Typo3_Hooks_Tcemain
 {
-
     /**
      * @param string $status
      * @param string $table
@@ -43,8 +42,14 @@ class Tx_HappyFeet_Typo3_Hooks_Tcemain
      */
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $tcemain)
     {
-        if ($status === 'new' && $table == 'tx_happyfeet_domain_model_footnote') {
+        if ($table !== 'tx_happyfeet_domain_model_footnote') {
+            return;
+        }
+        if ($status === 'new') {
             $fieldArray['index_number'] = $this->getFootnoteRepository()->getLowestFreeIndexNumber();
+        }
+        if ($status === 'delete') {
+            $fieldArray['index_number'] = 0;
         }
     }
 

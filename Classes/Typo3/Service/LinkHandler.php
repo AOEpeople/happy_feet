@@ -1,7 +1,7 @@
 <?php
 
-if (!defined( 'TYPO3_MODE' )) {
-    die ( 'Access denied.' );
+if (!defined('TYPO3_MODE')) {
+    die ('Access denied.');
 }
 
 /***************************************************************
@@ -52,7 +52,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
     public function main($linktxt, $typoLinkConfiguration, $linkHandlerKeyword, $linkHandlerValue, $linkParams, $pObj)
     {
         if ($linkHandlerKeyword === self::KEYWORD) {
-            $footnote = $this->getRenderingService()->renderFootnotes( $this->getFootnoteIds( $linkHandlerValue ) );
+            $footnote = $this->getRenderingService()->renderFootnotes($this->getFootnoteIds($linkHandlerValue));
             return $linktxt . $footnote;
         }
         return $linktxt;
@@ -63,7 +63,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
      */
     protected function getRenderingService()
     {
-        return $this->getObjectManager()->get( 'Tx_HappyFeet_Service_Rendering' );
+        return $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
     }
 
     /**
@@ -72,7 +72,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
      */
     private function getFootnoteIds($str)
     {
-        $parts = explode( ':', $str );
+        $parts = explode(':', $str);
         return array($parts[1]);
     }
 }

@@ -45,34 +45,34 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
             'Tx_HappyFeet_Domain_Model_Footnote',
             array('getHeader', 'getDescription', 'getIndexNumber')
         );
-        $footnote1->_setProperty( 'uid', 4711 );
-        $footnote1->expects( $this->any() )->method( 'getHeader' )->will( $this->returnValue( 'HEADER@4711' ) );
-        $footnote1->expects( $this->any() )->method( 'getIndexNumber' )->will( $this->returnValue( '4711' ) );
-        $footnote1->expects( $this->any() )->method( 'getDescription' )->will(
-            $this->returnValue( 'DESCRIPTION@4711' )
+        $footnote1->_setProperty('uid', 4711);
+        $footnote1->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4711'));
+        $footnote1->expects($this->any())->method('getIndexNumber')->will($this->returnValue('4711'));
+        $footnote1->expects($this->any())->method('getDescription')->will(
+            $this->returnValue('DESCRIPTION@4711')
         );
         $footnote2 = $this->getMock(
             'Tx_HappyFeet_Domain_Model_Footnote',
             array('getHeader', 'getDescription', 'getIndexNumber')
         );
-        $footnote2->_setProperty( 'uid', 4712 );
-        $footnote2->expects( $this->any() )->method( 'getHeader' )->will( $this->returnValue( 'HEADER@4712' ) );
-        $footnote2->expects( $this->any() )->method( 'getIndexNumber' )->will( $this->returnValue( '4712' ) );
-        $footnote2->expects( $this->any() )->method( 'getDescription' )->will(
-            $this->returnValue( 'DESCRIPTION@4712' )
+        $footnote2->_setProperty('uid', 4712);
+        $footnote2->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4712'));
+        $footnote2->expects($this->any())->method('getIndexNumber')->will($this->returnValue('4712'));
+        $footnote2->expects($this->any())->method('getDescription')->will(
+            $this->returnValue('DESCRIPTION@4712')
         );
 
         $footnoteRepository = $this->getMock(
             'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
             array('getFootnotesByUids')
         );
-        $footnoteRepository->expects( $this->any() )->method( 'getFootnotesByUids' )->will(
-            $this->returnValue( array($footnote1, $footnote2) )
+        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
+            $this->returnValue(array($footnote1, $footnote2))
         );
 
-        $this->renderingService = $this->getMock( 'Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository') );
-        $this->renderingService->expects( $this->any() )->method( 'getFootnoteRepository' )->will(
-            $this->returnValue( $footnoteRepository )
+        $this->renderingService = $this->getMock('Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository'));
+        $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
+            $this->returnValue($footnoteRepository)
         );
     }
 
@@ -81,9 +81,9 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function footnoteIdIsPresent()
     {
-        $content = $this->renderingService->renderFootnotes( array(4711, 4712) );
-        $this->assertRegExp( '~[^@]4711~', $content );
-        $this->assertRegExp( '~[^@]4712~', $content );
+        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $this->assertRegExp('~[^@]4711~', $content);
+        $this->assertRegExp('~[^@]4712~', $content);
     }
 
     /**
@@ -91,9 +91,9 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function footnoteHeaderIsPresent()
     {
-        $content = $this->renderingService->renderFootnotes( array(4711, 4712) );
-        $this->assertRegExp( '~HEADER@4711~', $content );
-        $this->assertRegExp( '~HEADER@4712~', $content );
+        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $this->assertRegExp('~HEADER@4711~', $content);
+        $this->assertRegExp('~HEADER@4712~', $content);
     }
 
     /**
@@ -101,8 +101,8 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function footnoteDescriptionIsPresent()
     {
-        $content = $this->renderingService->renderFootnotes( array(4711, 4712) );
-        $this->assertRegExp( '~DESCRIPTION@4711~', $content );
-        $this->assertRegExp( '~DESCRIPTION@4712~', $content );
+        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $this->assertRegExp('~DESCRIPTION@4711~', $content);
+        $this->assertRegExp('~DESCRIPTION@4712~', $content);
     }
-} 
+}

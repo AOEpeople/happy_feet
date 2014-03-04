@@ -1,12 +1,26 @@
 <?php
 /***************************************************************
- * Copyright notice
+ *  Copyright notice
  *
- * (c) 2014 AOE GmbH <dev@aoe.com>
- * All rights reserved
+ *  (c) 2014 AOE GmbH <dev@aoe.com>
  *
+ *  All rights reserved
  *
- * This copyright notice MUST APPEAR in all copies of the script!
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
 /**
@@ -37,14 +51,14 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
      */
     public function renderItemList($content, $conf = array())
     {
-        if (!array_key_exists( 'userFunc', $conf ) || !array_key_exists( 'field', $conf )) {
+        if (!array_key_exists('userFunc', $conf) || !array_key_exists('field', $conf)) {
             return '';
         }
         $footnoteUids = $this->getCObj()->getCurrentVal();
-        if (strlen( $footnoteUids ) < 1) {
+        if (strlen($footnoteUids) < 1) {
             return '';
         }
-        return $this->getRenderingService()->renderFootnotes( explode( ',', $footnoteUids ) );
+        return $this->getRenderingService()->renderFootnotes(explode(',', $footnoteUids));
     }
 
     /**
@@ -62,7 +76,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     protected function getCObj()
     {
         if (!$this->cObj instanceof tslib_cObj) {
-            throw new UnexpectedValueException( 'cObj was not set', 1393843943 );
+            throw new UnexpectedValueException('cObj was not set', 1393843943);
         }
         return $this->cObj;
     }
@@ -73,7 +87,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     protected function getRenderingService()
     {
         if (!$this->footnoteRenderer instanceof Tx_HappyFeet_Service_Rendering) {
-            $this->footnoteRenderer = $this->getObjectManager()->get( 'Tx_HappyFeet_Service_Rendering' );
+            $this->footnoteRenderer = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
         }
         return $this->footnoteRenderer;
     }
