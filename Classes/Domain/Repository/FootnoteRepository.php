@@ -43,7 +43,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $defaultQuerySettings = $this->objectManager->get( 'Tx_Extbase_Persistence_Typo3QuerySettings' );
         $defaultQuerySettings->setRespectStoragePage( false );
         $defaultQuerySettings->setRespectSysLanguage( false );
-        $defaultQuerySettings->setRespectEnableFields( false );
+        $defaultQuerySettings->setRespectEnableFields( true );
         $this->setDefaultQuerySettings( $defaultQuerySettings );
     }
 
@@ -99,9 +99,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function getFootnotesByUids(array $uids)
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage( false );
-        $query->getQuerySettings()->setRespectSysLanguage( false );
-        $query->getQuerySettings()->setRespectEnableFields( true );
+        $query->setQuerySettings($this->defaultQuerySettings);
         $query->matching( $query->in( 'uid', $uids ) );
         return $query->execute();
     }
