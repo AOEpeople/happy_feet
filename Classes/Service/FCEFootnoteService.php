@@ -86,7 +86,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
      */
     protected function getRenderingService()
     {
-        if (!$this->footnoteRenderer instanceof Tx_HappyFeet_Service_Rendering) {
+        if( null === $this->footnoteRenderer) {
             $this->footnoteRenderer = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
         }
         return $this->footnoteRenderer;
