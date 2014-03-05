@@ -5,7 +5,7 @@ t3lib_extMgm::allowTableOnStandardPages('tx_happyfeet_domain_model_footnote');
 $TCA['tx_happyfeet_domain_model_footnote'] = array(
 	'ctrl' => array(
 		'title'             => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote',
-		'label'             => 'description',
+		'label'             => 'title',
 		'tstamp'            => 'tstamp',
 		'crdate'            => 'crdate',
 		'dividers2tabs'     => TRUE,
