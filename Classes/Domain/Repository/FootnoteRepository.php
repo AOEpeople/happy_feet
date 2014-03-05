@@ -33,6 +33,10 @@
  */
 class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persistence_Repository
 {
+    /**
+     * @var array
+     */
+    public static $uids;
 
     /**
      * @return void
@@ -98,9 +102,40 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      */
     public function getFootnotesByUids(array $uids)
     {
+        self::$uids = $uids;
         $query = $this->createQuery();
-        $query->setQuerySettings($this->defaultQuerySettings);
+        $query->setQuerySettings( $this->defaultQuerySettings );
         $query->matching( $query->in( 'uid', $uids ) );
-        return $query->execute();
+        return $this->sortFootnotesByUids( $query->execute(), $uids );
+    }
+
+    /**
+     * @param array|Tx_Extbase_Persistence_QueryResultInterface $queryResult
+     * @param $uids
+     * @return mixed
+     */
+    public function sortFootnotesByUids($queryResult, $uids)
+    {
+        if ($queryResult instanceof Tx_Extbase_Persistence_QueryResultInterface) {
+            $queryResult = $queryResult->toArray();
+        }
+        usort( $queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids' );
+        return $queryResult;
+    }
+
+    /**
+     * @param Tx_HappyFeet_Domain_Model_Footnote $a
+     * @param Tx_HappyFeet_Domain_Model_Footnote $b
+     * @return integer
+     */
+    public static function usortFootnotesByUids(
+        Tx_HappyFeet_Domain_Model_Footnote $a,
+        Tx_HappyFeet_Domain_Model_Footnote $b
+    ) {
+        $map = array_flip( self::$uids );
+        if ($map[$a->getUid()] >= $map[$b->getUid()]) {
+            return 1;
+        }
+        return -1;
     }
 }

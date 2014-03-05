@@ -43,9 +43,10 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function setUp()
     {
         $this->repository = new Tx_HappyFeet_Domain_Repository_FootnoteRepository();
+        $this->repository->initializeObject();
         $this->createDatabase();
         $this->useTestDatabase();
-        $this->importExtensions(array('happy_feet'));
+        $this->importExtensions( array('happy_feet') );
     }
 
     /**
@@ -55,7 +56,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     protected function tearDown()
     {
         //$this->dropDatabase();
-        unset ($this->repository);
+        unset ( $this->repository );
     }
 
     /**
@@ -64,16 +65,16 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function shouldGetDefaultIndexWhenNoRecordsAvailable()
     {
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(1, $lowestIndex);
+        $this->assertEquals( 1, $lowestIndex );
     }
     /**
      * @test
      */
     public function shouldGetLowestIndex()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote.xml' );
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(1, $lowestIndex);
+        $this->assertEquals( 1, $lowestIndex );
     }
 
     /**
@@ -81,9 +82,9 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function shouldGetIndexWithGap()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
+        $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml' );
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(2, $lowestIndex);
+        $this->assertEquals( 2, $lowestIndex );
     }
 
     /**
@@ -91,9 +92,36 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function shouldGetNextIndexInRow()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
+        $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml' );
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(3, $lowestIndex);
+        $this->assertEquals( 3, $lowestIndex );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetFootnotesByUids()
+    {
+        $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml' );
+        $footnotes = $this->repository->getFootnotesByUids( array(2, 4) );
+        $this->assertCount( 2, $footnotes );
+        $this->assertEquals( 2, $footnotes[0]->getUid() );
+        $this->assertEquals( 4, $footnotes[1]->getUid() );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldSortFootnotesByGivenOrderOfUids()
+    {
+        $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml' );
+        $footnotes = $this->repository->getFootnotesByUids( array(4, 1, 5, 3, 2) );
+        $this->assertCount( 5, $footnotes );
+        $this->assertEquals( 4, $footnotes[0]->getUid() );
+        $this->assertEquals( 1, $footnotes[1]->getUid() );
+        $this->assertEquals( 5, $footnotes[2]->getUid() );
+        $this->assertEquals( 3, $footnotes[3]->getUid() );
+        $this->assertEquals( 2, $footnotes[4]->getUid() );
     }
 
     /**
@@ -103,6 +131,6 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     public function shouldThrowExceptionWithInvalidObject()
     {
         $footnote = new stdClass();
-        $this->repository->add($footnote);
+        $this->repository->add( $footnote );
     }
 }
