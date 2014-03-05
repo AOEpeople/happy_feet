@@ -104,7 +104,7 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'alphanum_x,trim,required,unique'
+                'eval' => 'trim,required,unique'
             )
         ),
         'header'           => array(
@@ -113,7 +113,7 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'alphanum_x,trim'
+                'eval' => 'trim'
             )
         ),
         'description'      => array(
