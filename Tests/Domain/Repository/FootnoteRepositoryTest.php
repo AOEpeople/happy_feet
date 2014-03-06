@@ -112,7 +112,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     /**
      * @test
      */
-    public function shouldSortFootnotesByGivenOrderOfUids()
+    public function shouldRemainGivenOrderOfUids()
     {
         $this->importDataSet( dirname( __FILE__ ) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml' );
         $footnotes = $this->repository->getFootnotesByUids( array(4, 1, 5, 3, 2) );

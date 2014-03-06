@@ -106,20 +106,18 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $query = $this->createQuery();
         $query->setQuerySettings( $this->defaultQuerySettings );
         $query->matching( $query->in( 'uid', $uids ) );
-        return $this->sortFootnotesByUids( $query->execute(), $uids );
+        return $this->remainOrderOfUids( $query->execute(), $uids );
     }
 
     /**
-     * @param array|Tx_Extbase_Persistence_QueryResultInterface $queryResult
-     * @param $uids
-     * @return mixed
+     * @param Tx_Extbase_Persistence_QueryResultInterface $queryResult
+     * @param string $uids
+     * @return array
      */
-    public function sortFootnotesByUids($queryResult, $uids)
+    public function remainOrderOfUids(Tx_Extbase_Persistence_QueryResultInterface $queryResult, $uids)
     {
-        if ($queryResult instanceof Tx_Extbase_Persistence_QueryResultInterface) {
-            $queryResult = $queryResult->toArray();
-        }
-        usort( $queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids' );
+        $queryResult = $queryResult->toArray();
+        usort( $queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::compareUidsToRemainOrder' );
         return $queryResult;
     }
 
@@ -128,7 +126,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      * @param Tx_HappyFeet_Domain_Model_Footnote $b
      * @return integer
      */
-    public static function usortFootnotesByUids(
+    public static function compareUidsToRemainOrder(
         Tx_HappyFeet_Domain_Model_Footnote $a,
         Tx_HappyFeet_Domain_Model_Footnote $b
     ) {
