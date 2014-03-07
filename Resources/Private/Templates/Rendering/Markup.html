@@ -7,10 +7,10 @@
         </a>
         <span class="footnote__content">
             <f:for each="{footnotes}" as="footnote">
-                <h2 class="footnote__content-headline">{footnote.header}</h2>
-                <div class="footnote__content-text">
-                    <f:format.html>{footnote.description}</f:format.html>
-                </div>
+                <span class="footnote__content-headline">{footnote.header}</span>
+                <span class="footnote__content-text">
+                    <f:format.html parseFuncTSPath="lib.parseFunc_HappyFeed">{footnote.description}</f:format.html>
+                </span>
             </f:for>
         </span>
     </sup>
