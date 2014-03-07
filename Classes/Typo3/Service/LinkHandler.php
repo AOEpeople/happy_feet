@@ -38,7 +38,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
     /**
      * @var string
      */
-    const KEYWORD = 'happy_feet';
+    const KEYWORD = 'happyfeet';
 
     /**
      * @param string $linktxt
