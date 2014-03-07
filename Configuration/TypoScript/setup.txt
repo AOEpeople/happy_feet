@@ -1,0 +1,6 @@
+	# copy lib.parseFunc_RTE and change rendering
+lib.parseFunc_HappyFeed < lib.parseFunc_RTE
+lib.parseFunc_HappyFeed {
+    nonTypoTagStdWrap.encapsLines >
+    nonTypoTagStdWrap.encapsLines.wrapNonWrappedLines = | <br />
+}

@@ -21,3 +21,5 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
 		"fe_admin_fieldList" => "hidden, title, index_number, description",
 	)
 );
+
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Happy Feet Footnote');

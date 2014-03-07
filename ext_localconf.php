@@ -33,16 +33,6 @@ t3lib_extMgm::addPageTSConfig(
     '
 );
 
-t3lib_extMgm::addTypoScriptSetup(
-    '
-        lib.parseFunc_HappyFeed < lib.parseFunc_RTE
-        lib.parseFunc_HappyFeed {
-            nonTypoTagStdWrap.encapsLines >
-            nonTypoTagStdWrap.encapsLines.wrapNonWrappedLines = | <br />
-        }
-    '
-);
-
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['happy_feet'] = 'EXT:happy_feet/Classes/Typo3/Hooks/Tcemain.php:Tx_HappyFeet_Typo3_Hooks_Tcemain';
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler']['happyfeet'] = 'EXT:' . $_EXTKEY . '/Classes/Typo3/Service/LinkHandler.php:&Tx_HappyFeet_Typo3_Service_LinkHandler';
