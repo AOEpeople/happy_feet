@@ -75,7 +75,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
         $footnote = $this->linkHandler->main(
             'Lorem ipsum',
             array(),
-            'happy_feet',
+            'happyfeet',
             'tx_happyfeet_domain_model_footnote:4711',
             'blubber',
             new tslib_cObj()
