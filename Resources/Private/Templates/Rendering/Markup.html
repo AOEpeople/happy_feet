@@ -7,6 +7,7 @@
         </a>
         <span class="footnote__content">
             <f:for each="{footnotes}" as="footnote">
+                <span class="footnote__content-index">{footnote.indexNumber}</span>
                 <span class="footnote__content-headline" data-footnote-index="{footnote.indexNumber}">{footnote.header}</span>
                 <span class="footnote__content-text">
                     <f:format.html parseFuncTSPath="lib.parseFunc_HappyFeed">{footnote.description}</f:format.html>
