@@ -50,8 +50,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
         if (empty( $uids )) {
             return '';
         }
+        $footnotes = $this->getFootnoteRepository()->getFootnotesByUids($uids);
+        if (count($footnotes) < 1) {
+            return '';
+        }
         $view = $this->createView();
-        $view->assign( 'footnotes', $this->getFootnoteRepository()->getFootnotesByUids( $uids ) );
+        $view->assign( 'footnotes', $footnotes);
         return $view->render( 'Markup' );
     }
 
