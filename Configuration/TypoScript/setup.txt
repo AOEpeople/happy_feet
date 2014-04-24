@@ -2,5 +2,5 @@
 lib.parseFunc_HappyFeed < lib.parseFunc_RTE
 lib.parseFunc_HappyFeed {
     nonTypoTagStdWrap.encapsLines >
-    nonTypoTagStdWrap.encapsLines.wrapNonWrappedLines = | <br />
+    nonTypoTagStdWrap.encapsLines.wrapNonWrappedLines = | <br /><br />
 }
