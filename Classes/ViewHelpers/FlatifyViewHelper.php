@@ -40,6 +40,6 @@ class Tx_HappyFeet_ViewHelpers_FlatifyViewHelper extends Tx_Fluid_Core_ViewHelpe
         if ($str === null) {
             $str = $this->renderChildren();
         }
-        return preg_replace( "/\r|\n/", "", $str );
+        return preg_replace("/\r|\n/", "", $str);
     }
 }

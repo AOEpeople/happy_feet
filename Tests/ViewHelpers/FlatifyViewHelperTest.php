@@ -49,7 +49,7 @@ class Tx_HappyFeet_ViewHelpers_FlatifyViewHelperTest extends tx_phpunit_testcase
      */
     public function lineBreaksWillBeRemoved()
     {
-        $actualOutput = $this->viewHelper->render( $this->getTemplateFixture() );
+        $actualOutput = $this->viewHelper->render($this->getTemplateFixture());
         $this->assertNotRegExp(
             "/\r|\n/",
             $actualOutput,
@@ -62,7 +62,7 @@ class Tx_HappyFeet_ViewHelpers_FlatifyViewHelperTest extends tx_phpunit_testcase
      */
     private function getTemplateFixture()
     {
-        $file = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Fixtures' . DIRECTORY_SEPARATOR . 'Template.html';
-        return file_get_contents( $file );
+        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Fixtures' . DIRECTORY_SEPARATOR . 'Template.html';
+        return file_get_contents($file);
     }
 }

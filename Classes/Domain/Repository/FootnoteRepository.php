@@ -44,11 +44,11 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function initializeObject()
     {
         /** @var $defaultQuerySettings Tx_Extbase_Persistence_Typo3QuerySettings */
-        $defaultQuerySettings = $this->objectManager->get( 'Tx_Extbase_Persistence_Typo3QuerySettings' );
-        $defaultQuerySettings->setRespectStoragePage( false );
-        $defaultQuerySettings->setRespectSysLanguage( false );
-        $defaultQuerySettings->setRespectEnableFields( true );
-        $this->setDefaultQuerySettings( $defaultQuerySettings );
+        $defaultQuerySettings = $this->objectManager->get('Tx_Extbase_Persistence_Typo3QuerySettings');
+        $defaultQuerySettings->setRespectStoragePage(false);
+        $defaultQuerySettings->setRespectSysLanguage(false);
+        $defaultQuerySettings->setRespectEnableFields(true);
+        $this->setDefaultQuerySettings($defaultQuerySettings);
     }
 
     /**
@@ -59,19 +59,19 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function getLowestFreeIndexNumber()
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setReturnRawQueryResult( true );
-        $query->statement( 'SELECT index_number from ' . strtolower( $this->objectType ) . ' WHERE deleted=0' );
+        $query->getQuerySettings()->setReturnRawQueryResult(true);
+        $query->statement('SELECT index_number from ' . strtolower($this->objectType) . ' WHERE deleted=0');
         $index = 1;
         $results = $query->execute();
-        if (false === is_array( $results ) || sizeof( $results ) < 1) {
+        if (false === is_array($results) || sizeof($results) < 1) {
             return $index;
         }
         $indexes = array();
         foreach ($results as $result) {
-            $indexes[] = (integer) $result['index_number'];
+            $indexes[] = (integer)$result['index_number'];
         }
-        for ($index = 1; $index <= sizeof( $indexes ) + 1; $index++) {
-            if (false === in_array( $index, $indexes )) {
+        for ($index = 1; $index <= sizeof($indexes) + 1; $index++) {
+            if (false === in_array($index, $indexes)) {
                 break;
             }
         }
@@ -86,14 +86,14 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function add($object)
     {
         /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
-        if (false === ( $object instanceof Tx_HappyFeet_Domain_Model_Footnote )) {
+        if (false === ($object instanceof Tx_HappyFeet_Domain_Model_Footnote)) {
             throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
             );
         }
-        $object->setIndexNumber( $this->getLowestFreeIndexNumber() );
-        parent::add( $object );
+        $object->setIndexNumber($this->getLowestFreeIndexNumber());
+        parent::add($object);
     }
 
     /**
@@ -104,9 +104,9 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     {
         self::$uids = $uids;
         $query = $this->createQuery();
-        $query->setQuerySettings( $this->defaultQuerySettings );
-        $query->matching( $query->in( 'uid', $uids ) );
-        return $this->sortFootnotesByUids( $query->execute(), $uids );
+        $query->setQuerySettings($this->defaultQuerySettings);
+        $query->matching($query->in('uid', $uids));
+        return $this->sortFootnotesByUids($query->execute(), $uids);
     }
 
     /**
@@ -119,7 +119,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         if ($queryResult instanceof Tx_Extbase_Persistence_QueryResultInterface) {
             $queryResult = $queryResult->toArray();
         }
-        usort( $queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids' );
+        usort($queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids');
         return $queryResult;
     }
 
@@ -131,8 +131,9 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public static function usortFootnotesByUids(
         Tx_HappyFeet_Domain_Model_Footnote $a,
         Tx_HappyFeet_Domain_Model_Footnote $b
-    ) {
-        $map = array_flip( self::$uids );
+    )
+    {
+        $map = array_flip(self::$uids);
         if ($map[$a->getUid()] >= $map[$b->getUid()]) {
             return 1;
         }

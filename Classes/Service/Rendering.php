@@ -47,7 +47,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     public function renderFootnotes(array $uids)
     {
-        if (empty( $uids )) {
+        if (empty($uids)) {
             return '';
         }
         $footnotes = $this->getFootnoteRepository()->getFootnotesByUids($uids);
@@ -55,8 +55,8 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
             return '';
         }
         $view = $this->createView();
-        $view->assign( 'footnotes', $footnotes);
-        return $view->render( 'Markup' );
+        $view->assign('footnotes', $footnotes);
+        return $view->render('Markup');
     }
 
     /**
@@ -78,8 +78,8 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private function createView()
     {
         if (null === $this->view) {
-            $this->view = $this->getObjectManager()->create( 'Tx_Fluid_View_StandaloneView' );
-            $this->view->setTemplatePathAndFilename( $this->getTemplatePathAndFilename() );
+            $this->view = $this->getObjectManager()->create('Tx_Fluid_View_StandaloneView');
+            $this->view->setTemplatePathAndFilename($this->getTemplatePathAndFilename());
         }
         return $this->view;
     }

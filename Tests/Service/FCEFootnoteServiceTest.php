@@ -91,13 +91,13 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
     public function shouldRenderItemList()
     {
         $renderer = $this->getMock('Tx_HappyFeet_Service_Rendering', array('renderFootnotes'));
-        $service  = $this->getMock('Tx_HappyFeet_Service_FCEFootnoteService', array('getCObj', 'getRenderingService'));
-        $cObj     = $this->getMock('tslib_cObj', array('getCurrentVal'), array(), '', false);
+        $service = $this->getMock('Tx_HappyFeet_Service_FCEFootnoteService', array('getCObj', 'getRenderingService'));
+        $cObj = $this->getMock('tslib_cObj', array('getCurrentVal'), array(), '', false);
         $renderer->expects($this->any())->method('renderFootnotes')
-                ->with(array(1, 2))
-                ->will(
-                    $this->returnValue('contentString')
-                );
+            ->with(array(1, 2))
+            ->will(
+                $this->returnValue('contentString')
+            );
         $cObj->expects($this->once())->method('getCurrentVal')->will($this->returnValue('1,2'));
         $service->expects($this->once())->method('getCObj')->will($this->returnValue($cObj));
         $service->expects($this->once())->method('getRenderingService')->will($this->returnValue($renderer));
