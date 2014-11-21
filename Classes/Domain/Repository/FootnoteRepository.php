@@ -47,7 +47,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $defaultQuerySettings = $this->objectManager->get('Tx_Extbase_Persistence_Typo3QuerySettings');
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
-        $defaultQuerySettings->setRespectEnableFields(true);
+        $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);
         $this->setDefaultQuerySettings($defaultQuerySettings);
     }
 
