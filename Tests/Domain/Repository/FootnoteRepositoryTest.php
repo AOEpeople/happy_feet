@@ -42,7 +42,8 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function setUp()
     {
-        $this->repository = new Tx_HappyFeet_Domain_Repository_FootnoteRepository();
+        $objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+        $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
         $this->repository->initializeObject();
         $this->createDatabase();
         $this->useTestDatabase();
