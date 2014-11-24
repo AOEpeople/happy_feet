@@ -48,7 +48,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
 
-        if (false === t3lib_div::compat_version('4.7')) {
+        if (true === t3lib_div::compat_version('4.7')) {
             $defaultQuerySettings->setRespectEnableFields(true);
         } else {
             $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);
