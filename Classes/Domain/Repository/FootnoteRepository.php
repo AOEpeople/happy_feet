@@ -59,10 +59,9 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     public function getLowestFreeIndexNumber()
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setReturnRawQueryResult(true);
         $query->statement('SELECT index_number from ' . strtolower($this->objectType) . ' WHERE deleted=0');
         $index = 1;
-        $results = $query->execute();
+        $results = $query->execute(true);
         if (false === is_array($results) || sizeof($results) < 1) {
             return $index;
         }
