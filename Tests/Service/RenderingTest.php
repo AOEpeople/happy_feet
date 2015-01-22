@@ -64,7 +64,10 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
 
         $footnoteRepository = $this->getMock(
             'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getFootnotesByUids')
+            array('getFootnotesByUids'),
+            array(),
+            '',
+            FALSE
         );
         $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
             $this->returnValue(array($footnote1, $footnote2))

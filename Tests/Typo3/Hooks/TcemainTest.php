@@ -44,7 +44,10 @@ class Tx_HappyFeet_Typo3_Hooks_TcemainTest extends Tx_Phpunit_TestCase
     {
         $footnoteRepository = $this->getMock(
             'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getLowestFreeIndexNumber')
+            array('getLowestFreeIndexNumber'),
+            array(),
+            '',
+            FALSE
         );
         $footnoteRepository->expects($this->any())->method('getLowestFreeIndexNumber')->will($this->returnValue(1));
         $this->tcemainHook = $this->getMock('Tx_HappyFeet_Typo3_Hooks_Tcemain', array('getFootnoteRepository'));
