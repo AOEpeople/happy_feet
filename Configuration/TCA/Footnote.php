@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
     die ('Access denied.');
 }
 
-$TCA['tx_happyfeet_domain_model_footnote'] = array(
-    'ctrl'      => $TCA['tx_happyfeet_domain_model_footnote']['ctrl'],
+$GLOBALS['TCA']['tx_happyfeet_domain_model_footnote'] = array(
+    'ctrl'      => $GLOBALS['TCA']['tx_happyfeet_domain_model_footnote']['ctrl'],
     'interface' => array(
         'showRecordFieldList' => 'title,index_number'
     ),

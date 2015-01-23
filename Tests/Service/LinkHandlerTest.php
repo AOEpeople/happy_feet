@@ -62,7 +62,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
             'WRONG KEYWORD',
             'tx_happyfeet_domain_model_footnote:4711',
             'blubber',
-            new tslib_cObj()
+            new \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer()
         );
         $this->assertEquals('Lorem ipsum', $footnote);
     }
@@ -78,7 +78,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
             'happyfeet',
             'tx_happyfeet_domain_model_footnote:4711',
             'blubber',
-            new tslib_cObj()
+            new \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer()
         );
         $this->assertContains('FOOTNOTE:4711', $footnote);
     }

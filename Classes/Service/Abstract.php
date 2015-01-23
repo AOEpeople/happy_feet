@@ -23,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * @package HappyFeet
  * @subpackage Service
@@ -31,17 +33,17 @@
 abstract class Tx_HappyFeet_Service_Abstract
 {
     /**
-     * @var Tx_Extbase_Object_ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     private $objectManager;
 
     /**
-     * @return object|Tx_Extbase_Object_ObjectManager
+     * @return \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected function getObjectManager()
     {
         if (null === $this->objectManager) {
-            $this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+            $this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         }
         return $this->objectManager;
     }

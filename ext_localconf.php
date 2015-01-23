@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die ('Access denied.');
 }
 
-t3lib_extMgm::addPageTSConfig(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
     '
         # ***************************************************************************************
         # CONFIGURATION of RTE in table "tx_happyfeet_domain_model_footnote", field "description"

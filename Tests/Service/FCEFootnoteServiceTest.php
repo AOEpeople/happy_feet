@@ -78,7 +78,7 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
      */
     public function shouldRenderItemListIfNoFootnotesSelected()
     {
-        $cObj = $this->getMock('tslib_cObj', array('getCurrentVal'), array(), '', false);
+        $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
         $cObj->expects($this->once())->method('getCurrentVal')->will($this->returnValue(''));
         $this->service->expects($this->once())->method('getCObj')->will($this->returnValue($cObj));
         $this->assertEquals('', $this->service->renderItemList('', array('userFunc' => '', 'field' => '')));
@@ -92,7 +92,7 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
     {
         $renderer = $this->getMock('Tx_HappyFeet_Service_Rendering', array('renderFootnotes'));
         $service = $this->getMock('Tx_HappyFeet_Service_FCEFootnoteService', array('getCObj', 'getRenderingService'));
-        $cObj = $this->getMock('tslib_cObj', array('getCurrentVal'), array(), '', false);
+        $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
         $renderer->expects($this->any())->method('renderFootnotes')
             ->with(array(1, 2))
             ->will(

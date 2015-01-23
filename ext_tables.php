@@ -1,7 +1,7 @@
 <?php
 if (!defined('TYPO3_MODE')) die ('Access denied.');
 
-t3lib_extMgm::allowTableOnStandardPages('tx_happyfeet_domain_model_footnote');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_happyfeet_domain_model_footnote');
 $TCA['tx_happyfeet_domain_model_footnote'] = array(
     'ctrl' => array(
         'title' => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote',
@@ -14,12 +14,12 @@ $TCA['tx_happyfeet_domain_model_footnote'] = array(
         'enablecolumns' => array(
             'disabled' => 'hidden'
         ),
-        'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Footnote.php',
-        'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/TCA/Footnote.gif'
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Footnote.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/TCA/Footnote.gif'
     ),
     "feInterface" => array(
         "fe_admin_fieldList" => "hidden, title, index_number, description",
     )
 );
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Happy Feet Footnote');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Happy Feet Footnote');

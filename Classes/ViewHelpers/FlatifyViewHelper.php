@@ -29,7 +29,7 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_ViewHelpers_FlatifyViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper
+class Tx_HappyFeet_ViewHelpers_FlatifyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * @param string|null $str

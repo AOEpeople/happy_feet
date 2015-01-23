@@ -38,7 +38,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     private $footnoteRenderer;
 
     /**
-     * @var tslib_cObj
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      */
     public $cObj;
 
@@ -70,12 +70,12 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     }
 
     /**
-     * @return tslib_cObj
+     * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      * @throws UnexpectedValueException
      */
     protected function getCObj()
     {
-        if (!$this->cObj instanceof tslib_cObj) {
+        if (!$this->cObj instanceof \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer) {
             throw new UnexpectedValueException('cObj was not set', 1393843943);
         }
         return $this->cObj;

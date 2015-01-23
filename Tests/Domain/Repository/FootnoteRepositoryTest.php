@@ -23,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * @package HappyFeet
  * @subpackage Domain_Repository_Test
@@ -42,7 +44,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function setUp()
     {
-        $objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
         $this->repository->initializeObject();
         $this->createDatabase();
@@ -128,7 +130,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
 
     /**
      * @test
-     * @expectedException Tx_Extbase_Persistence_Exception_IllegalObjectType
+     * @expectedException \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public function shouldThrowExceptionWithInvalidObject()
     {

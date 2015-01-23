@@ -30,7 +30,7 @@
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Model_Footnote extends Tx_Extbase_DomainObject_AbstractEntity
+class Tx_HappyFeet_Domain_Model_Footnote extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**

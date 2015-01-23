@@ -31,7 +31,7 @@
  * @subpackage Domain_Repository
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persistence_Repository
+class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     /**
      * @var array
@@ -43,8 +43,8 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
      */
     public function initializeObject()
     {
-        /** @var $defaultQuerySettings Tx_Extbase_Persistence_Typo3QuerySettings */
-        $defaultQuerySettings = $this->objectManager->get('Tx_Extbase_Persistence_Typo3QuerySettings');
+        /** @var $defaultQuerySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+        $defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
         $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);
@@ -79,14 +79,14 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
 
     /**
      * @param Tx_HappyFeet_Domain_Model_Footnote $object
-     * @throws Tx_Extbase_Persistence_Exception_IllegalObjectType
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @return void
      */
     public function add($object)
     {
         /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
         if (false === ($object instanceof Tx_HappyFeet_Domain_Model_Footnote)) {
-            throw new Tx_Extbase_Persistence_Exception_IllegalObjectType(
+            throw new \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
             );
@@ -97,7 +97,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
 
     /**
      * @param array $uids
-     * @return array|Tx_Extbase_Persistence_QueryResultInterface
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function getFootnotesByUids(array $uids)
     {
@@ -109,13 +109,13 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends Tx_Extbase_Persi
     }
 
     /**
-     * @param array|Tx_Extbase_Persistence_QueryResultInterface $queryResult
+     * @param array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $queryResult
      * @param $uids
      * @return mixed
      */
     public function sortFootnotesByUids($queryResult, $uids)
     {
-        if ($queryResult instanceof Tx_Extbase_Persistence_QueryResultInterface) {
+        if ($queryResult instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
             $queryResult = $queryResult->toArray();
         }
         usort($queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids');

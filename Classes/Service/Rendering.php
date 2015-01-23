@@ -24,6 +24,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * @package HappyFeet
  * @subpackage Service_Test
@@ -37,7 +39,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private $footnoteRepository;
 
     /**
-     * @var Tx_Fluid_View_StandaloneView
+     * @var \TYPO3\CMS\Fluid\View\StandaloneView
      */
     private $view;
 
@@ -73,12 +75,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     }
 
     /**
-     * @return Tx_Fluid_View_StandaloneView
+     * @return \TYPO3\CMS\Fluid\View\StandaloneView
      */
     private function createView()
     {
         if (null === $this->view) {
-            $this->view = $this->getObjectManager()->create('Tx_Fluid_View_StandaloneView');
+            $this->view = $this->getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
             $this->view->setTemplatePathAndFilename($this->getTemplatePathAndFilename());
         }
         return $this->view;
@@ -89,7 +91,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     private function getTemplatePathAndFilename()
     {
-        return t3lib_extMgm::extPath(
+        return ExtensionManagementUtility::extPath(
             'happy_feet',
             'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
         );

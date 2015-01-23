@@ -46,7 +46,7 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
      * @param string $linkHandlerKeyword Define the identifier that an record is given
      * @param string $linkHandlerValue Table and uid of the requested record like "tx_happyfeet_domain_model_footnote:2"
      * @param string $linkParams Full link params like "footnote:tx_aoefootnote_item:2"
-     * @param tslib_cObj $pObj
+     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $pObj
      * @return string
      */
     public function main($linktxt, $typoLinkConfiguration, $linkHandlerKeyword, $linkHandlerValue, $linkParams, $pObj)
