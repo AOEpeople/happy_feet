@@ -96,4 +96,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
             'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
         );
     }
+
+    /**
+     * @param Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository
+     */
+    public function setFootnoteRepository(Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository)
+    {
+        $this->footnoteRepository = $footnoteRepository;
+    }
 }
