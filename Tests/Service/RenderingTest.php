@@ -114,6 +114,17 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
+    public function shouldLazyLoadFoootnoteRepository()
+    {
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+
+        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $this->assertEquals('', $content);
+    }
+
+    /**
+     * @test
+     */
     public function footnoteIdIsPresent()
     {
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
