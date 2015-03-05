@@ -93,9 +93,20 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
+        $footnoteRepository = $this->getMock(
+            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            array('getFootnotesByUids'),
+            array(),
+            '',
+            false
+        );
+        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
+            $this->returnValue(array())
+        );
+
         $this->renderingService = $this->getMock('Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository'));
         $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
-            $this->returnValue(array())
+            $this->returnValue($footnoteRepository)
         );
         $content = $this->renderingService->renderFootnotes(array());
         $this->assertEquals('', $content);
