@@ -104,10 +104,9 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
             $this->returnValue(array())
         );
 
-        $this->renderingService = $this->getMock('Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository'));
-        $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
-            $this->returnValue($footnoteRepository)
-        );
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService->setFootnoteRepository($footnoteRepository);
+
         $content = $this->renderingService->renderFootnotes(array());
         $this->assertEquals('', $content);
     }
