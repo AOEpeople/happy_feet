@@ -67,7 +67,7 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
             array('getFootnotesByUids'),
             array(),
             '',
-            FALSE
+            false
         );
         $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
             $this->returnValue(array($footnote1, $footnote2))
@@ -77,6 +77,28 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
         $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldNotRenderWithNoUids()
+    {
+        $content = $this->renderingService->renderFootnotes(array());
+        $this->assertRegExp('', $content);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldNotRenderWhenNoFootNotesAvailable()
+    {
+        $this->renderingService = $this->getMock('Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository'));
+        $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
+            $this->returnValue(array())
+        );
+        $content = $this->renderingService->renderFootnotes(array());
+        $this->assertRegExp('', $content);
     }
 
     /**
