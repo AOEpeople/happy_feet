@@ -104,4 +104,29 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
         $conf = array('userFunc' => '', 'field' => '');
         $this->assertEquals('contentString', $service->renderItemList('', $conf));
     }
+
+    /**
+     * @test
+     */
+    public function shouldRenderItemLists()
+    {
+        $renderer = $this->getMock('Tx_HappyFeet_Service_Rendering', array('renderFootnotes'));
+        $renderer->expects($this->any())->method('renderFootnotes')
+            ->with(array(1, 2))
+            ->will(
+                $this->returnValue('contentString')
+            );
+
+        $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
+        $cObj->expects($this->once())->method('getCurrentVal')->will($this->returnValue('1,2'));
+
+        $service = new Tx_HappyFeet_Service_FCEFootnoteService();
+        $service->injectRenderingService($renderer);
+        $service->setCObj($cObj);
+
+        $conf = array('userFunc' => '', 'field' => '');
+
+        $this->assertEquals('contentString', $service->renderItemList('', $conf));
+    }
+
 }
