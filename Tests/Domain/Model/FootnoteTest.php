@@ -53,4 +53,31 @@ class Tx_HappyFeet_Domain_Model_FootnoteTest extends Tx_Phpunit_TestCase
         $this->footnote->setTitle('Dummy title');
         $this->assertEquals('Dummy title', $this->footnote->getTitle());
     }
+
+    /**
+     * @test
+     */
+    public function shouldSetDescription()
+    {
+        $this->footnote->setDescription('Dummy Description');
+        $this->assertEquals('Dummy Description', $this->footnote->getDescription());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldSetHeader()
+    {
+        $this->footnote->setHeader('Dummy Header');
+        $this->assertEquals('Dummy Header', $this->footnote->getHeader());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldSetIndexNumber()
+    {
+        $this->footnote->setIndexNumber('Dummy IndexNumber');
+        $this->assertEquals('Dummy Description', $this->footnote->getIndexNumber());
+    }
 }
