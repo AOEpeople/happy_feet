@@ -85,7 +85,7 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
     public function shouldNotRenderWithNoUids()
     {
         $content = $this->renderingService->renderFootnotes(array());
-        $this->assertRegExp('', $content);
+        $this->assertEquals('', $content);
     }
 
     /**
@@ -98,7 +98,7 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
             $this->returnValue(array())
         );
         $content = $this->renderingService->renderFootnotes(array());
-        $this->assertRegExp('', $content);
+        $this->assertEquals('', $content);
     }
 
     /**
