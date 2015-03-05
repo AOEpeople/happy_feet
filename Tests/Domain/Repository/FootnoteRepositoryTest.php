@@ -137,4 +137,14 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
         $footnote = new stdClass();
         $this->repository->add($footnote);
     }
+
+    /**
+     * @test
+     * @expectedException \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function shouldAddObject()
+    {
+        $footnote = new Tx_HappyFeet_Domain_Model_Footnote();
+        $this->repository->add($footnote);
+    }
 }
