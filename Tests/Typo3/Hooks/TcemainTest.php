@@ -104,4 +104,22 @@ class Tx_HappyFeet_Typo3_Hooks_TcemainTest extends Tx_Phpunit_TestCase
         );
         $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
+
+    /**
+     * @test
+     */
+    public function shouldResetIndexNumber()
+    {
+        $fieldArray = array();
+        $this->tcemainHook->processDatamap_postProcessFieldArray(
+            'delete',
+            'tx_happyfeet_domain_model_footnote',
+            null,
+            $fieldArray,
+            null
+        );
+        $this->assertEquals(0, $fieldArray['index_number']);
+    }
+
+
 }
