@@ -82,6 +82,14 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     }
 
     /**
+     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj
+     */
+    public function setCObj(TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj)
+    {
+        $this->cObj = $cObj;
+    }
+
+    /**
      * @return Tx_HappyFeet_Service_Rendering
      */
     protected function getRenderingService()
