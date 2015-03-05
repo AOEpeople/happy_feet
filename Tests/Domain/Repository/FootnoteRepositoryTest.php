@@ -140,7 +140,6 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
 
     /**
      * @test
-     * @expectedException \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public function shouldAddObject()
     {
