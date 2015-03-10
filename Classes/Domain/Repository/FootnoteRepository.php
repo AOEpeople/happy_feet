@@ -130,8 +130,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends \TYPO3\CMS\Extba
     public static function usortFootnotesByUids(
         Tx_HappyFeet_Domain_Model_Footnote $a,
         Tx_HappyFeet_Domain_Model_Footnote $b
-    )
-    {
+    ) {
         $map = array_flip(self::$uids);
         if ($map[$a->getUid()] >= $map[$b->getUid()]) {
             return 1;
