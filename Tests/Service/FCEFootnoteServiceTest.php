@@ -31,17 +31,10 @@
  */
 class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
 {
-
     /**
      * @var Tx_HappyFeet_Service_FCEFootnoteService
      */
     private $service;
-
-    /**
-     * Tx_HappyFeet_Domain_Repository_FootnoteRepository
-     * @var PHPUnit_Framework_MockObject_MockObject
-     */
-    private $repository;
 
     /**
      * setup
@@ -128,5 +121,4 @@ class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
 
         $this->assertEquals('contentString', $service->renderItemList('', $conf));
     }
-
 }

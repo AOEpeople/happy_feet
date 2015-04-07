@@ -39,6 +39,8 @@ class Tx_HappyFeet_Typo3_Hooks_Tcemain extends Tx_HappyFeet_Service_Abstract
      * @param array $fieldArray
      * @param mixed $tcemain
      * @return void
+     *
+     * @codingStandardsIgnore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
      */
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $tcemain)
     {
