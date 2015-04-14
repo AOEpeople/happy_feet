@@ -48,8 +48,9 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
     public function main($linktxt, $typoLinkConfiguration, $linkHandlerKeyword, $linkHandlerValue, $linkParams, $pObj)
     {
         if ($linkHandlerKeyword === self::KEYWORD) {
-            $footnote = $this->getRenderingService()->renderFootnotes($this->getFootnoteIds($linkHandlerValue));
-            return $linktxt . $footnote;
+            $footnoteHtml = $this->getRenderingService()->renderFootnotes($this->getFootnoteIds($linkHandlerValue));
+            // trim HTML-code of footnotes - Otherwise some ugly problems can occur (e.g. TYPO3 renders p-tags around the HTML-code)
+            return $linktxt . trim($footnoteHtml);
         }
         return $linktxt;
     }
