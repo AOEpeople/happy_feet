@@ -38,7 +38,8 @@ class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
      * @param boolean $simulateTSFEinBackend
      * @return string the parsed string.
      */
-    public function render($parseFuncTSPath = 'lib.parseFunc_RTE', $simulateTSFEinBackend = false) {
+    public function render($parseFuncTSPath = 'lib.parseFunc_RTE', $simulateTSFEinBackend = false)
+    {
         if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
             $this->simulateFrontendEnvironment();
         }
