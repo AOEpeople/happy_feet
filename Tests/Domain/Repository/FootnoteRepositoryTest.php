@@ -59,7 +59,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
     protected function tearDown()
     {
         //$this->dropDatabase();
-        unset ($this->repository);
+        unset($this->repository);
     }
 
     /**
