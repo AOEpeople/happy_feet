@@ -30,28 +30,38 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Domain_Repository_Test
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
- * @todo implement functional test "functional.xml"
  */
-class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_database_testcase
+class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
 {
-
     /**
      * @var Tx_HappyFeet_Domain_Repository_FootnoteRepository
      */
     private $repository;
 
     /**
+     * @var array
+     */
+    protected $coreExtensionsToLoad = array(
+        'extbase',
+        'fluid'
+    );
+
+    /**
+     * @var array
+     */
+    protected $testExtensionsToLoad = array(
+        'typo3conf/ext/happy_feet'
+    );
+
+    /**
      *
      */
     public function setUp()
     {
-        $this->markTestSkipped('use functional test instead');
+        parent::setUp();
         $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
         $this->repository->initializeObject();
-        $this->createDatabase();
-        $this->useTestDatabase();
-        $this->importExtensions(array('happy_feet'));
     }
 
     /**
@@ -60,7 +70,7 @@ class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest ext
      */
     protected function tearDown()
     {
-        //$this->dropDatabase();
+        parent::tearDown();
         unset($this->repository);
     }
 
