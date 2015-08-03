@@ -30,8 +30,9 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Domain_Repository_Test
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
+ * @todo implement functional test "functional.xml"
  */
-class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_database_testcase
+class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_database_testcase
 {
 
     /**
@@ -44,6 +45,7 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepositoryTest extends tx_phpunit_d
      */
     public function setUp()
     {
+        $this->markTestSkipped('use functional test instead');
         $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
         $this->repository->initializeObject();

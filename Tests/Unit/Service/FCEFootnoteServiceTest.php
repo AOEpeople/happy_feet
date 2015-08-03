@@ -29,7 +29,7 @@
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Service_FCEFootnoteServiceTest extends Tx_Phpunit_TestCase
+class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Tx_HappyFeet_Service_FCEFootnoteService

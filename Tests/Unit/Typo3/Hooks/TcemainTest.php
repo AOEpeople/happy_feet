@@ -30,7 +30,7 @@
  * @subpackage Typo3_Hooks_Test
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Typo3_Hooks_TcemainTest extends Tx_Phpunit_TestCase
+class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Tx_HappyFeet_Typo3_Hooks_Tcemain

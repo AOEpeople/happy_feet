@@ -29,7 +29,7 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
+class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Tx_HappyFeet_Service_Rendering
@@ -114,19 +114,33 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function shouldLazyLoadFoootnoteRepository()
-    {
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
-
-        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
-        $this->assertEquals('', $content);
-    }
-
-    /**
-     * @test
-     */
     public function footnoteIdIsPresent()
     {
+        $footnoteRepository = $this->getMock(
+            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            array('getFootnotesByUids'),
+            array(),
+            '',
+            false
+        );
+        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
+            $this->returnValue(array(
+                array(
+                    'indexNumber' => 4711,
+                    'header' => '',
+                    'description' => ''
+                ),
+                array(
+                    'indexNumber' => 4712,
+                    'header' => '',
+                    'description' => ''
+                )
+            ))
+        );
+
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService->setFootnoteRepository($footnoteRepository);
+
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
         $this->assertRegExp('~[^@]4711~', $content);
         $this->assertRegExp('~[^@]4712~', $content);
@@ -137,6 +151,31 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function footnoteHeaderIsPresent()
     {
+        $footnoteRepository = $this->getMock(
+            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            array('getFootnotesByUids'),
+            array(),
+            '',
+            false
+        );
+        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
+            $this->returnValue(array(
+                array(
+                    'indexNumber' => 4711,
+                    'header' => 'HEADER@4711',
+                    'description' => ''
+                ),
+                array(
+                    'indexNumber' => 4712,
+                    'header' => 'HEADER@4712',
+                    'description' => ''
+                )
+            ))
+        );
+
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService->setFootnoteRepository($footnoteRepository);
+
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
         $this->assertRegExp('~HEADER@4711~', $content);
         $this->assertRegExp('~HEADER@4712~', $content);
@@ -147,6 +186,31 @@ class Tx_HappyFeet_Service_RenderingTest extends Tx_Phpunit_TestCase
      */
     public function footnoteDescriptionIsPresent()
     {
+        $footnoteRepository = $this->getMock(
+            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            array('getFootnotesByUids'),
+            array(),
+            '',
+            false
+        );
+        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
+            $this->returnValue(array(
+                array(
+                    'indexNumber' => 4711,
+                    'header' => 'HEADER@4711',
+                    'description' => 'DESCRIPTION@4711'
+                ),
+                array(
+                    'indexNumber' => 4712,
+                    'header' => 'HEADER@4712',
+                    'description' => 'DESCRIPTION@4712'
+                )
+            ))
+        );
+
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService->setFootnoteRepository($footnoteRepository);
+
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
         $this->assertRegExp('~DESCRIPTION@4711~', $content);
         $this->assertRegExp('~DESCRIPTION@4712~', $content);

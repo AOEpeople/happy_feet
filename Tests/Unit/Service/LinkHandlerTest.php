@@ -28,7 +28,7 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Typo3_Service_LinkHandlerTest extends Tx_Phpunit_TestCase
+class Tx_HappyFeet_Tests_Unit_Typo3_Service_LinkHandlerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Tx_HappyFeet_Typo3_Service_LinkHandler

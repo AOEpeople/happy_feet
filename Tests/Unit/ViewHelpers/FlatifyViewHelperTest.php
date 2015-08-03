@@ -28,7 +28,7 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_ViewHelpers_FlatifyViewHelperTest extends tx_phpunit_testcase
+class Tx_HappyFeet_Tests_Unit_ViewHelpers_FlatifyViewHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Tx_HappyFeet_ViewHelpers_FlatifyViewHelper
