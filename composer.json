@@ -1,0 +1,40 @@
+{
+    "name": "aoe/happy-feet",
+    "description": "Happy Feet Footnotes.",
+    "type": "typo3-cms-extension",
+    "homepage": "https://github.com/AOEpeople/happy_feet",
+    "license": "GPL-3.0",
+    "support": {
+        "email": "dev@aoe.com",
+        "issues": "https://github.com/AOEpeople/happy_feet/issues",
+        "source": "https://github.com/AOEpeople/happy_feet"
+    },
+    "authors": [
+        {
+            "name": "AOE GmbH",
+            "email": "dev@aoe.com",
+            "homepage": "http://www.aoe.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "typo3/cms-core": "*",
+        "typo3/cms-extbase": "*"
+    },
+    "require-dev": {
+        "typo3/cms": "6.2.*",
+        "phpunit/phpunit": "4.6.*",
+        "phpunit/phpcov": "2.0.*",
+        "squizlabs/php_codesniffer": "2.3.*",
+        "sebastian/phpcpd": "2.0.*",
+        "phpmd/phpmd": "2.2.*"
+    },
+    "replace": {
+        "happy_feet": "*"
+    },
+    "keywords": [
+        "typo3",
+        "extbase",
+        "footnote"
+    ]
+}
