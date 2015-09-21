@@ -42,13 +42,13 @@ script:
     if [[ "$COVERAGE" == "0" ]]; then
       echo;
       echo "Running unit tests";
-      ./bin/phpunit --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/happy_feet/Tests/Unit/
+      ./bin/phpunit --colors --bootstrap typo3conf/ext/happy_feet/Tests/Bootstrap.php typo3conf/ext/happy_feet/Tests/Unit/
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
       echo;
       echo "Running unit tests";
-      ./bin/phpunit --coverage-clover=unittest-coverage.clover --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/happy_feet/Tests/Unit/
+      ./bin/phpunit --coverage-clover=unittest-coverage.clover --colors --bootstrap typo3conf/ext/happy_feet/Tests/Bootstrap.php typo3conf/ext/happy_feet/Tests/Unit/
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
