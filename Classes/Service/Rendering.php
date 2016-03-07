@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * @package HappyFeet
@@ -38,11 +38,6 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private $footnoteRepository;
 
     /**
-     * @var \TYPO3\CMS\Fluid\View\StandaloneView
-     */
-    private $view;
-
-    /**
      * @param array $uids
      * @return string
      */
@@ -55,9 +50,25 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
         if (count($footnotes) < 1) {
             return '';
         }
-        $view = $this->createView();
+        $view = $this->createView('Markup');
         $view->assign('footnotes', $footnotes);
         return $view->render('Markup');
+    }
+
+    /**
+     * Renders the content of a RTE field.
+     *
+     * @param string $richText
+     * @return string
+     */
+    public function renderRichText($richText)
+    {
+        if (strlen($richText) < 1) {
+            return '';
+        }
+        $view = $this->createView('RichText');
+        $view->assign('richText', $richText);
+        return $view->render('RichText');
     }
 
     /**
@@ -74,26 +85,26 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     }
 
     /**
+     * @param string $template
      * @return \TYPO3\CMS\Fluid\View\StandaloneView
      */
-    private function createView()
+    private function createView($template)
     {
-        if (null === $this->view) {
-            $this->view = $this->getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-            $this->view->setTemplatePathAndFilename($this->getTemplatePathAndFilename());
-        }
-        return $this->view;
+        $view = $this->getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $view->setTemplatePathAndFilename($this->getTemplatePathAndFilename($template));
+        return $view;
     }
 
     /**
+     * @param string $template
      * @return string
      */
-    private function getTemplatePathAndFilename()
+    private function getTemplatePathAndFilename($template)
     {
         return ExtensionManagementUtility::extPath(
             'happy_feet',
             'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR .
-            'Rendering' . DIRECTORY_SEPARATOR . 'Markup.html'
+            'Rendering' . DIRECTORY_SEPARATOR . $template . '.html'
         );
     }
 

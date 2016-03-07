@@ -215,4 +215,22 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_Te
         $this->assertRegExp('~DESCRIPTION@4711~', $content);
         $this->assertRegExp('~DESCRIPTION@4712~', $content);
     }
+
+    /**
+     * @test
+     */
+    public function shouldNotRenderRichText()
+    {
+        $renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->assertEquals('', $renderingService->renderRichText(''));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldRenderRichText()
+    {
+        $renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->assertContains('test', $renderingService->renderRichText('test'));
+    }
 }
