@@ -45,23 +45,23 @@ class Tx_HappyFeet_Tests_Unit_ViewHelpers_FlatifyViewHelperTest extends PHPUnit_
 
     /**
      * @test
+     * @dataProvider getTemplateFixtureProvider
      */
-    public function lineBreaksWillBeRemoved()
+    public function lineBreaksWillBeRemoved($fixture)
     {
-        $actualOutput = $this->viewHelper->render($this->getTemplateFixture());
-        $this->assertNotRegExp(
-            "/\r|\n/",
-            $actualOutput,
-            'Some of the line breaks are not replaced by the view helper!'
-        );
+        $actualOutput = $this->viewHelper->render($fixture);
+        $this->assertEquals('such a beautiful footnote', $actualOutput);
     }
 
     /**
-     * @return string
+     * @return array
      */
-    private function getTemplateFixture()
+    public function getTemplateFixtureProvider()
     {
-        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Fixtures' . DIRECTORY_SEPARATOR . 'Template.html';
-        return file_get_contents($file);
+        return array(
+            'windows' => array("\r\nsuch a beautiful footnote\r\n"),
+            'unix' => array("\nsuch a beautiful footnote\n"),
+            'mac' => array("\rsuch a beautiful footnote\r")
+        );
     }
 }

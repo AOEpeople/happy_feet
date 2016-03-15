@@ -39,6 +39,6 @@ class Tx_HappyFeet_ViewHelpers_FlatifyViewHelper extends \TYPO3\CMS\Fluid\Core\V
         if ($str === null) {
             $str = $this->renderChildren();
         }
-        return preg_replace("/\r|\n/", "", $str);
+        return str_replace(array("\r", "\n"), '', $str);
     }
 }
