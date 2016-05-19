@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2016 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -24,6 +24,8 @@
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @package HappyFeet
@@ -38,6 +40,11 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private $footnoteRepository;
 
     /**
+     * @var string
+     */
+    private $defaultTemplate = 'Markup';
+
+    /**
      * @param array $uids
      * @return string
      */
@@ -50,9 +57,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
         if (count($footnotes) < 1) {
             return '';
         }
-        $view = $this->createView('Markup');
+
+        $templatePath = $this->getTemplatePath();
+
+        $view = $this->createView($templatePath);
         $view->assign('footnotes', $footnotes);
-        return $view->render('Markup');
+        return $view->render($templatePath);
     }
 
     /**
@@ -66,9 +76,12 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
         if (strlen($richText) < 1) {
             return '';
         }
-        $view = $this->createView('RichText');
+
+        $templatePath = $this->getTemplatePathAndFilename('RichText');
+
+        $view = $this->createView($templatePath);
         $view->assign('richText', $richText);
-        return $view->render('RichText');
+        return $view->render($templatePath);
     }
 
     /**
@@ -91,7 +104,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     private function createView($template)
     {
         $view = $this->getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-        $view->setTemplatePathAndFilename($this->getTemplatePathAndFilename($template));
+        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
         return $view;
     }
 
@@ -101,11 +114,30 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     private function getTemplatePathAndFilename($template)
     {
-        return ExtensionManagementUtility::extPath(
-            'happy_feet',
-            'Resources' . DIRECTORY_SEPARATOR . 'Private' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR .
-            'Rendering' . DIRECTORY_SEPARATOR . $template . '.html'
-        );
+        return 'EXT:happy_feet/Resources/Private/Templates/Rendering/' . $template . '.html';
+    }
+
+    /**
+     * checks if a alternative template is defined via typoscript setup configuration and if it exists as a file
+     *
+     * @return string
+     */
+    private function getTemplatePath()
+    {
+        /**
+         * @var $tsfe TypoScriptFrontendController
+         */
+        $tsfe = $GLOBALS['TSFE'];
+        if (isset($tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'])) {
+            $templateFile = GeneralUtility::getFileAbsFileName(
+                $tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template']
+            );
+            if (is_file($templateFile)) {
+                return $tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'];
+            }
+        }
+
+        return $this->getTemplatePathAndFilename($this->defaultTemplate);
     }
 
     /**

@@ -233,4 +233,49 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_Te
         $renderingService = new Tx_HappyFeet_Service_Rendering();
         $this->assertContains('test', $renderingService->renderRichText('test'));
     }
+
+    /**
+     * @test
+     */
+    public function alternativeTemplateIsDefinedButFileDoesntExist()
+    {
+        $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
+        $failingTemplate = 'EXT:happy_feet/Resources/Private/Templates/Rendering/TestTemplate.html';
+
+        // define typoscript config
+        $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
+
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $result = $this->reflectMethodInRenderingService('getTemplatePath');
+
+        $this->assertEquals($template, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function alternativeTemplateIsDefined()
+    {
+        $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/RichText.html';
+
+        // define typoscript config
+        $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
+
+        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $result = $this->reflectMethodInRenderingService('getTemplatePath');
+
+        $this->assertEquals($template, $result);
+    }
+
+    /**
+     * @param $method string
+     * @return string
+     */
+    private function reflectMethodInRenderingService($method)
+    {
+        $reflector = new ReflectionClass('Tx_HappyFeet_Service_Rendering');
+        $method = $reflector->getMethod($method);
+        $method->setAccessible(true);
+        return $method->invokeArgs($this->renderingService, []);
+    }
 }
