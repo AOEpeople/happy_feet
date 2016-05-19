@@ -9,5 +9,4 @@
 What does it do?
 ================
 
-
-Description here
+Footnote Extension for TYPO3 using Extbase

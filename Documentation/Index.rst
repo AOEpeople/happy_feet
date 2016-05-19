@@ -9,13 +9,13 @@
 .. _start:
 
 =============================================================
-Extensionname
+Happy Feet
 =============================================================
 
 .. only:: html
 
 	:Classification:
-		extension_key
+		happy_feet
 
 	:Version:
 		|release|
@@ -24,13 +24,13 @@ Extensionname
 		en
 
 	:Description:
-		enter description.
+		Happy Feet Footnotes.
 
 	:Keywords:
-		comma,separated,list,keywords
+		footnotes, overlay, text-highlight
 
 	:Copyright:
-		2015
+		2016
 
 	:Author:
 		AOE GmbH
@@ -39,7 +39,7 @@ Extensionname
 		dev@aoe.com
 
 	:License:
-		copyright 2015 AOE GmbH
+		copyright 2016 AOE GmbH
 
 		All rights reserved
 
@@ -72,7 +72,6 @@ Extensionname
 	:glob:
 
 	Pages/Introduction
-	Pages/Screenshots
 	Pages/UserManual
 	Pages/AdministratorManual
 	Pages/Aoe
