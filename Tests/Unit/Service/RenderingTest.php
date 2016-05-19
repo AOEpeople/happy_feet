@@ -276,6 +276,6 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_Te
         $reflector = new ReflectionClass('Tx_HappyFeet_Service_Rendering');
         $method = $reflector->getMethod($method);
         $method->setAccessible(true);
-        return $method->invokeArgs($this->renderingService, []);
+        return $method->invokeArgs($this->renderingService, array());
     }
 }
