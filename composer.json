@@ -29,8 +29,10 @@
         "sebastian/phpcpd": "2.0.*",
         "phpmd/phpmd": "2.2.*"
     },
-    "replace": {
-        "happy_feet": "*"
+    "autoload": {
+        "classmap": [
+            "Classes/"
+        ]
     },
     "keywords": [
         "typo3",
