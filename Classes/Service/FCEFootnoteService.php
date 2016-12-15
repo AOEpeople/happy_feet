@@ -51,10 +51,14 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
      */
     public function renderItemList($content, $conf = array())
     {
-        if (!array_key_exists('userFunc', $conf) || !array_key_exists('field', $conf)) {
+        if (false === array_key_exists('userFunc', $conf) || false === array_key_exists('field', $conf)) {
             return '';
         }
-        $footnoteUids = $this->getCObj()->getCurrentVal();
+        if (array_key_exists('isGridElement', $conf) && (boolean) $conf['isGridElement'] === true) {
+            $footnoteUids = $this->getCObj()->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
+        } else {
+            $footnoteUids = $this->getCObj()->getCurrentVal();
+        }
         if (empty($footnoteUids)) {
             return '';
         }
