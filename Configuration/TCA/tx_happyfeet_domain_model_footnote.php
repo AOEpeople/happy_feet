@@ -3,16 +3,22 @@ if (!defined('TYPO3_MODE')) {
     die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_happyfeet_domain_model_footnote'] = array(
-    'ctrl'      => $GLOBALS['TCA']['tx_happyfeet_domain_model_footnote']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote',
+        'label' => 'title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => true,
+        'searchFields' => 'index_number,title,header,description',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('happy_feet') . 'Resources/Public/Icons/TCA/Footnote.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => 'title,index_number'
-    ),
-    'types'     => array(
-        '0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l18n_parent, l18n_diffsource, title;;;;2-2-2, index_number;;;;3-3-3, header, description;;;richtext[cut|copy|paste|class|bold|italic|underline|link|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_happyfeet/rte/], --div--;LLL:EXT:happy_feet/locallang_db.xml:tx_happyfeet_domain_model_footnote.tab.access, hidden;;1')
-    ),
-    'palettes'  => array(
-        '1' => array('showitem' => 'starttime, endtime')
     ),
     'columns'   => array(
         't3ver_label'      => array(
@@ -126,5 +132,11 @@ $GLOBALS['TCA']['tx_happyfeet_domain_model_footnote'] = array(
                 'eval' => 'required'
             )
         )
+    ),
+    'types'     => array(
+        '0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l18n_parent, l18n_diffsource, title;;;;2-2-2, index_number;;;;3-3-3, header, description;;;richtext[cut|copy|paste|class|bold|italic|underline|link|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_happyfeet/rte/], --div--;LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.tab.access, hidden;;1')
+    ),
+    'palettes'  => array(
+        '1' => array('showitem' => 'starttime, endtime')
     )
 );
