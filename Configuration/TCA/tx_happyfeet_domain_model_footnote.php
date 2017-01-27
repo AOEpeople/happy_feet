@@ -15,7 +15,7 @@ return array(
         'enablecolumns' => array(
             'disabled' => 'hidden'
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('happy_feet') . 'Resources/Public/Icons/TCA/Footnote.gif'
+        'iconfile' => 'EXT:happy_feet/Resources/Public/Icons/TCA/Footnote.gif'
     ),
     'interface' => array(
         'showRecordFieldList' => 'title,index_number'
@@ -90,10 +90,7 @@ return array(
                 'eval'     => 'date',
                 'checkbox' => '0',
                 'default'  => '0',
-                'range'    => array(
-                    'upper' => mktime(0, 0, 0, 12, 31, 2020),
-                    'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y'))
-                )
+                'range'    => 'must be configured in ext_tables.php, behause the configuration-data is not cacheable!'
             )
         ),
         'index_number'     => Array(
