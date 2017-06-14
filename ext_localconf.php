@@ -38,3 +38,5 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler']['happyfeet'] =
     'EXT:' . $_EXTKEY . '/Classes/Typo3/Service/LinkHandler.php:&Tx_HappyFeet_Typo3_Service_LinkHandler';
+
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink']['happy_feet'] = 'Tx_HappyFeet_Typo3_Service_LinkHandler';

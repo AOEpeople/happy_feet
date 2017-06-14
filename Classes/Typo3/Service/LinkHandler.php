@@ -29,7 +29,9 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstract
+class Tx_HappyFeet_Typo3_Service_LinkHandler
+    extends Tx_HappyFeet_Service_Abstract
+    implements Cobweb\Linkhandler\ProcessLinkParametersInterface
 {
     /**
      * @var string
@@ -71,5 +73,19 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler extends Tx_HappyFeet_Service_Abstra
     {
         $parts = explode(':', $str);
         return array($parts[1]);
+    }
+
+    /**
+     * @param \Cobweb\Linkhandler\TypolinkHandler $linkHandler
+     */
+    public function process($linkHandler)
+    {
+        if ('tx_happyfeet_domain_model_footnote' === $linkHandler->getTable()) {
+            $footnoteHtml = $this->getRenderingService()->renderFootnotes([$linkHandler->getUid()]);
+            // Trim HTML-code of footnotes - Otherwise some ugly problems can occur
+            // (e.g. TYPO3 renders p-tags around the HTML-code)
+            $linkText = $linkHandler->getLinkText() . trim($footnoteHtml);
+            $linkHandler->setLinkText($linkText);
+        }
     }
 }
