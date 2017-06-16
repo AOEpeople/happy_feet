@@ -44,7 +44,16 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Service_LinkHandlerTest extends PHPUnit_Fram
         $renderingService->expects($this->any())->method('renderFootnotes')->will(
             $this->returnValue('FOOTNOTE:4711')
         );
-        $linkHandler = $this->getMock('Tx_HappyFeet_Typo3_Service_LinkHandler', array('getRenderingService'));
+
+        $typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
+            \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()
+        );
+
+        $linkhandlerClass = ($typo3Version < 7006000)
+                            ? Aoe\HappyFeet\Typo3\Service\v62\LinkHandler::class
+                            : Aoe\HappyFeet\Typo3\Service\LinkHandler::class;
+
+        $linkHandler = $this->getMock($linkhandlerClass, array('getRenderingService'));
         $linkHandler->expects($this->any())->method('getRenderingService')->will(
             $this->returnValue($renderingService)
         );

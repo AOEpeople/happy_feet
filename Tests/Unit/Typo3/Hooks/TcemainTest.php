@@ -50,7 +50,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             false
         );
         $footnoteRepository->expects($this->any())->method('getLowestFreeIndexNumber')->will($this->returnValue(1));
-        $this->tcemainHook = $this->getMock('Tx_HappyFeet_Typo3_Hooks_Tcemain', array('getFootnoteRepository'));
+        $this->tcemainHook = $this->getMock(Aoe\HappyFeet\Typo3\Hook\Tcemain::class, array('getFootnoteRepository'));
         $this->tcemainHook->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );
