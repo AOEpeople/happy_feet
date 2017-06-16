@@ -16,12 +16,15 @@
             "homepage": "http://www.aoe.com"
         }
     ],
+    "config": {
+        "secure-http": false
+    },
     "replace": {
         "happy_feet": "*"
     },
     "require": {
         "php": ">=5.3.0",
-        "typo3/cms-core": ">=6.2.0, <=7.6.0",
+        "typo3/cms-core": ">=6.2.0, <=6.2.99",
         "typo3/cms-extbase": "*"
     },
     "require-dev": {
