@@ -1,80 +1,33 @@
 <?php
+namespace Aoe\HappyFeet\Typo3\Service;
 
-/***************************************************************
- *  Copyright notice
+/*
+ * Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ * (c) 2014 AOE GmbH <dev@aoe.com>
  *
- *  All rights reserved
+ * This file is part of the TYPO3 CMS project.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
+
+use Cobweb\Linkhandler\ProcessLinkParametersInterface;
 
 /**
+ * Linkhandler hook to manipulate link data before it is processed by core typolink method.
+ *
  * @package HappyFeet
- * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Typo3_Service_LinkHandler
-    extends Tx_HappyFeet_Service_Abstract
-    implements Cobweb\Linkhandler\ProcessLinkParametersInterface
+class LinkHandler extends \Tx_HappyFeet_Service_Abstract implements ProcessLinkParametersInterface
 {
-    /**
-     * @var string
-     */
-    const KEYWORD = 'happyfeet';
-
-    /**
-     * @param string $linktxt
-     * @param array $typoLinkConfiguration TypoLink Configuration array
-     * @param string $linkHandlerKeyword Define the identifier that an record is given
-     * @param string $linkHandlerValue Table and uid of the requested record like "tx_happyfeet_domain_model_footnote:2"
-     * @param string $linkParams Full link params like "footnote:tx_aoefootnote_item:2"
-     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $pObj
-     * @return string
-     */
-    public function main($linktxt, $typoLinkConfiguration, $linkHandlerKeyword, $linkHandlerValue, $linkParams, $pObj)
-    {
-        if ($linkHandlerKeyword === self::KEYWORD) {
-            $footnoteHtml = $this->getRenderingService()->renderFootnotes($this->getFootnoteIds($linkHandlerValue));
-            // trim HTML-code of footnotes - Otherwise some ugly problems can occur (e.g. TYPO3 renders p-tags around the HTML-code)
-            return $linktxt . trim($footnoteHtml);
-        }
-        return $linktxt;
-    }
-
-    /**
-     * @return Tx_HappyFeet_Service_Rendering
-     */
-    protected function getRenderingService()
-    {
-        return $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
-    }
-
-    /**
-     * @param $str
-     * @return array
-     */
-    private function getFootnoteIds($str)
-    {
-        $parts = explode(':', $str);
-        return array($parts[1]);
-    }
-
     /**
      * @param \Cobweb\Linkhandler\TypolinkHandler $linkHandler
      */
@@ -87,5 +40,15 @@ class Tx_HappyFeet_Typo3_Service_LinkHandler
             $linkText = $linkHandler->getLinkText() . trim($footnoteHtml);
             $linkHandler->setLinkText($linkText);
         }
+    }
+
+    /**
+     * @return \Tx_HappyFeet_Service_Rendering
+     */
+    protected function getRenderingService()
+    {
+        /** @var \Tx_HappyFeet_Service_Rendering $renderingService */
+        $renderingService = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
+        return $renderingService;
     }
 }
