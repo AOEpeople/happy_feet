@@ -42,7 +42,7 @@ if ($typo3Version < 7006000) {
         mod.tx_linkhandler.happy_feet < RTE.default.tx_linkhandler.happy_feet
     ');
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$extKey] =
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][str_replace('_', '', $extKey)] =
         Aoe\HappyFeet\Typo3\Service\v62\LinkHandler::class;
 
 } else {
