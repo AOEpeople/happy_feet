@@ -34,7 +34,7 @@ class LinkHandler extends \Tx_HappyFeet_Service_Abstract implements ProcessLinkP
     public function process($linkHandler)
     {
         if ('tx_happyfeet_domain_model_footnote' === $linkHandler->getTable()) {
-            $footnoteHtml = $this->getRenderingService()->renderFootnotes([$linkHandler->getUid()]);
+            $footnoteHtml = $this->getRenderingService()->renderFootnotes(array($linkHandler->getUid()));
             // Trim HTML-code of footnotes - Otherwise some ugly problems can occur
             // (e.g. TYPO3 renders p-tags around the HTML-code)
             $linkText = $linkHandler->getLinkText() . trim($footnoteHtml);
