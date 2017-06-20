@@ -43,7 +43,7 @@ if ($typo3Version < 7006000) {
     ');
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][str_replace('_', '', $extKey)] =
-        Aoe\HappyFeet\Typo3\Service\v62\LinkHandler::class;
+        'Aoe\HappyFeet\Typo3\Service\v62\LinkHandler';
 
 } else {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
@@ -73,8 +73,8 @@ if ($typo3Version < 7006000) {
     ');
 
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink'][$extKey] =
-        Aoe\HappyFeet\Typo3\Service\LinkHandler::class;
+        'Aoe\HappyFeet\Typo3\Service\LinkHandler';
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] =
-    Aoe\HappyFeet\Typo3\Hook\Tcemain::class;
+    'Aoe\HappyFeet\Typo3\Hook\Tcemain';

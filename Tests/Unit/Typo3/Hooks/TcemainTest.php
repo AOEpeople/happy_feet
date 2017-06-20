@@ -48,7 +48,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             false
         );
         $footnoteRepository->expects($this->any())->method('getLowestFreeIndexNumber')->will($this->returnValue(1));
-        $this->tcemainHook = $this->getMock(Aoe\HappyFeet\Typo3\Hook\Tcemain::class, array('getFootnoteRepository'));
+        $this->tcemainHook = $this->getMock('Aoe\HappyFeet\Typo3\Hook\Tcemain', array('getFootnoteRepository'));
         $this->tcemainHook->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );
@@ -124,7 +124,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
      */
     protected function getMockedTcemain()
     {
-        $mockedTcemain = $this->getMock(TYPO3\CMS\Core\DataHandling\DataHandler::class);
+        $mockedTcemain = $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler');
         return $mockedTcemain;
     }
 }

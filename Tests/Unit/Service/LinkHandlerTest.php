@@ -50,8 +50,8 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Service_LinkHandlerTest extends PHPUnit_Fram
         );
 
         $linkhandlerClass = ($typo3Version < 7006000)
-                            ? Aoe\HappyFeet\Typo3\Service\v62\LinkHandler::class
-                            : Aoe\HappyFeet\Typo3\Service\LinkHandler::class;
+                            ? 'Aoe\HappyFeet\Typo3\Service\v62\LinkHandler'
+                            : 'Aoe\HappyFeet\Typo3\Service\LinkHandler';
 
         $linkHandler = $this->getMock($linkhandlerClass, array('getRenderingService'));
         $linkHandler->expects($this->any())->method('getRenderingService')->will(
