@@ -3,7 +3,6 @@
     "description": "Happy Feet Footnotes.",
     "type": "typo3-cms-extension",
     "homepage": "https://github.com/AOEpeople/happy_feet",
-    "version": "1.6.0",
     "license": "GPL-3.0",
     "support": {
         "email": "dev@aoe.com",
