@@ -55,6 +55,21 @@ if ($typo3Version < 7006000) {
             scanBefore = page
           }
         }
+
+        RTE {
+          classes.happy_feet.name = Happy Feet
+          classesAnchor {
+            happyfeet {
+              class = happy_feet
+              type = happyfeet
+            }
+          }
+
+          default.buttons.link {
+            properties.class.allowedClasses := addToList(happy_feet)
+            happyfeet.properties.class.default = happy_feet
+          }
+        }
     ');
 
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink'][$extKey] =
