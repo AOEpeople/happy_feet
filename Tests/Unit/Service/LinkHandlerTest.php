@@ -53,11 +53,10 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Service_LinkHandlerTest extends PHPUnit_Fram
                             ? 'Aoe\HappyFeet\Typo3\Service\v62\LinkHandler'
                             : 'Aoe\HappyFeet\Typo3\Service\LinkHandler';
 
-        $linkHandler = $this->getMock($linkhandlerClass, array('getRenderingService'));
-        $linkHandler->expects($this->any())->method('getRenderingService')->will(
+        $this->linkHandler = $this->getMock($linkhandlerClass, array('getRenderingService'));
+        $this->linkHandler->expects($this->any())->method('getRenderingService')->will(
             $this->returnValue($renderingService)
         );
-        $this->linkHandler = $linkHandler;
     }
 
     /**
