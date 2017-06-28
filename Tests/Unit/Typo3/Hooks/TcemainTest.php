@@ -65,7 +65,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             'tx_happyfeet_domain_model_footnote',
             null,
             $fieldArray,
-            $this->getMockedTcemain()
+            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
         );
         $this->assertArrayHasKey('index_number', $fieldArray);
         $this->assertEquals(1, $fieldArray['index_number']);
@@ -82,7 +82,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             'tx_happyfeet_domain_model_footnote',
             null,
             $fieldArray,
-            $this->getMockedTcemain()
+            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
         );
         $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
@@ -98,7 +98,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             'tx_happyfoo_domain_model_baz',
             null,
             $fieldArray,
-            $this->getMockedTcemain()
+            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
         );
         $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
@@ -114,17 +114,8 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends PHPUnit_Framework_
             'tx_happyfeet_domain_model_footnote',
             null,
             $fieldArray,
-            $this->getMockedTcemain()
+            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
         );
         $this->assertEquals(0, $fieldArray['index_number']);
-    }
-
-    /**
-     * @return PHPUnit_Framework_MockObject_MockObject  Mocked TCEmain i.e. DataHandler instance.
-     */
-    protected function getMockedTcemain()
-    {
-        $mockedTcemain = $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler');
-        return $mockedTcemain;
     }
 }
