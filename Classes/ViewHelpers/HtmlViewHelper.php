@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2017 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -23,6 +23,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
 /**
  * Override fluid-HtmlViewHelper:
  * In some cases, we don't want to simulate TSFE-object, if TYPO3_MODE is 'BE'. So this
@@ -31,7 +36,7 @@
  * @package HappyFeet
  * @subpackage Service_Test
  */
-class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper
+class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends HtmlViewHelper
 {
     /**
      * @param string $parseFuncTSPath path to TypoScript parseFunc setup.
@@ -40,14 +45,27 @@ class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
      */
     public function render($parseFuncTSPath = 'lib.parseFunc_RTE', $simulateTSFEinBackend = false)
     {
-        if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-            $this->simulateFrontendEnvironment();
+        if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) < 7005000) {
+            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+                $this->simulateFrontendEnvironment();
+            }
+            $value = $this->renderChildren();
+            $content = $this->contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
+            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+                $this->resetFrontendEnvironment();
+            }
+            return $content;
+        } else {
+            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+                self::simulateFrontendEnvironment();
+            }
+            $value = $this->renderChildren();
+            $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+            $content = $contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
+            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+                self::resetFrontendEnvironment();
+            }
+            return $content;
         }
-        $value = $this->renderChildren();
-        $content = $this->contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
-        if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-            $this->resetFrontendEnvironment();
-        }
-        return $content;
     }
 }
