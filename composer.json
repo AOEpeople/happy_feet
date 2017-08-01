@@ -35,6 +35,10 @@
         "sebastian/phpcpd": "2.0.*",
         "phpmd/phpmd": "2.2.*"
     },
+    "suggest": {
+        "cobweb/linkhandler": "Is actually a requirement, but as different versions is needed for TYPO3 6 and 7+ add them to your project composer - Needed for the TYPO3 version >= 7.x",
+        "aoe/linkhandler": "Is actually a requirement, but as different versions is needed for TYPO3 6 and 7+ add them to your project composer - Needed for the TYPO3 version < 7.x"
+    },
     "autoload": {
         "classmap": [
             "Classes/"

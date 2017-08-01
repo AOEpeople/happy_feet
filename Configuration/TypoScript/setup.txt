@@ -17,3 +17,10 @@ lib.parseFunc_HappyFeed {
     externalBlocks.ol.stdWrap.parseFunc.tags.link.typolink < lib.parseFunc_HappyFeed.tags.link.typolink
     externalBlocks.ul.stdWrap.parseFunc.tags.link.typolink < lib.parseFunc_HappyFeed.tags.link.typolink
 }
+
+# At least on property for the happy configuration has to be set, if not the TypolinkHandler will throw an exception.
+plugin.tx_linkhandler {
+    happyfeet {
+        forceLink = 0
+    }
+}
