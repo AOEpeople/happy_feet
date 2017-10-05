@@ -12,5 +12,4 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_temp
     'groups' => array('system')
 );
 
-\TYPO3\CMS\Core\Cache\Cache::flagCachingFrameworkForReinitialization();
-\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
+\TYPO3\CMS\Core\Core\Bootstrap::getInstance()->initializeCachingFramework();
