@@ -45,27 +45,15 @@ class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends HtmlViewHelper
      */
     public function render($parseFuncTSPath = 'lib.parseFunc_RTE', $simulateTSFEinBackend = false)
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) < 7005000) {
-            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-                $this->simulateFrontendEnvironment();
-            }
-            $value = $this->renderChildren();
-            $content = $this->contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
-            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-                $this->resetFrontendEnvironment();
-            }
-            return $content;
-        } else {
-            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-                self::simulateFrontendEnvironment();
-            }
-            $value = $this->renderChildren();
-            $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-            $content = $contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
-            if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
-                self::resetFrontendEnvironment();
-            }
-            return $content;
+        if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+            self::simulateFrontendEnvironment();
         }
+        $value = $this->renderChildren();
+        $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $content = $contentObject->parseFunc($value, array(), '< ' . $parseFuncTSPath);
+        if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
+            self::resetFrontendEnvironment();
+        }
+        return $content;
     }
 }

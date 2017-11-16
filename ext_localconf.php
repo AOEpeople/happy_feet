@@ -24,57 +24,33 @@ $extKey = 'happy_feet';
     '
 );
 
-$typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
-    \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()
-);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+    TCEMAIN.linkHandler {
+      happyfeet {
+        handler = Cobweb\Linkhandler\RecordLinkHandler
+        label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote
+        configuration.table = tx_happyfeet_domain_model_footnote
+        scanBefore = page
+      }
+    }
 
-if ($typo3Version < 7006000) {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
-        RTE.default.tx_linkhandler {
-          happy_feet {
-            label=Happy Feet Fußnoten
-            overwriteHandler=happyfeet
-            noAttributesForm=1
-            linkClassName=happy_feet
-          }
+    RTE {
+      classes.happy_feet.name = Happy Feet
+      classesAnchor {
+        happyfeet {
+          class = happy_feet
+          type = happyfeet
         }
-        
-        mod.tx_linkhandler.happy_feet < RTE.default.tx_linkhandler.happy_feet
-    ');
+      }
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][str_replace('_', '', $extKey)] =
-        'Aoe\HappyFeet\Typo3\Service\v62\LinkHandler';
+      default.buttons.link {
+        properties.class.allowedClasses := addToList(happy_feet)
+        happyfeet.properties.class.default = happy_feet
+      }
+    }
+');
 
-} else {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
-        TCEMAIN.linkHandler {
-          happyfeet {
-            handler = Cobweb\Linkhandler\RecordLinkHandler
-            label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote
-            configuration.table = tx_happyfeet_domain_model_footnote
-            scanBefore = page
-          }
-        }
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink']['happy_feet'] = 'Aoe\HappyFeet\Typo3\Service\LinkHandler';
 
-        RTE {
-          classes.happy_feet.name = Happy Feet
-          classesAnchor {
-            happyfeet {
-              class = happy_feet
-              type = happyfeet
-            }
-          }
-
-          default.buttons.link {
-            properties.class.allowedClasses := addToList(happy_feet)
-            happyfeet.properties.class.default = happy_feet
-          }
-        }
-    ');
-
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink'][$extKey] =
-        'Aoe\HappyFeet\Typo3\Service\LinkHandler';
-}
-
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] =
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['happy_feet'] =
     'Aoe\HappyFeet\Typo3\Hook\Tcemain';
