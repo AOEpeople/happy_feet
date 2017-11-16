@@ -95,7 +95,7 @@ return array(
                 'range'    => 'must be configured in ext_tables.php, behause the configuration-data is not cacheable!'
             )
         ),
-        'index_number'     => Array(
+        'index_number' => Array(
             'exclude' => 1,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.index_number',
             'config'  => Array(
@@ -103,7 +103,7 @@ return array(
                 'size' => 30,
             )
         ),
-        'title'            => array(
+        'title' => array(
             'exclude' => 0,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.title',
             'config'  => array(
@@ -112,7 +112,7 @@ return array(
                 'eval' => 'trim,required,unique'
             )
         ),
-        'header'           => array(
+        'header' => array(
             'exclude' => 0,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.header',
             'config'  => array(
@@ -121,7 +121,7 @@ return array(
                 'eval' => 'trim'
             )
         ),
-        'description'      => array(
+        'description' => array(
             'exclude' => 0,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.description',
             'config'  => array(
@@ -129,11 +129,12 @@ return array(
                 'cols' => '30',
                 'rows' => '5',
                 'eval' => 'required'
-            )
+            ),
+            'defaultExtras' => 'richtext[cut|copy|paste|class|bold|italic|underline|link|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_happyfeet/rte/]'
         )
     ),
     'types'     => array(
-        '0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l18n_parent, l18n_diffsource, title;;;;2-2-2, index_number;;;;3-3-3, header, description;;;richtext[cut|copy|paste|class|bold|italic|underline|link|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_happyfeet/rte/], --div--;LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.tab.access, hidden;;1')
+        '0' => array('showitem' => 'sys_language_uid, l18n_parent, l18n_diffsource, title, index_number, header, description, --div--;LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote.tab.access, hidden,--palette--;;1')
     ),
     'palettes'  => array(
         '1' => array('showitem' => 'starttime, endtime')
