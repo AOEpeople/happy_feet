@@ -3,6 +3,7 @@
 	<tx_happyfeet_domain_model_footnote>
 		<uid>1</uid>
 		<pid>1</pid>
+		<l18n_diffsource></l18n_diffsource>
 		<index_number>1</index_number>
 		<title>0</title>
 		<header></header>
@@ -12,6 +13,7 @@
 	<tx_happyfeet_domain_model_footnote>
 		<uid>2</uid>
 		<pid>1</pid>
+		<l18n_diffsource></l18n_diffsource>
 		<index_number>3</index_number>
 		<title>0</title>
 		<header></header>
