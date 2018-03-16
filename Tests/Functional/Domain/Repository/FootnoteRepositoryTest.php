@@ -31,7 +31,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
+class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends \Nimut\TestingFramework\TestCase\FunctionalTestCase
 {
     /**
      * @var Tx_HappyFeet_Domain_Repository_FootnoteRepository

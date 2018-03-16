@@ -29,7 +29,7 @@
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_TestCase
+class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
 {
     /**
      * @var Tx_HappyFeet_Service_Rendering
@@ -41,6 +41,19 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends PHPUnit_Framework_Te
      */
     public function setUp()
     {
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = array(
+            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
+            'options' => array()
+        );
+
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = array(
+            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
+            'frontend' => 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend',
+            'groups' => array('system')
+        );
+
+        \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->initializeCachingFramework();
+
         $footnote1 = $this->getMock(
             'Tx_HappyFeet_Domain_Model_Footnote',
             array('getHeader', 'getDescription', 'getIndexNumber')
