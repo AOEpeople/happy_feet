@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,7 +32,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Service
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-abstract class Tx_HappyFeet_Service_Abstract
+abstract class AbstractService
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager

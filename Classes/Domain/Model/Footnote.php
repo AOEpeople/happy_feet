@@ -1,4 +1,5 @@
 <?php
+namespace AOE\Happyfeet\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -24,13 +25,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * @package HappyFeet
  * @subpackage Domain_Model
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Model_Footnote extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Footnote extends AbstractEntity
 {
 
     /**

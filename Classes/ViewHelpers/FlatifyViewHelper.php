@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,12 +25,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_ViewHelpers_FlatifyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FlatifyViewHelper extends AbstractViewHelper
 {
     /**
      * @param string|null $str

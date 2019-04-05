@@ -18,11 +18,14 @@ namespace Aoe\HappyFeet\Typo3\Service\v62;
  * The TYPO3 project - inspiring people to share!
  */
 
+use AOE\Happyfeet\Service\AbstractService;
+use AOE\Happyfeet\Service\Rendering;
+
 /**
  * @package HappyFeet
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class LinkHandler extends \Tx_HappyFeet_Service_Abstract
+class LinkHandler extends AbstractService
 {
     /**
      * @var string
@@ -50,12 +53,12 @@ class LinkHandler extends \Tx_HappyFeet_Service_Abstract
     }
 
     /**
-     * @return \Tx_HappyFeet_Service_Rendering
+     * @return Rendering
      */
     protected function getRenderingService()
     {
-        /** @var \Tx_HappyFeet_Service_Rendering $renderingService */
-        $renderingService = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
+        /** @var Rendering $renderingService */
+        $renderingService = $this->getObjectManager()->get(Rendering::class);
         return $renderingService;
     }
 

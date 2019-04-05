@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,6 +25,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use UnexpectedValueException;
+
 /**
  * Render Footnotes for FCE
  *
@@ -30,15 +35,15 @@
  * @subpackage Service
  * @author Bilal Arslan <bilal.arslan@aoe.com>
  */
-class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstract
+class FCEFootnoteService extends AbstractService
 {
     /**
-     * @var Tx_HappyFeet_Service_Rendering
+     * @var Rendering
      */
     private $footnoteRenderer;
 
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     public $cObj;
 
@@ -54,7 +59,7 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
         if (false === array_key_exists('userFunc', $conf) || false === array_key_exists('field', $conf)) {
             return '';
         }
-        if (array_key_exists('isGridElement', $conf) && (boolean) $conf['isGridElement'] === true) {
+        if (array_key_exists('isGridElement', $conf) && (boolean)$conf['isGridElement'] === true) {
             $footnoteUids = $this->getCObj()->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
         } else {
             $footnoteUids = $this->getCObj()->getCurrentVal();
@@ -66,40 +71,40 @@ class Tx_HappyFeet_Service_FCEFootnoteService extends Tx_HappyFeet_Service_Abstr
     }
 
     /**
-     * @param Tx_HappyFeet_Service_Rendering $footnoteRenderer
+     * @param Rendering $footnoteRenderer
      */
-    public function injectRenderingService(Tx_HappyFeet_Service_Rendering $footnoteRenderer)
+    public function injectRenderingService(Rendering $footnoteRenderer)
     {
         $this->footnoteRenderer = $footnoteRenderer;
     }
 
     /**
-     * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @return ContentObjectRenderer
      * @throws UnexpectedValueException
      */
     protected function getCObj()
     {
-        if (!$this->cObj instanceof \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer) {
+        if (!$this->cObj instanceof ContentObjectRenderer) {
             throw new UnexpectedValueException('cObj was not set', 1393843943);
         }
         return $this->cObj;
     }
 
     /**
-     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj
+     * @param ContentObjectRenderer $cObj
      */
-    public function setCObj(TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj)
+    public function setCObj(ContentObjectRenderer $cObj)
     {
         $this->cObj = $cObj;
     }
 
     /**
-     * @return Tx_HappyFeet_Service_Rendering
+     * @return Rendering
      */
     protected function getRenderingService()
     {
         if (null === $this->footnoteRenderer) {
-            $this->footnoteRenderer = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
+            $this->footnoteRenderer = $this->getObjectManager()->get(Rendering::class);
         }
         return $this->footnoteRenderer;
     }

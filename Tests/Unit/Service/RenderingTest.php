@@ -1,4 +1,5 @@
 <?php
+namespace AOE\Happyfeet\Tests\Unit\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -24,15 +25,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Domain\Model\Footnote;
+use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
+use AOE\Happyfeet\Service\Rendering;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use ReflectionClass;
+use TYPO3\CMS\Core\Core\Bootstrap;
+
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class RenderingTest extends UnitTestCase
 {
     /**
-     * @var Tx_HappyFeet_Service_Rendering
+     * @var Rendering
      */
     private $renderingService;
 
@@ -52,11 +60,11 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             'groups' => array('system')
         );
 
-        \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->initializeCachingFramework();
+        Bootstrap::getInstance()->initializeCachingFramework();
 
         $footnote1 = $this->getMock(
-            'Tx_HappyFeet_Domain_Model_Footnote',
-            array('getHeader', 'getDescription', 'getIndexNumber')
+            Footnote::class,
+            ['getHeader', 'getDescription', 'getIndexNumber']
         );
         $footnote1->_setProperty('uid', 4711);
         $footnote1->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4711'));
@@ -65,8 +73,8 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             $this->returnValue('DESCRIPTION@4711')
         );
         $footnote2 = $this->getMock(
-            'Tx_HappyFeet_Domain_Model_Footnote',
-            array('getHeader', 'getDescription', 'getIndexNumber')
+            Footnote::class,
+            ['getHeader', 'getDescription', 'getIndexNumber']
         );
         $footnote2->_setProperty('uid', 4712);
         $footnote2->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4712'));
@@ -76,9 +84,9 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
         );
 
         $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getFootnotesByUids'),
-            array(),
+            FootnoteRepository::class,
+            ['getFootnotesByUids'],
+            [],
             '',
             false
         );
@@ -86,7 +94,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             $this->returnValue(array($footnote1, $footnote2))
         );
 
-        $this->renderingService = $this->getMock('Tx_HappyFeet_Service_Rendering', array('getFootnoteRepository'));
+        $this->renderingService = $this->getMock(Rendering::class, ['getFootnoteRepository']);
         $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );
@@ -107,9 +115,9 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
         $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getFootnotesByUids'),
-            array(),
+            FootnoteRepository::class,
+            ['getFootnotesByUids'],
+            [],
             '',
             false
         );
@@ -117,7 +125,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             $this->returnValue(array())
         );
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -129,32 +137,31 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
      */
     public function footnoteIdIsPresent()
     {
-        $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getFootnotesByUids'),
-            array(),
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
-            $this->returnValue(array(
-                array(
+        $footnoteRepository = $this->getMockBuilder(
+            FootnoteRepository::class)
+            ->setMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+            [
+                [
                     'indexNumber' => 4711,
                     'header' => '',
                     'description' => ''
-                ),
-                array(
+                ],
+                [
                     'indexNumber' => 4712,
                     'header' => '',
                     'description' => ''
-                )
-            ))
+                ]
+            ]
         );
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
-        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertRegExp('~[^@]4711~', $content);
         $this->assertRegExp('~[^@]4712~', $content);
     }
@@ -165,7 +172,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
     public function footnoteHeaderIsPresent()
     {
         $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            FootnoteRepository::class,
             array('getFootnotesByUids'),
             array(),
             '',
@@ -186,7 +193,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             ))
         );
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -200,7 +207,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
     public function footnoteDescriptionIsPresent()
     {
         $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
+            FootnoteRepository::class,
             array('getFootnotesByUids'),
             array(),
             '',
@@ -221,7 +228,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
             ))
         );
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -234,7 +241,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
      */
     public function shouldNotRenderRichText()
     {
-        $renderingService = new Tx_HappyFeet_Service_Rendering();
+        $renderingService = new Rendering();
         $this->assertEquals('', $renderingService->renderRichText(''));
     }
 
@@ -243,7 +250,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
      */
     public function shouldRenderRichText()
     {
-        $renderingService = new Tx_HappyFeet_Service_Rendering();
+        $renderingService = new Rendering();
         $this->assertContains('test', $renderingService->renderRichText('test'));
     }
 
@@ -258,7 +265,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);
@@ -274,7 +281,7 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
 
-        $this->renderingService = new Tx_HappyFeet_Service_Rendering();
+        $this->renderingService = new Rendering();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);
@@ -283,10 +290,11 @@ class Tx_HappyFeet_Tests_Unit_Service_RenderingTest extends \Nimut\TestingFramew
     /**
      * @param $method string
      * @return string
+     * @throws \ReflectionException
      */
     private function reflectMethodInRenderingService($method)
     {
-        $reflector = new ReflectionClass('Tx_HappyFeet_Service_Rendering');
+        $reflector = new ReflectionClass(Rendering::class);
         $method = $reflector->getMethod($method);
         $method->setAccessible(true);
         return $method->invokeArgs($this->renderingService, array());

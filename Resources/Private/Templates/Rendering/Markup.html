@@ -1,4 +1,4 @@
-{namespace hf=Tx_HappyFeet_ViewHelpers}
+{namespace hf=AOE\Happyfeet\ViewHelpers}
 <hf:flatify>
     <sup class="footnote" data-footnote="">
         <a href="javascript:void(0)" class="footnote__link">
@@ -12,7 +12,8 @@
         <span class="footnote__content">
             <f:for each="{footnotes}" as="footnote">
                 <span class="footnote__content-index">{footnote.indexNumber}</span>
-                <span class="footnote__content-headline" data-footnote-index="{footnote.indexNumber}">{footnote.header}</span>
+                <span class="footnote__content-headline"
+                      data-footnote-index="{footnote.indexNumber}">{footnote.header}</span>
                 <span class="footnote__content-text">
                     <hf:html parseFuncTSPath="lib.parseFunc_HappyFeed">{footnote.description}</hf:html>
                 </span>

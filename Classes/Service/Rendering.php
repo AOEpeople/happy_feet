@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,7 +25,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -32,10 +34,10 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
+class Rendering extends AbstractService
 {
     /**
-     * @var Tx_HappyFeet_Domain_Repository_FootnoteRepository
+     * @var FootnoteRepository
      */
     private $footnoteRepository;
 
@@ -73,7 +75,7 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
      */
     public function renderRichText($richText)
     {
-        if (strlen($richText) < 1) {
+        if ($richText === '') {
             return '';
         }
 
@@ -85,13 +87,13 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     }
 
     /**
-     * @return Tx_HappyFeet_Domain_Repository_FootnoteRepository
+     * @return FootnoteRepository
      */
     protected function getFootnoteRepository()
     {
         if (null === $this->footnoteRepository) {
             $this->footnoteRepository = $this->getObjectManager()->get(
-                'Tx_HappyFeet_Domain_Repository_FootnoteRepository'
+                FootnoteRepository::class
             );
         }
         return $this->footnoteRepository;
@@ -141,9 +143,9 @@ class Tx_HappyFeet_Service_Rendering extends Tx_HappyFeet_Service_Abstract
     }
 
     /**
-     * @param Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository
+     * @param FootnoteRepository $footnoteRepository
      */
-    public function setFootnoteRepository(Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository)
+    public function setFootnoteRepository(FootnoteRepository $footnoteRepository)
     {
         $this->footnoteRepository = $footnoteRepository;
     }

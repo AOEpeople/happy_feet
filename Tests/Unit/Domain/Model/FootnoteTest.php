@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,17 +25,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Domain\Model\Footnote;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * @package HappyFeet
  * @subpackage Domain_Model_Test
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_Domain_Model_FootnoteTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class FootnoteTest extends UnitTestCase
 {
 
     /**
-     * @var Tx_HappyFeet_Domain_Model_Footnote
+     * @var Footnote
      */
     private $footnote;
 
@@ -42,7 +47,7 @@ class Tx_HappyFeet_Tests_Unit_Domain_Model_FootnoteTest extends \Nimut\TestingFr
      */
     public function setUp()
     {
-        $this->footnote = new Tx_HappyFeet_Domain_Model_Footnote();
+        $this->footnote = new Footnote();
     }
 
     /**

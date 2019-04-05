@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Tests\Unit\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,16 +25,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Service\FCEFootnoteService;
+use AOE\Happyfeet\Service\Rendering;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use UnexpectedValueException;
+
+
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class FCEFootnoteServiceTest extends UnitTestCase
 {
     /**
-     * @var Tx_HappyFeet_Service_FCEFootnoteService
+     * @var FCEFootnoteService
      */
     private $service;
 
@@ -41,7 +49,7 @@ class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends \Nimut\Test
      */
     public function setUp()
     {
-        $this->service = $this->getMock('Tx_HappyFeet_Service_FCEFootnoteService', array('getCObj'));
+        $this->service = $this->getMock(FCEFootnoteService::class, ['getCObj']);
     }
 
     /**
@@ -57,11 +65,11 @@ class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends \Nimut\Test
     /**
      * @test
      * @expectedException UnexpectedValueException
-     * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList
+     * @method FCEFootnoteService:renderItemList
      */
     public function shouldThrowExceptionIfCObjNotExists()
     {
-        $service = new Tx_HappyFeet_Service_FCEFootnoteService();
+        $service = new FCEFootnoteService();
         $service->renderItemList('', array('userFunc' => '', 'field' => ''));
     }
 
@@ -83,8 +91,8 @@ class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends \Nimut\Test
      */
     public function shouldRenderItemList()
     {
-        $renderer = $this->getMock('Tx_HappyFeet_Service_Rendering', array('renderFootnotes'));
-        $service = $this->getMock('Tx_HappyFeet_Service_FCEFootnoteService', array('getCObj', 'getRenderingService'));
+        $renderer = $this->getMock(Rendering::class, ['renderFootnotes']);
+        $service = $this->getMock(FCEFootnoteService::class, ['getCObj', 'getRenderingService']);
         $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
         $renderer->expects($this->any())->method('renderFootnotes')
             ->with(array(1, 2))
@@ -103,17 +111,17 @@ class Tx_HappyFeet_Tests_Unit_Service_FCEFootnoteServiceTest extends \Nimut\Test
      */
     public function shouldRenderItemLists()
     {
-        $renderer = $this->getMock('Tx_HappyFeet_Service_Rendering', array('renderFootnotes'));
-        $renderer->expects($this->any())->method('renderFootnotes')
-            ->with(array(1, 2))
-            ->will(
-                $this->returnValue('contentString')
+        $renderer = $this->getMock(Rendering::class, ['renderFootnotes']);
+        $renderer->method('renderFootnotes')
+            ->with([1, 2])
+            ->willReturn(
+                'contentString'
             );
 
         $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
-        $cObj->expects($this->once())->method('getCurrentVal')->will($this->returnValue('1,2'));
+        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
 
-        $service = new Tx_HappyFeet_Service_FCEFootnoteService();
+        $service = new FCEFootnoteService();
         $service->injectRenderingService($renderer);
         $service->setCObj($cObj);
 

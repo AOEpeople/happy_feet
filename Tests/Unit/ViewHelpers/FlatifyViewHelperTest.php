@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Tests\Unit\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,15 +25,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\ViewHelpers\FlatifyViewHelper;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_ViewHelpers_FlatifyViewHelperTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class FlatifyViewHelperTest extends UnitTestCase
 {
     /**
-     * @var Tx_HappyFeet_ViewHelpers_FlatifyViewHelper
+     * @var FlatifyViewHelper
      */
     private $viewHelper;
 
@@ -40,7 +45,7 @@ class Tx_HappyFeet_Tests_Unit_ViewHelpers_FlatifyViewHelperTest extends \Nimut\T
      */
     public function setUp()
     {
-        $this->viewHelper = new Tx_HappyFeet_ViewHelpers_FlatifyViewHelper();
+        $this->viewHelper = new FlatifyViewHelper();
     }
 
     /**

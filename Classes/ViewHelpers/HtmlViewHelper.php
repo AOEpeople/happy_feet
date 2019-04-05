@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,8 +26,6 @@
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -36,7 +36,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * @package HappyFeet
  * @subpackage Service_Test
  */
-class Tx_HappyFeet_ViewHelpers_HtmlViewHelper extends HtmlViewHelper
+class HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper
 {
     /**
      * @param string $parseFuncTSPath path to TypoScript parseFunc setup.

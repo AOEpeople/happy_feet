@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Tests\Functional\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,6 +25,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -31,10 +35,10 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest extends \Nimut\TestingFramework\TestCase\FunctionalTestCase
+class FootnoteRepositoryTest extends FunctionalTestCase
 {
     /**
-     * @var Tx_HappyFeet_Domain_Repository_FootnoteRepository
+     * @var FootnoteRepository
      */
     private $repository;
 
@@ -60,7 +64,7 @@ class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest ext
     {
         parent::setUp();
         $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
+        $this->repository = $objectManager->get(FootnoteRepository::class);
         $this->repository->initializeObject();
     }
 
@@ -155,7 +159,7 @@ class Tx_HappyFeet_Tests_Functional_Domain_Repository_FootnoteRepositoryTest ext
      */
     public function shouldAddObject()
     {
-        $footnote = new Tx_HappyFeet_Domain_Model_Footnote();
+        $footnote = new Footnote();
         $this->repository->add($footnote);
     }
 }

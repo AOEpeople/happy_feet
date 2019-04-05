@@ -1,4 +1,6 @@
 <?php
+namespace AOE\Happyfeet\Tests\Unit\Typo3\Hooks;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -28,10 +30,16 @@
  *
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+
+use AOE\Happyfeet\Domain\Model\Footnote;
+use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
+use Aoe\HappyFeet\Typo3\Hook\Tcemain;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class TcemainTest extends UnitTestCase
 {
     /**
-     * @var Tx_HappyFeet_Typo3_Hooks_Tcemain
+     * @var Tcemain
      */
     private $tcemainHook;
 
@@ -41,9 +49,9 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends \Nimut\TestingFram
     public function setUp()
     {
         $footnoteRepository = $this->getMock(
-            'Tx_HappyFeet_Domain_Repository_FootnoteRepository',
-            array('getLowestFreeIndexNumber'),
-            array(),
+            FootnoteRepository::class,
+            ['getLowestFreeIndexNumber'],
+            [],
             '',
             false
         );
@@ -59,7 +67,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends \Nimut\TestingFram
      */
     public function postProcessFieldArrayWithNewFootnote()
     {
-        $fieldArray = array();
+        $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
             'tx_happyfeet_domain_model_footnote',
@@ -79,7 +87,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends \Nimut\TestingFram
         $fieldArray = array();
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'foo',
-            'tx_happyfeet_domain_model_footnote',
+            Footnote::class,
             null,
             $fieldArray,
             $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
@@ -111,7 +119,7 @@ class Tx_HappyFeet_Tests_Unit_Typo3_Hooks_TcemainTest extends \Nimut\TestingFram
         $fieldArray = array();
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'delete',
-            'tx_happyfeet_domain_model_footnote',
+            Footnote::class,
             null,
             $fieldArray,
             $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')

@@ -36,7 +36,10 @@
     "autoload": {
         "classmap": [
             "Classes/"
-        ]
+        ],
+        "psr-4": {
+            "AOE\\Happyfeet\\": "Classes/"
+        }
     },
     "keywords": [
         "typo3",

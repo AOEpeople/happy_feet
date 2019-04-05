@@ -18,6 +18,8 @@ namespace Aoe\HappyFeet\Typo3\Hook;
  * The TYPO3 project - inspiring people to share!
  */
 
+use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
+use AOE\Happyfeet\Service\AbstractService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
@@ -25,7 +27,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  *
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tcemain extends \Tx_HappyFeet_Service_Abstract
+class Tcemain extends AbstractService
 {
     /**
      * @param string $status Operation type e.g new, update, delete.
@@ -51,12 +53,12 @@ class Tcemain extends \Tx_HappyFeet_Service_Abstract
     }
 
     /**
-     * @return \Tx_HappyFeet_Domain_Repository_FootnoteRepository
+     * @return FootnoteRepository
      */
     protected function getFootnoteRepository()
     {
-        /** @var \Tx_HappyFeet_Domain_Repository_FootnoteRepository $footnoteRepository */
-        $footnoteRepository = $this->getObjectManager()->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
+        /** @var FootnoteRepository $footnoteRepository */
+        $footnoteRepository = $this->getObjectManager()->get(FootnoteRepository::class);
         return $footnoteRepository;
     }
 }

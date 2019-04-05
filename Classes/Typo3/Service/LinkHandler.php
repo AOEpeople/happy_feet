@@ -18,6 +18,8 @@ namespace Aoe\HappyFeet\Typo3\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use AOE\Happyfeet\Service\AbstractService;
+use AOE\Happyfeet\Service\Rendering;
 use Cobweb\Linkhandler\ProcessLinkParametersInterface;
 
 /**
@@ -26,7 +28,7 @@ use Cobweb\Linkhandler\ProcessLinkParametersInterface;
  * @package HappyFeet
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class LinkHandler extends \Tx_HappyFeet_Service_Abstract implements ProcessLinkParametersInterface
+class LinkHandler extends AbstractService implements ProcessLinkParametersInterface
 {
     /**
      * @param \Cobweb\Linkhandler\TypolinkHandler $linkHandler
@@ -43,11 +45,11 @@ class LinkHandler extends \Tx_HappyFeet_Service_Abstract implements ProcessLinkP
     }
 
     /**
-     * @return \Tx_HappyFeet_Service_Rendering
+     * @return Rendering
      */
     protected function getRenderingService()
     {
-        /** @var \Tx_HappyFeet_Service_Rendering $renderingService */
+        /** @var Rendering $renderingService */
         $renderingService = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
         return $renderingService;
     }

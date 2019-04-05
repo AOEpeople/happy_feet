@@ -1,4 +1,5 @@
 <?php
+namespace AOE\Happyfeet\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -24,14 +25,17 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Domain\Model\Footnote;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
- * Repository for Tx_HappyFeet_Domain_Model_Footnote objects.
+ * Repository for Footnote objects.
  *
  * @package HappyFeet
  * @subpackage Domain_Repository
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class FootnoteRepository extends Repository
 {
     /**
      * @var array
@@ -78,14 +82,14 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends \TYPO3\CMS\Extba
     }
 
     /**
-     * @param Tx_HappyFeet_Domain_Model_Footnote $object
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @param Footnote $object
      * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public function add($object)
     {
-        /** @var Tx_HappyFeet_Domain_Model_Footnote $object */
-        if (false === ($object instanceof Tx_HappyFeet_Domain_Model_Footnote)) {
+        /** @var Footnote $object */
+        if (false === ($object instanceof Footnote)) {
             throw new \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
@@ -123,14 +127,15 @@ class Tx_HappyFeet_Domain_Repository_FootnoteRepository extends \TYPO3\CMS\Extba
     }
 
     /**
-     * @param Tx_HappyFeet_Domain_Model_Footnote $a
-     * @param Tx_HappyFeet_Domain_Model_Footnote $b
+     * @param Footnote $a
+     * @param Footnote $b
      * @return integer
      */
     public static function usortFootnotesByUids(
-        Tx_HappyFeet_Domain_Model_Footnote $a,
-        Tx_HappyFeet_Domain_Model_Footnote $b
-    ) {
+        Footnote $a,
+        Footnote $b
+    )
+    {
         $map = array_flip(self::$uids);
         if ($map[$a->getUid()] >= $map[$b->getUid()]) {
             return 1;
