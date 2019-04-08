@@ -66,7 +66,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         parent::setUp();
         $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $this->repository = $objectManager->get('Tx_HappyFeet_Domain_Repository_FootnoteRepository');
+        $this->repository = $objectManager->get(FootnoteRepository::class);
         $this->repository->initializeObject();
     }
 
