@@ -25,8 +25,10 @@ namespace AOE\Happyfeet\Tests\Functional\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\Happyfeet\Domain\Model\Footnote;
 use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use stdClass;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
