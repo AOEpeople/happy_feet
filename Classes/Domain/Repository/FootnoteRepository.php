@@ -43,6 +43,11 @@ class FootnoteRepository extends Repository
     public static $uids;
 
     /**
+     * @var string
+     */
+    protected $tableName = 'tx_happyfeet_domain_model_footnote';
+
+    /**
      * @return void
      */
     public function initializeObject()
@@ -63,7 +68,7 @@ class FootnoteRepository extends Repository
     public function getLowestFreeIndexNumber()
     {
         $query = $this->createQuery();
-        $query->statement('SELECT index_number from ' . strtolower($this->objectType) . ' WHERE deleted=0');
+        $query->statement('SELECT index_number from ' . $this->tableName . ' WHERE deleted=0');
         $index = 1;
         $results = $query->execute(true);
         if (false === is_array($results) || sizeof($results) < 1) {
