@@ -34,7 +34,7 @@ namespace AOE\Happyfeet\Tests\Unit\Typo3\Hooks;
 use AOE\Happyfeet\Domain\Model\Footnote;
 use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
 use Aoe\HappyFeet\Typo3\Hook\Tcemain;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TcemainTest extends UnitTestCase
 {

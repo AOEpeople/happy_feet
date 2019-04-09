@@ -26,7 +26,7 @@ namespace AOE\Happyfeet\Tests\Unit\ViewHelpers;
  ***************************************************************/
 
 use AOE\Happyfeet\ViewHelpers\FlatifyViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @package HappyFeet
