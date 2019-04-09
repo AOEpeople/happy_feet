@@ -27,7 +27,7 @@ $extKey = 'happy_feet';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
     TCEMAIN.linkHandler {
       happyfeet {
-        handler = Cobweb\Linkhandler\RecordLinkHandler
+        handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
         label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote
         configuration.table = tx_happyfeet_domain_model_footnote
         scanBefore = page
