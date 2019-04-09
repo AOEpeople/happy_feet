@@ -59,7 +59,8 @@ return array(
         ),
         'l18n_diffsource'  => array(
             'config' => array(
-                'type' => 'passthrough'
+                'type' => 'passthrough',
+                'default' => '0'
             )
         ),
         'hidden'           => array(
