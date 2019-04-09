@@ -21,9 +21,8 @@
     },
     "require": {
         "php": "^7.0",
-        "typo3/cms-core": ">=7.6.0,<8.7.99",
-        "typo3/cms-extbase": "*",
-        "cobweb/linkhandler": "dev-TYPO3V8"
+        "typo3/cms-core": "^8.7 || ^9.5",
+        "typo3/cms-extbase": "*"
     },
     "require-dev": {
         "typo3/cms": "^7.6",
