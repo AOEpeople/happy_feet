@@ -19,7 +19,7 @@ namespace Aoe\HappyFeet\Typo3\Service\v62;
  */
 
 use AOE\Happyfeet\Service\AbstractService;
-use AOE\Happyfeet\Service\Rendering;
+use AOE\Happyfeet\Service\RenderingService;
 
 /**
  * @package HappyFeet
@@ -53,12 +53,12 @@ class LinkHandler extends AbstractService
     }
 
     /**
-     * @return Rendering
+     * @return RenderingService
      */
     protected function getRenderingService()
     {
-        /** @var Rendering $renderingService */
-        $renderingService = $this->getObjectManager()->get(Rendering::class);
+        /** @var RenderingService $renderingService */
+        $renderingService = $this->getObjectManager()->get(RenderingService::class);
         return $renderingService;
     }
 

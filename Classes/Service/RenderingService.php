@@ -34,7 +34,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class Rendering extends AbstractService
+class RenderingService extends AbstractService
 {
     /**
      * @var FootnoteRepository

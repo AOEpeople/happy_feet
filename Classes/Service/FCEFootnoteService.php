@@ -38,7 +38,7 @@ use UnexpectedValueException;
 class FCEFootnoteService extends AbstractService
 {
     /**
-     * @var Rendering
+     * @var RenderingService
      */
     private $footnoteRenderer;
 
@@ -71,9 +71,9 @@ class FCEFootnoteService extends AbstractService
     }
 
     /**
-     * @param Rendering $footnoteRenderer
+     * @param RenderingService $footnoteRenderer
      */
-    public function injectRenderingService(Rendering $footnoteRenderer)
+    public function injectRenderingService(RenderingService $footnoteRenderer)
     {
         $this->footnoteRenderer = $footnoteRenderer;
     }
@@ -99,12 +99,12 @@ class FCEFootnoteService extends AbstractService
     }
 
     /**
-     * @return Rendering
+     * @return RenderingService
      */
     protected function getRenderingService()
     {
         if (null === $this->footnoteRenderer) {
-            $this->footnoteRenderer = $this->getObjectManager()->get(Rendering::class);
+            $this->footnoteRenderer = $this->getObjectManager()->get(RenderingService::class);
         }
         return $this->footnoteRenderer;
     }

@@ -19,7 +19,7 @@ namespace Aoe\HappyFeet\Typo3\Service;
  */
 
 use AOE\Happyfeet\Service\AbstractService;
-use AOE\Happyfeet\Service\Rendering;
+use AOE\Happyfeet\Service\RenderingService;
 use Cobweb\Linkhandler\ProcessLinkParametersInterface;
 
 /**
@@ -45,12 +45,12 @@ class LinkHandler extends AbstractService implements ProcessLinkParametersInterf
     }
 
     /**
-     * @return Rendering
+     * @return RenderingService
      */
     protected function getRenderingService()
     {
-        /** @var Rendering $renderingService */
-        $renderingService = $this->getObjectManager()->get('Tx_HappyFeet_Service_Rendering');
+        /** @var RenderingService $renderingService */
+        $renderingService = $this->getObjectManager()->get(RenderingService::class);
         return $renderingService;
     }
 }

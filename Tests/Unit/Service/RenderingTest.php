@@ -27,7 +27,7 @@ namespace AOE\Happyfeet\Tests\Unit\Service;
 
 use AOE\Happyfeet\Domain\Model\Footnote;
 use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
-use AOE\Happyfeet\Service\Rendering;
+use AOE\Happyfeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use ReflectionClass;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -40,7 +40,7 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 class RenderingTest extends UnitTestCase
 {
     /**
-     * @var Rendering
+     * @var RenderingService
      */
     private $renderingService;
 
@@ -94,7 +94,7 @@ class RenderingTest extends UnitTestCase
             $this->returnValue(array($footnote1, $footnote2))
         );
 
-        $this->renderingService = $this->getMock(Rendering::class, ['getFootnoteRepository']);
+        $this->renderingService = $this->getMock(RenderingService::class, ['getFootnoteRepository']);
         $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );
@@ -125,7 +125,7 @@ class RenderingTest extends UnitTestCase
             $this->returnValue(array())
         );
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -158,7 +158,7 @@ class RenderingTest extends UnitTestCase
             ]
         );
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
@@ -193,7 +193,7 @@ class RenderingTest extends UnitTestCase
             ))
         );
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -228,7 +228,7 @@ class RenderingTest extends UnitTestCase
             ))
         );
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -241,7 +241,7 @@ class RenderingTest extends UnitTestCase
      */
     public function shouldNotRenderRichText()
     {
-        $renderingService = new Rendering();
+        $renderingService = new RenderingService();
         $this->assertEquals('', $renderingService->renderRichText(''));
     }
 
@@ -250,7 +250,7 @@ class RenderingTest extends UnitTestCase
      */
     public function shouldRenderRichText()
     {
-        $renderingService = new Rendering();
+        $renderingService = new RenderingService();
         $this->assertContains('test', $renderingService->renderRichText('test'));
     }
 
@@ -265,7 +265,7 @@ class RenderingTest extends UnitTestCase
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);
@@ -281,7 +281,7 @@ class RenderingTest extends UnitTestCase
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
 
-        $this->renderingService = new Rendering();
+        $this->renderingService = new RenderingService();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);
@@ -294,7 +294,7 @@ class RenderingTest extends UnitTestCase
      */
     private function reflectMethodInRenderingService($method)
     {
-        $reflector = new ReflectionClass(Rendering::class);
+        $reflector = new ReflectionClass(RenderingService::class);
         $method = $reflector->getMethod($method);
         $method->setAccessible(true);
         return $method->invokeArgs($this->renderingService, array());

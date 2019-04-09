@@ -26,7 +26,7 @@ namespace AOE\Happyfeet\Tests\Unit\Service;
  ***************************************************************/
 
 use AOE\Happyfeet\Service\FCEFootnoteService;
-use AOE\Happyfeet\Service\Rendering;
+use AOE\Happyfeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use UnexpectedValueException;
 
@@ -91,7 +91,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemList()
     {
-        $renderer = $this->getMock(Rendering::class, ['renderFootnotes']);
+        $renderer = $this->getMock(RenderingService::class, ['renderFootnotes']);
         $service = $this->getMock(FCEFootnoteService::class, ['getCObj', 'getRenderingService']);
         $cObj = $this->getMock('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer', array('getCurrentVal'), array(), '', false);
         $renderer->expects($this->any())->method('renderFootnotes')
@@ -111,7 +111,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemLists()
     {
-        $renderer = $this->getMock(Rendering::class, ['renderFootnotes']);
+        $renderer = $this->getMock(RenderingService::class, ['renderFootnotes']);
         $renderer->method('renderFootnotes')
             ->with([1, 2])
             ->willReturn(
