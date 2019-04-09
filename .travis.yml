@@ -4,23 +4,16 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
 env:
-  - TYPO3_VERSION=^7.6 COVERAGE=0 FUNCTIONAL=0
-  - TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL=0
-  - TYPO3_VERSION=dev-master COVERAGE=0 FUNCTIONAL=0
+  - TESTING_VERSION=8.x-dev COVERAGE=0 FUNCTIONAL=0
+  - TESTING_VERSION=9.x-dev COVERAGE=0 FUNCTIONAL=0
 
 matrix:
   include:
-    - env: TYPO3_VERSION=^7.6 COVERAGE=1 FUNCTIONAL=1
-      php: 7.0
-    - env: TYPO3_VERSION=^8.7 COVERAGE=1 FUNCTIONAL=1
-      php: 7.0
-  allow_failures:
-    - env: TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL=0
-    - env: TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL=1
-    - env: TYPO3_VERSION=dev-master COVERAGE=0 FUNCTIONAL=0
-    - php: 7.2
+    - TESTING_VERSION=9.x-dev COVERAGE=1 FUNCTIONAL=1
+      php: 7.2
 
 sudo: false
 
@@ -39,16 +32,14 @@ before_install:
 
 before_script:
   # Installs TYPO3
-  - composer require typo3/cms=$TYPO3_VERSION
+  - composer require typo3/testing-framework=$TESTING_VERSION
   # Restore composer.json
   - git checkout composer.json
-  - export "TYPO3_PATH_WEB"=$PWD/.Build/Web;
+  - export "TYPO3_PATH_ROOT"=$PWD/.Build/Web;
   # Locating UnitTests.xml
-  - export "UNIT_XML"='.Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml'
+  - export "UNIT_XML"='.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml'
   # Location FunctionalTests.xml
-  - export "FUNCTIONAL_XML"='.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml'
-  # Symlink TYPO3-Core
-  - ln -nfs .Build/vendor/typo3/cms/typo3 typo3
+  - export "FUNCTIONAL_XML"='.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml'
 
 script:
   - >
