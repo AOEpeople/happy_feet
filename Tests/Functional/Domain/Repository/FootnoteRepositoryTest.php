@@ -137,7 +137,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     public function shouldSortFootnotesByGivenOrderOfUids()
     {
         $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
-        $footnotes = $this->repository->getFootnotesByUids(array(4, 1, 5, 3, 2));
+        $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
         $this->assertCount(5, $footnotes);
         $this->assertEquals(4, $footnotes[0]->getUid());
         $this->assertEquals(1, $footnotes[1]->getUid());

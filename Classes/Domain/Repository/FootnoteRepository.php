@@ -127,7 +127,7 @@ class FootnoteRepository extends Repository
         if ($queryResult instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
             $queryResult = $queryResult->toArray();
         }
-        usort($queryResult, 'Tx_HappyFeet_Domain_Repository_FootnoteRepository::usortFootnotesByUids');
+        usort($queryResult, [$this, 'usortFootnotesByUids']);
         return $queryResult;
     }
 
