@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Unit\Typo3\Hooks;
+namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /***************************************************************
  *  Copyright notice
@@ -31,9 +31,9 @@ namespace AOE\Happyfeet\Tests\Unit\Typo3\Hooks;
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 
-use AOE\Happyfeet\Domain\Model\Footnote;
-use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
-use Aoe\HappyFeet\Typo3\Hook\Tcemain;
+use AOE\HappyFeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use AOE\HappyFeet\Typo3\Hook\Tcemain;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TcemainTest extends UnitTestCase
@@ -56,7 +56,7 @@ class TcemainTest extends UnitTestCase
             false
         );
         $footnoteRepository->expects($this->any())->method('getLowestFreeIndexNumber')->will($this->returnValue(1));
-        $this->tcemainHook = $this->getMock('Aoe\HappyFeet\Typo3\Hook\Tcemain', array('getFootnoteRepository'));
+        $this->tcemainHook = $this->getMock('AOE\HappyFeet\Typo3\Hook\Tcemain', array('getFootnoteRepository'));
         $this->tcemainHook->expects($this->any())->method('getFootnoteRepository')->will(
             $this->returnValue($footnoteRepository)
         );

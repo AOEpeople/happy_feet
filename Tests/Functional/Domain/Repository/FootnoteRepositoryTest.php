@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Functional\Domain\Repository;
+namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,8 +25,8 @@ namespace AOE\Happyfeet\Tests\Functional\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\Domain\Model\Footnote;
-use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
+use AOE\HappyFeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use stdClass;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;

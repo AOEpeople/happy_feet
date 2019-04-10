@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Unit\Service;
+namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -25,9 +25,9 @@ namespace AOE\Happyfeet\Tests\Unit\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\Domain\Model\Footnote;
-use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
-use AOE\Happyfeet\Service\RenderingService;
+use AOE\HappyFeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use AOE\HappyFeet\Service\RenderingService;
 use ReflectionClass;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;

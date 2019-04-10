@@ -1,5 +1,5 @@
 <?php
-namespace Aoe\HappyFeet\Typo3\Service;
+namespace AOE\HappyFeet\Typo3\Service;
 
 /*
  * Copyright notice
@@ -18,9 +18,8 @@ namespace Aoe\HappyFeet\Typo3\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
-use AOE\Happyfeet\Service\AbstractService;
-use AOE\Happyfeet\Service\RenderingService;
-use Cobweb\Linkhandler\ProcessLinkParametersInterface;
+use AOE\HappyFeet\Service\AbstractService;
+use AOE\HappyFeet\Service\RenderingService;
 
 /**
  * Linkhandler hook to manipulate link data before it is processed by core typolink method.
@@ -28,11 +27,9 @@ use Cobweb\Linkhandler\ProcessLinkParametersInterface;
  * @package HappyFeet
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class LinkHandler extends AbstractService implements ProcessLinkParametersInterface
+class LinkHandler extends AbstractService
 {
-    /**
-     * @param \Cobweb\Linkhandler\TypolinkHandler $linkHandler
-     */
+
     public function process($linkHandler)
     {
         if ('tx_happyfeet_domain_model_footnote' === $linkHandler->getTable()) {

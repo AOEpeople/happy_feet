@@ -24,3 +24,9 @@ plugin.tx_linkhandler {
         forceLink = 0
     }
 }
+
+config.recordLinks {
+    happyfeet {
+        forceLink = 0
+    }
+}

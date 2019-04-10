@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Service;
+namespace AOE\HappyFeet\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -26,6 +26,7 @@ namespace AOE\Happyfeet\Service;
  ***************************************************************/
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * @package HappyFeet
@@ -35,17 +36,17 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
 abstract class AbstractService
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     private $objectManager;
 
     /**
-     * @return \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @return ObjectManager
      */
     protected function getObjectManager()
     {
         if (null === $this->objectManager) {
-            $this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         }
         return $this->objectManager;
     }

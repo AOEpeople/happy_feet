@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Unit\Domain\Model;
+namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ namespace AOE\Happyfeet\Tests\Unit\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Model\Footnote;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**

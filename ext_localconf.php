@@ -50,7 +50,7 @@ $extKey = 'happy_feet';
     }
 ');
 
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkhandler']['generateLink']['happy_feet'] = 'Aoe\HappyFeet\Typo3\Service\LinkHandler';
-
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['happy_feet'] =
-    'Aoe\HappyFeet\Typo3\Hook\Tcemain';
+    'AOE\HappyFeet\Typo3\Hook\Tcemain';
+
+$GLOBALS['TYPO3_CONF_VARS']['FE']['typolinkBuilder']['happyfeet'] = 'AOE\HappyFeet\Typo3\Hook\LinkRenderer';

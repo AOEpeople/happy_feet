@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Unit\Service;
+namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -25,8 +25,8 @@ namespace AOE\Happyfeet\Tests\Unit\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\Service\FCEFootnoteService;
-use AOE\Happyfeet\Service\RenderingService;
+use AOE\HappyFeet\Service\FCEFootnoteService;
+use AOE\HappyFeet\Service\RenderingService;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use UnexpectedValueException;
 

@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Tests\Unit\ViewHelpers;
+namespace AOE\HappyFeet\Tests\Unit\ViewHelpers;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ namespace AOE\Happyfeet\Tests\Unit\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\ViewHelpers\FlatifyViewHelper;
+use AOE\HappyFeet\ViewHelpers\FlatifyViewHelper;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
