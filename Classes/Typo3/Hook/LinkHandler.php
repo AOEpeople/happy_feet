@@ -18,7 +18,6 @@ namespace AOE\HappyFeet\Typo3\Hook;
  * The TYPO3 project - inspiring people to share!
  */
 
-use AOE\HappyFeet\Service\AbstractService;
 use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
 
 /**
@@ -26,7 +25,7 @@ use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
  *
  * @package HappyFeet
  */
-class LinkHandler extends AbstractService implements LinkHandlingInterface
+class LinkHandler implements LinkHandlingInterface
 {
 
     /**
