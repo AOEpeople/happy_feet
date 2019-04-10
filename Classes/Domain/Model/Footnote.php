@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Domain\Model;
+namespace AOE\HappyFeet\Domain\Model;
 
 /***************************************************************
  *  Copyright notice

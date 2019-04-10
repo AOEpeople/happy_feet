@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Service;
+namespace AOE\HappyFeet\Service;
 
 /***************************************************************
  *  Copyright notice

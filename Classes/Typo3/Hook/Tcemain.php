@@ -1,5 +1,5 @@
 <?php
-namespace Aoe\HappyFeet\Typo3\Hook;
+namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
  * Copyright notice
@@ -18,8 +18,8 @@ namespace Aoe\HappyFeet\Typo3\Hook;
  * The TYPO3 project - inspiring people to share!
  */
 
-use AOE\Happyfeet\Domain\Repository\FootnoteRepository;
-use AOE\Happyfeet\Service\AbstractService;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use AOE\HappyFeet\Service\AbstractService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**

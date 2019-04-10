@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\Domain\Repository;
+namespace AOE\HappyFeet\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ namespace AOE\Happyfeet\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\Happyfeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Model\Footnote;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**

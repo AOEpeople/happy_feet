@@ -1,5 +1,5 @@
 <?php
-namespace AOE\Happyfeet\ViewHelpers;
+namespace AOE\HappyFeet\ViewHelpers;
 
 /***************************************************************
  *  Copyright notice

@@ -1,5 +1,5 @@
 <?php
-namespace Aoe\HappyFeet\Typo3\Service\v62;
+namespace AOE\HappyFeet\Typo3\Service\v62;
 
 /*
  * Copyright notice
@@ -18,8 +18,8 @@ namespace Aoe\HappyFeet\Typo3\Service\v62;
  * The TYPO3 project - inspiring people to share!
  */
 
-use AOE\Happyfeet\Service\AbstractService;
-use AOE\Happyfeet\Service\RenderingService;
+use AOE\HappyFeet\Service\AbstractService;
+use AOE\HappyFeet\Service\RenderingService;
 
 /**
  * @package HappyFeet
