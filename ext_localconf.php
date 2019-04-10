@@ -26,8 +26,8 @@ $extKey = 'happy_feet';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
     TCEMAIN.linkHandler {
-      happyfeet {
-        handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
+      happy_feet {
+        handler = AOE\HappyFeet\Typo3\Hook\LinkWizzard
         label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xml:tx_happyfeet_domain_model_footnote
         configuration.table = tx_happyfeet_domain_model_footnote
         scanBefore = page
@@ -53,4 +53,6 @@ $extKey = 'happy_feet';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['happy_feet'] =
     'AOE\HappyFeet\Typo3\Hook\Tcemain';
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['typolinkBuilder']['happyfeet'] = 'AOE\HappyFeet\Typo3\Hook\LinkRenderer';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['typolinkBuilder']['happy_feet'] = 'AOE\HappyFeet\Typo3\Hook\LinkRenderer';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['linkHandler']['happy_feet'] = 'AOE\HappyFeet\Typo3\Hook\LinkHandler';
+
