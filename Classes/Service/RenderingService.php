@@ -108,6 +108,7 @@ class RenderingService extends AbstractService
     {
         $view = $this->getObjectManager()->get(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
+        $view->setTemplateRootPaths(array('EXT:happy_feet/Resources/Private/Templates'));
         return $view;
     }
 
