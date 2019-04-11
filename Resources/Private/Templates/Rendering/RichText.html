@@ -1,4 +1,5 @@
 {namespace hf=AOE\HappyFeet\ViewHelpers}
+{namespace f=TYPO3Fluid\Fluid\ViewHelpers\HtmlViewHelper}
 <hf:flatify>
-    <hf:html>{richText}</hf:html>
+    <f:format.html parseFuncTSPath="lib.parseFunc_HappyFeed">{richText}</f:format.html>
 </hf:flatify>
