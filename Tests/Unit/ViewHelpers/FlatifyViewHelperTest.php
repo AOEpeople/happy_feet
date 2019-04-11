@@ -26,14 +26,14 @@ namespace AOE\HappyFeet\Tests\Unit\ViewHelpers;
  ***************************************************************/
 
 use AOE\HappyFeet\ViewHelpers\FlatifyViewHelper;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use TYPO3\TestingFramework\Fluid\Unit\ViewHelpers\ViewHelperBaseTestcase;
 
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class FlatifyViewHelperTest extends UnitTestCase
+class FlatifyViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @var FlatifyViewHelper

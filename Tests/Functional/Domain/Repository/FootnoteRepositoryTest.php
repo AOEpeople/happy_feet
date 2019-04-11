@@ -29,6 +29,7 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use stdClass;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -65,7 +66,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     public function setUp()
     {
         parent::setUp();
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->repository = $objectManager->get(FootnoteRepository::class);
         $this->repository->initializeObject();
     }

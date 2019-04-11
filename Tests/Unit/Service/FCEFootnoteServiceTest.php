@@ -27,8 +27,8 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 
 use AOE\HappyFeet\Service\FCEFootnoteService;
 use AOE\HappyFeet\Service\RenderingService;
-use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use UnexpectedValueException;
 
 
@@ -38,7 +38,7 @@ use UnexpectedValueException;
  * @author Torsten Zander <torsten.zander@aoe.com>
  * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
-class FCEFootnoteServiceTest extends TestCase
+class FCEFootnoteServiceTest extends UnitTestCase
 {
     /**
      * @var FCEFootnoteService

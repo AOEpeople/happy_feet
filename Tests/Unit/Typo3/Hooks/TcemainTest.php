@@ -34,10 +34,10 @@ namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Typo3\Hook\Tcemain;
-use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class TcemainTest extends TestCase
+class TcemainTest extends UnitTestCase
 {
     /**
      * @var Tcemain

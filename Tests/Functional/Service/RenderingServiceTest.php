@@ -28,16 +28,18 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
-use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class RenderingTest extends TestCase
+class RenderingTest extends FunctionalTestCase
 {
     /**
      * @var RenderingService
@@ -49,6 +51,7 @@ class RenderingTest extends TestCase
      */
     public function setUp()
     {
+        parent::setUp();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = array(
             'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
             'options' => array()
@@ -80,8 +83,8 @@ class RenderingTest extends TestCase
 
         $footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
 
-        $this->renderingService = $this->getMockBuilder(RenderingService::class)->setMethods(['getFootnoteRepository'])->getMock();
-        $this->renderingService->method('getFootnoteRepository')->willReturn($footnoteRepository);
+        $this->renderingService = GeneralUtility::makeInstance(ObjectManager::class)->get(RenderingService::class);
+        $this->renderingService->setFootnoteRepository($footnoteRepository);
     }
 
     /**
@@ -105,7 +108,6 @@ class RenderingTest extends TestCase
 
         $footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
-        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -137,10 +139,10 @@ class RenderingTest extends TestCase
             ]
         );
 
-        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
+
         $this->assertRegExp('~[^@]4711~', $content);
         $this->assertRegExp('~[^@]4712~', $content);
     }
@@ -170,7 +172,6 @@ class RenderingTest extends TestCase
             ]
         );
 
-        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -203,7 +204,6 @@ class RenderingTest extends TestCase
             ]
         );
 
-        $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes(array(4711, 4712));
@@ -216,8 +216,7 @@ class RenderingTest extends TestCase
      */
     public function shouldNotRenderRichText()
     {
-        $renderingService = new RenderingService();
-        $this->assertEquals('', $renderingService->renderRichText(''));
+        $this->assertEquals('', $this->renderingService->renderRichText(''));
     }
 
     /**
@@ -225,8 +224,7 @@ class RenderingTest extends TestCase
      */
     public function shouldRenderRichText()
     {
-        $renderingService = new RenderingService();
-        $this->assertContains('test', $renderingService->renderRichText('test'));
+        $this->assertContains('test', $this->renderingService->renderRichText('test'));
     }
 
     /**
@@ -240,7 +238,6 @@ class RenderingTest extends TestCase
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
 
-        $this->renderingService = new RenderingService();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);
@@ -256,7 +253,6 @@ class RenderingTest extends TestCase
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
 
-        $this->renderingService = new RenderingService();
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
         $this->assertEquals($template, $result);

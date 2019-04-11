@@ -26,6 +26,7 @@ namespace AOE\HappyFeet\Domain\Repository;
  ***************************************************************/
 
 use AOE\HappyFeet\Domain\Model\Footnote;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -53,7 +54,7 @@ class FootnoteRepository extends Repository
     public function initializeObject()
     {
         /** @var $defaultQuerySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-        $defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
         $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);

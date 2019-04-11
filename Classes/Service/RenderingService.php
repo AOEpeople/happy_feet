@@ -27,6 +27,7 @@ namespace AOE\HappyFeet\Service;
 
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -105,7 +106,7 @@ class RenderingService extends AbstractService
      */
     private function createView($template)
     {
-        $view = $this->getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $view = $this->getObjectManager()->get(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
         return $view;
     }

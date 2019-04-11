@@ -13,7 +13,6 @@ class LinkRenderer extends AbstractService{
         $footnoteHtml = $this->getRenderingService()->renderFootnotes(array($linkDetails['uid']));
         // Trim HTML-code of footnotes - Otherwise some ugly problems can occur
         // (e.g. TYPO3 renders p-tags around the HTML-code)
-        DebuggerUtility::var_dump($footnoteHtml);
         $linkTextWithFootnote = $linkText . trim($footnoteHtml);
 
         // nasty workaround so typolink stops putting a link together, there is a link already built
