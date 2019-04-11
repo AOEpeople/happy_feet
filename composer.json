@@ -25,7 +25,7 @@
         "typo3/cms-extbase": "*"
     },
     "require-dev": {
-        "typo3/testing-framework": "8.x-dev || 9.x-dev",
+        "typo3/testing-framework": "*",
         "phpunit/phpcov": "*",
         "squizlabs/php_codesniffer": "*",
         "sebastian/phpcpd": "*",
