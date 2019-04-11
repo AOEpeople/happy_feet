@@ -54,6 +54,7 @@ class TcemainTest extends UnitTestCase
      */
     public function setUp()
     {
+        parent::setUp();
         $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
             ->setMethods(['getLowestFreeIndexNumber'])
             ->disableOriginalConstructor()
@@ -65,7 +66,7 @@ class TcemainTest extends UnitTestCase
             ->getMock();
         $this->tcemainHook->method('getFootnoteRepository')->willReturn($footnoteRepository);
 
-        $this->dataHandler = $this->getMockBuilder(DataHandler::class)->getMock();
+        $this->dataHandler = $this->getMockBuilder(DataHandler::class)->disableOriginalConstructor()->getMock();
     }
 
     /**
@@ -130,6 +131,6 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        $this->assertEquals(0, $fieldArray['index_number']);
+        $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
 }
