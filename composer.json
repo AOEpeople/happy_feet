@@ -39,6 +39,12 @@
             "AOE\\HappyFeet\\": "Classes/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "AOE\\HappyFeet\\Tests\\": "Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+        }
+    },
     "keywords": [
         "typo3",
         "extbase",
@@ -71,11 +77,5 @@
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".Build/Web"
         }
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/AOEpeople/linkhandler-1.git"
-        }
-    ]
+    }
 }
