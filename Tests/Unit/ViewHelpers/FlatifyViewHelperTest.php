@@ -38,7 +38,7 @@ class FlatifyViewHelperTest extends UnitTestCase
     /**
      * @var FlatifyViewHelper
      */
-    private $viewHelper;
+    protected $viewHelper;
 
     /**
      * Set up the test case

@@ -28,21 +28,21 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class RenderingTest extends UnitTestCase
+class RenderingTest extends TestCase
 {
     /**
      * @var RenderingService
      */
-    private $renderingService;
+    protected $renderingService;
 
     /**
      * Set up test case
@@ -62,42 +62,26 @@ class RenderingTest extends UnitTestCase
 
         Bootstrap::getInstance()->initializeCachingFramework();
 
-        $footnote1 = $this->getMock(
-            Footnote::class,
-            ['getHeader', 'getDescription', 'getIndexNumber']
-        );
+        $footnote1 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+
         $footnote1->_setProperty('uid', 4711);
-        $footnote1->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4711'));
-        $footnote1->expects($this->any())->method('getIndexNumber')->will($this->returnValue('4711'));
-        $footnote1->expects($this->any())->method('getDescription')->will(
-            $this->returnValue('DESCRIPTION@4711')
-        );
-        $footnote2 = $this->getMock(
-            Footnote::class,
-            ['getHeader', 'getDescription', 'getIndexNumber']
-        );
+        $footnote1->expects($this->any())->method('getHeader')->willReturn('HEADER@4711');
+        $footnote1->method('getIndexNumber')->willReturn('4711');
+        $footnote1->expects($this->any())->method('getDescription')->willReturn('DESCRIPTION@4711');
+
+        $footnote2 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+
         $footnote2->_setProperty('uid', 4712);
-        $footnote2->expects($this->any())->method('getHeader')->will($this->returnValue('HEADER@4712'));
-        $footnote2->expects($this->any())->method('getIndexNumber')->will($this->returnValue('4712'));
-        $footnote2->expects($this->any())->method('getDescription')->will(
-            $this->returnValue('DESCRIPTION@4712')
-        );
+        $footnote2->method('getHeader')->willReturn('HEADER@4712');
+        $footnote2->method('getIndexNumber')->willReturn('4712');
+        $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
 
-        $footnoteRepository = $this->getMock(
-            FootnoteRepository::class,
-            ['getFootnotesByUids'],
-            [],
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
-            $this->returnValue(array($footnote1, $footnote2))
-        );
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)->setMethods(['getFootnotesByUids'])->disableOriginalConstructor()->getMock();
 
-        $this->renderingService = $this->getMock(RenderingService::class, ['getFootnoteRepository']);
-        $this->renderingService->expects($this->any())->method('getFootnoteRepository')->will(
-            $this->returnValue($footnoteRepository)
-        );
+        $footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
+
+        $this->renderingService = $this->getMockBuilder(RenderingService::class)->setMethods(['getFootnoteRepository'])->getMock();
+        $this->renderingService->method('getFootnoteRepository')->willReturn($footnoteRepository);
     }
 
     /**
@@ -114,16 +98,12 @@ class RenderingTest extends UnitTestCase
      */
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
-        $footnoteRepository = $this->getMock(
-            FootnoteRepository::class,
-            ['getFootnotesByUids'],
-            [],
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
-            $this->returnValue(array())
-        );
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
         $this->renderingService = new RenderingService();
         $this->renderingService->setFootnoteRepository($footnoteRepository);
@@ -137,8 +117,7 @@ class RenderingTest extends UnitTestCase
      */
     public function footnoteIdIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(
-            FootnoteRepository::class)
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
             ->setMethods(['getFootnotesByUids'])
             ->disableOriginalConstructor()
             ->getMock();

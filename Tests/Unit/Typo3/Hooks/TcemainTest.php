@@ -34,32 +34,38 @@ namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Typo3\Hook\Tcemain;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 
-class TcemainTest extends UnitTestCase
+class TcemainTest extends TestCase
 {
     /**
      * @var Tcemain
      */
-    private $tcemainHook;
+    protected $tcemainHook;
+
+    /**
+     * @var DataHandler
+     */
+    protected $dataHandler;
 
     /**
      * @return void
      */
     public function setUp()
     {
-        $footnoteRepository = $this->getMock(
-            FootnoteRepository::class,
-            ['getLowestFreeIndexNumber'],
-            [],
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getLowestFreeIndexNumber')->will($this->returnValue(1));
-        $this->tcemainHook = $this->getMock('AOE\HappyFeet\Typo3\Hook\Tcemain', array('getFootnoteRepository'));
-        $this->tcemainHook->expects($this->any())->method('getFootnoteRepository')->will(
-            $this->returnValue($footnoteRepository)
-        );
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getLowestFreeIndexNumber'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $footnoteRepository->method('getLowestFreeIndexNumber')->willReturn(1);
+
+        $this->tcemainHook = $this->getMockBuilder(Tcemain::class)
+            ->setMethods(['getFootnoteRepository'])
+            ->getMock();
+        $this->tcemainHook->method('getFootnoteRepository')->willReturn($footnoteRepository);
+
+        $this->dataHandler = $this->getMockBuilder(DataHandler::class)->getMock();
     }
 
     /**
@@ -73,7 +79,7 @@ class TcemainTest extends UnitTestCase
             'tx_happyfeet_domain_model_footnote',
             null,
             $fieldArray,
-            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
+            $this->dataHandler
         );
         $this->assertArrayHasKey('index_number', $fieldArray);
         $this->assertEquals(1, $fieldArray['index_number']);
@@ -90,7 +96,7 @@ class TcemainTest extends UnitTestCase
             Footnote::class,
             null,
             $fieldArray,
-            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
+            $this->dataHandler
         );
         $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
@@ -106,7 +112,7 @@ class TcemainTest extends UnitTestCase
             'tx_happyfoo_domain_model_baz',
             null,
             $fieldArray,
-            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
+            $this->dataHandler
         );
         $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
@@ -122,7 +128,7 @@ class TcemainTest extends UnitTestCase
             Footnote::class,
             null,
             $fieldArray,
-            $this->getMock('TYPO3\CMS\Core\DataHandling\DataHandler')
+            $this->dataHandler
         );
         $this->assertEquals(0, $fieldArray['index_number']);
     }
