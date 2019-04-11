@@ -150,26 +150,24 @@ class RenderingTest extends TestCase
      */
     public function footnoteHeaderIsPresent()
     {
-        $footnoteRepository = $this->getMock(
-            FootnoteRepository::class,
-            array('getFootnotesByUids'),
-            array(),
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
-            $this->returnValue(array(
-                array(
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+            [
+                [
                     'indexNumber' => 4711,
                     'header' => 'HEADER@4711',
                     'description' => ''
-                ),
-                array(
+                ],
+                [
                     'indexNumber' => 4712,
                     'header' => 'HEADER@4712',
                     'description' => ''
-                )
-            ))
+                ]
+            ]
         );
 
         $this->renderingService = new RenderingService();
@@ -185,26 +183,24 @@ class RenderingTest extends TestCase
      */
     public function footnoteDescriptionIsPresent()
     {
-        $footnoteRepository = $this->getMock(
-            FootnoteRepository::class,
-            array('getFootnotesByUids'),
-            array(),
-            '',
-            false
-        );
-        $footnoteRepository->expects($this->any())->method('getFootnotesByUids')->will(
-            $this->returnValue(array(
-                array(
+        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+            [
+                [
                     'indexNumber' => 4711,
                     'header' => 'HEADER@4711',
                     'description' => 'DESCRIPTION@4711'
-                ),
-                array(
+                ],
+                [
                     'indexNumber' => 4712,
                     'header' => 'HEADER@4712',
                     'description' => 'DESCRIPTION@4712'
-                )
-            ))
+                ]
+            ]
         );
 
         $this->renderingService = new RenderingService();
