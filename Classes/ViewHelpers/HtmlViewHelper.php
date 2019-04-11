@@ -38,6 +38,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper
 {
+    protected $escapeOutput = false;
+
     /**
      * @param string $parseFuncTSPath path to TypoScript parseFunc setup.
      * @param boolean $simulateTSFEinBackend
@@ -45,6 +47,7 @@ class HtmlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\HtmlViewHelper
      */
     public function render($parseFuncTSPath = 'lib.parseFunc_RTE', $simulateTSFEinBackend = false)
     {
+        $this->escapeOutput = false;
         if (TYPO3_MODE === 'BE' && $simulateTSFEinBackend === true) {
             self::simulateFrontendEnvironment();
         }
