@@ -1,5 +1,4 @@
 {namespace hf=AOE\HappyFeet\ViewHelpers}
-{namespace f=TYPO3Fluid\Fluid\ViewHelpers\HtmlViewHelper}
 <hf:flatify>
     <sup class="footnote" data-footnote="">
         <a href="javascript:void(0)" class="footnote__link">
@@ -16,7 +15,7 @@
                 <span class="footnote__content-headline"
                       data-footnote-index="{footnote.indexNumber}">{footnote.header}</span>
                 <span class="footnote__content-text">
-                    <f:format.html parseFuncTSPath="lib.parseFunc_HappyFeed">{footnote.description}</f:format.html>
+                    <hf:html parseFuncTSPath="lib.parseFunc_HappyFeed">{footnote.description}</hf:html>
                 </span>
             </f:for>
         </span>
