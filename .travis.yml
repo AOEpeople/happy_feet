@@ -70,7 +70,7 @@ script:
       export typo3DatabaseHost="localhost";
       export typo3DatabaseUsername="root";
       export typo3DatabasePassword="";
-      .Build/bin/phpunit --coverage-clover=functionaltest-coverage.clover --colors  -c $FUNCTIONAL_XML Tests/Functional/'
+      .Build/bin/phpunit --coverage-clover=functionaltest-coverage.clover --colors  -c $FUNCTIONAL_XML Tests/Functional/
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
