@@ -27,10 +27,10 @@ namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @package HappyFeet
