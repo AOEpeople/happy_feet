@@ -42,6 +42,13 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class RenderingServiceTest extends FunctionalTestCase
 {
     /**
+     * @var array
+     */
+    protected $testExtensionsToLoad = array(
+        'typo3conf/ext/happy_feet'
+    );
+
+    /**
      * @var RenderingService
      */
     protected $renderingService;
