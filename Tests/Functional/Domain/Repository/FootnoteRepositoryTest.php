@@ -31,6 +31,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /**
  * @package HappyFeet
@@ -159,10 +160,17 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     /**
      * @test
+     * assert that no exception is thrown
      */
     public function shouldAddObject()
     {
-        $footnote = new Footnote();
-        $this->repository->add($footnote);
+        try {
+            $footnote = new Footnote();
+            $this->repository->add($footnote);
+        } catch (IllegalObjectTypeException $notExpected) {
+            $this->fail();
+        }
+
+        $this->assertTrue(true);
     }
 }
