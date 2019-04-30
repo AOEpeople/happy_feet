@@ -29,9 +29,9 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
+use Throwable;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /**
  * @package HappyFeet
@@ -167,8 +167,8 @@ class FootnoteRepositoryTest extends FunctionalTestCase
         try {
             $footnote = new Footnote();
             $this->repository->add($footnote);
-        } catch (IllegalObjectTypeException $notExpected) {
-            $this->fail();
+        } catch (Throwable $notExpected) {
+            $this->fail('assert that no exception is thrown.');
         }
 
         $this->assertTrue(true);
