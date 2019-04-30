@@ -27,10 +27,11 @@ namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
+use Throwable;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @package HappyFeet
@@ -159,10 +160,17 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     /**
      * @test
+     * assert that no exception is thrown
      */
     public function shouldAddObject()
     {
-        $footnote = new Footnote();
-        $this->repository->add($footnote);
+        try {
+            $footnote = new Footnote();
+            $this->repository->add($footnote);
+        } catch (Throwable $notExpected) {
+            $this->fail('assert that no exception is thrown.');
+        }
+
+        $this->assertTrue(true);
     }
 }

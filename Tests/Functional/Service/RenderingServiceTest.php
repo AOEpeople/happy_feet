@@ -28,19 +28,26 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use ReflectionClass;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @package HappyFeet
  * @subpackage Service_Test
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
-class RenderingTest extends FunctionalTestCase
+class RenderingServiceTest extends FunctionalTestCase
 {
+    /**
+     * @var array
+     */
+    protected $testExtensionsToLoad = array(
+        'typo3conf/ext/happy_feet'
+    );
+
     /**
      * @var RenderingService
      */

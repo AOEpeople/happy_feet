@@ -26,7 +26,7 @@ namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
  ***************************************************************/
 
 use AOE\HappyFeet\Domain\Model\Footnote;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @package HappyFeet
