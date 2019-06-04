@@ -25,6 +25,7 @@ namespace AOE\HappyFeet\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -60,6 +61,10 @@ class RenderingService extends AbstractService
         if (count($footnotes) < 1) {
             return '';
         }
+        /** @var Footnote $footnote */
+        foreach ($footnotes as $footnote){
+            $footnote->setDescription($this->renderRichText($footnote->getDescription()));
+        } //render html in footnotes
 
         $templatePath = $this->getTemplatePath();
 
