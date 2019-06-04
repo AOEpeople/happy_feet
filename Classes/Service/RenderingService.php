@@ -28,7 +28,9 @@ namespace AOE\HappyFeet\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -42,6 +44,11 @@ class RenderingService extends AbstractService
      * @var FootnoteRepository
      */
     private $footnoteRepository;
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    private $contentObjectRenderer;
 
     /**
      * @var string
@@ -64,7 +71,7 @@ class RenderingService extends AbstractService
         /** @var Footnote $footnote */
         foreach ($footnotes as $footnote){
             if ($footnote InstanceOf Footnote) {
-                $footnote->setDescription($this->renderRichText($footnote->getDescription()));
+                $footnote->setDescription(trim($this->renderRichText($footnote->getDescription())));
             }
         } //render html in footnotes
 
@@ -87,11 +94,7 @@ class RenderingService extends AbstractService
             return '';
         }
 
-        $templatePath = $this->getTemplatePathAndFilename('RichText');
-
-        $view = $this->createView($templatePath);
-        $view->assign('richText', $richText);
-        return $view->render($templatePath);
+        return $this->getContentObjectRenderer()->parseFunc($richText, array(), '< lib.parseFunc_HappyFeet');
     }
 
     /**
@@ -156,5 +159,17 @@ class RenderingService extends AbstractService
     public function setFootnoteRepository(FootnoteRepository $footnoteRepository)
     {
         $this->footnoteRepository = $footnoteRepository;
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     */
+    private function getContentObjectRenderer()
+    {
+        if (null === $this->contentObjectRenderer) {
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            $this->contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+        }
+        return $this->contentObjectRenderer;
     }
 }

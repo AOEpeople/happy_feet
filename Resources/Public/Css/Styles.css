@@ -1,4 +1,4 @@
-.footnote {}
+.footnote { display: inline; }
 
 .footnote .footnote__link {}
 

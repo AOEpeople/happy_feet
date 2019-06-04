@@ -1,19 +1,9 @@
 #######################################################################################################
 # configure, how HTML-Code of RTE-fields in happy-feet-records should be rendered
 #######################################################################################################
-lib.parseFunc_HappyFeed < lib.parseFunc_RTE
-lib.parseFunc_HappyFeed {
-    nonTypoTagStdWrap.encapsLines >
-    nonTypoTagStdWrap.encapsLines.wrapNonWrappedLines = | <br /><br />
-
-    tags.link.typolink {
-      # Links must always be absolute (because Links can be used in Web-Shop AND SalesPortal)
-      # Links must always use HTTPS (because we don't know, which HTTP-Protocol will be used, when displaying the RTE-fields in frontend)
-      forceAbsoluteUrl = 1
-      forceAbsoluteUrl.scheme = https
-    }
-
-    # Links inside of ol- and ul-tags must always be absolute and must use HTTPS
-    externalBlocks.ol.stdWrap.parseFunc.tags.link.typolink < lib.parseFunc_HappyFeed.tags.link.typolink
-    externalBlocks.ul.stdWrap.parseFunc.tags.link.typolink < lib.parseFunc_HappyFeed.tags.link.typolink
+lib.parseFunc_HappyFeet < lib.parseFunc_RTE
+lib.parseFunc_HappyFeet {
+    nonTypoTagStdWrap.encapsLines.nonWrappedTag =
+    #we need to remove the wraping <p> because the content is rendered into a <sup> and typo3 will break the output if
+    #we use a fluid viewhelper to render invalid html
 }
