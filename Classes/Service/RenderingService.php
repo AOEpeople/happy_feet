@@ -63,7 +63,9 @@ class RenderingService extends AbstractService
         }
         /** @var Footnote $footnote */
         foreach ($footnotes as $footnote){
-            $footnote->setDescription($this->renderRichText($footnote->getDescription()));
+            if ($footnote InstanceOf Footnote) {
+                $footnote->setDescription($this->renderRichText($footnote->getDescription()));
+            }
         } //render html in footnotes
 
         $templatePath = $this->getTemplatePath();
