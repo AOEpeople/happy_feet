@@ -255,7 +255,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function alternativeTemplateIsDefined()
     {
-        $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/RichText.html';
+        $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
 
         // define typoscript config
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
