@@ -129,9 +129,9 @@ return array(
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '5',
-                'eval' => 'required'
+                'eval' => 'required',
+                'enableRichtext' => true
             ),
-            'defaultExtras' => 'richtext[cut|copy|paste|class|bold|italic|underline|link|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_happyfeet/rte/]'
         )
     ),
     'types'     => array(

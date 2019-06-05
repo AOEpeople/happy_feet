@@ -13,7 +13,7 @@ $extKey = 'happy_feet';
           disableColorPicker = 1
           proc.exitHTMLparser_db=1
           proc.exitHTMLparser_db {
-            allowTags = span, b, strong, i, em, u, a, h1, h2, h3, h4, h5, h6, pre
+            allowTags = span, b, strong, i, em, u, a, h1, h2, h3, h4, h5, h6, pre, ul, li, ol, blockquote, sup, sub, strong, em, hr
             tags.div.remap = P
           }
         }
