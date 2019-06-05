@@ -16,9 +16,6 @@
             "homepage": "http://www.aoe.com"
         }
     ],
-    "replace": {
-        "happy_feet": "*"
-    },
     "require": {
         "php": "^7.0",
         "typo3/cms-core": "^8.7 || ^9.5",
@@ -51,7 +48,6 @@
         "footnote"
     ],
     "config": {
-        "secure-http": false,
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin"
     },
