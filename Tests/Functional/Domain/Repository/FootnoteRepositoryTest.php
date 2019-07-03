@@ -96,7 +96,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      */
     public function shouldGetLowestIndex()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals(1, $lowestIndex);
     }
@@ -106,7 +106,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      */
     public function shouldGetIndexWithGap()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals(2, $lowestIndex);
     }
@@ -116,7 +116,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      */
     public function shouldGetNextIndexInRow()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals(3, $lowestIndex);
     }
@@ -126,7 +126,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      */
     public function shouldGetFootnotesByUids()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids(array(2, 4));
         $this->assertCount(2, $footnotes);
         $this->assertEquals(2, $footnotes[0]->getUid());
@@ -138,7 +138,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      */
     public function shouldSortFootnotesByGivenOrderOfUids()
     {
-        $this->importDataSet(dirname(__FILE__) . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
         $this->assertCount(5, $footnotes);
         $this->assertEquals(4, $footnotes[0]->getUid());

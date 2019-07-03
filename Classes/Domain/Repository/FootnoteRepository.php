@@ -26,6 +26,10 @@ namespace AOE\HappyFeet\Domain\Repository;
  ***************************************************************/
 
 use AOE\HappyFeet\Domain\Model\Footnote;
+use Doctrine\DBAL\Query\QueryBuilder;
+use PDO;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -68,19 +72,28 @@ class FootnoteRepository extends Repository
      */
     public function getLowestFreeIndexNumber()
     {
-        $query = $this->createQuery();
-        $query->statement('SELECT index_number from ' . $this->tableName . ' WHERE deleted=0');
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+
+        $results = $queryBuilder
+            ->select('index_number')
+            ->from($this->tableName)
+            ->where(
+                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, PDO::PARAM_INT))
+            )
+            ->execute()
+            ->fetchAll();
+
         $index = 1;
-        $results = $query->execute(true);
-        if (false === is_array($results) || sizeof($results) < 1) {
+        if (false === is_array($results) || count($results) < 1) {
             return $index;
         }
-        $indexes = array();
+        $indexes = [];
         foreach ($results as $result) {
             $indexes[] = (integer)$result['index_number'];
         }
-        for ($index = 1; $index <= sizeof($indexes) + 1; $index++) {
-            if (false === in_array($index, $indexes)) {
+        for ($index = 1; $index <= count($indexes) + 1; $index++) {
+            if (false === in_array($index, $indexes, true)) {
                 break;
             }
         }
