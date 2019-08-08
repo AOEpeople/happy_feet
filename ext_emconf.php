@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Happy Feet Footnotes',
     'description' => 'Handles happy footnotes',
     'category' => 'plugin',
@@ -19,14 +19,14 @@ $EM_CONF[$_EXTKEY] = array(
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'author_company' => 'AOE GmbH',
-    'version' => '4.0.0',
-    'constraints' => array(
-        'depends' => array(
+    'version' => '4.0.1',
+    'constraints' => [
+        'depends' => [
             'typo3' => '7.6.0-7.6.99',
-            'linkhandler' => ''
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
+            'linkhandler' => '',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
     '_md5_values_when_last_written' => '',
-);
+];
