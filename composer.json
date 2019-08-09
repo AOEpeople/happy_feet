@@ -23,7 +23,7 @@
         "php": "^7.0",
         "typo3/cms-core": ">=7.6.0",
         "typo3/cms-extbase": "*",
-        "cobweb/linkhandler": "*"
+        "cobweb/linkhandler": "4.0.1"
     },
     "require-dev": {
         "typo3/cms": "^7.6",
