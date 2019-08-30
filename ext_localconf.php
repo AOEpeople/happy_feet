@@ -37,15 +37,15 @@ $extKey = 'happy_feet';
     RTE {
       classes.happy_feet.name = Happy Feet
       classesAnchor {
-        happyfeet {
+        happy_feet {
           class = happy_feet
-          type = happyfeet
+          type = happy_feet
         }
       }
 
       default.buttons.link {
         properties.class.allowedClasses := addToList(happy_feet)
-        happyfeet.properties.class.default = happy_feet
+        happy_feet.properties.class.default = happy_feet
       }
     }
 ');
