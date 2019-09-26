@@ -22,6 +22,8 @@ matrix:
     - env: TYPO3_VERSION=^9.5 COVERAGE=0 FUNCTIONAL=0
       php: 7.1
 
+services:
+  - mysql
 
 sudo: false
 
