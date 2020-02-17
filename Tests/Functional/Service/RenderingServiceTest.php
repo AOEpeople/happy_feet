@@ -1,5 +1,5 @@
 <?php
-namespace AOE\HappyFeet\Tests\Unit\Service;
+namespace AOE\HappyFeet\Tests\Functional\Service;
 
 /***************************************************************
  *  Copyright notice
