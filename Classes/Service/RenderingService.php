@@ -86,15 +86,18 @@ class RenderingService extends AbstractService
      * Renders the content of a RTE field.
      *
      * @param string $richText
+     * @param array $conf TypoScript configuration for parseFunc
+     * @param string $ref Reference to get configuration from. Eg. "< lib.parseFunc" which means that the configuration
+     *                      of the object path "lib.parseFunc" will be retrieved and MERGED with what is in $conf!
      * @return string
      */
-    public function renderRichText($richText)
+    public function renderRichText($richText, array $conf = [], $ref = '< lib.parseFunc_HappyFeet')
     {
         if ($richText === '') {
             return '';
         }
 
-        return $this->getContentObjectRenderer()->parseFunc($richText, array(), '< lib.parseFunc_HappyFeet');
+        return $this->getContentObjectRenderer()->parseFunc($richText, $conf, $ref);
     }
 
     /**
@@ -164,7 +167,7 @@ class RenderingService extends AbstractService
     /**
      * @return ContentObjectRenderer
      */
-    private function getContentObjectRenderer()
+    protected function getContentObjectRenderer()
     {
         if (null === $this->contentObjectRenderer) {
             $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
