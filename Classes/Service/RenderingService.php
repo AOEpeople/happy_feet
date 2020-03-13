@@ -35,7 +35,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @package HappyFeet
- * @subpackage Service_Test
+ * @subpackage Service
  * @author Kevin Schu <kevin.schu@aoe.com>
  */
 class RenderingService extends AbstractService
