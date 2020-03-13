@@ -54,7 +54,7 @@ class FCEFootnoteService extends AbstractService
      * @return string The wrapped index value
      * @throws UnexpectedValueException
      */
-    public function renderItemList($content, $conf = array())
+    public function renderItemList($content, $conf = [])
     {
         if (false === array_key_exists('userFunc', $conf) || false === array_key_exists('field', $conf)) {
             return '';
@@ -68,6 +68,14 @@ class FCEFootnoteService extends AbstractService
             return '';
         }
         return $this->getRenderingService()->renderFootnotes(explode(',', $footnoteUids));
+    }
+
+    /**
+     * @param ContentObjectRenderer $cObj
+     */
+    public function injectContentObjectRenderer(ContentObjectRenderer $cObj)
+    {
+        $this->cObj = $cObj;
     }
 
     /**
@@ -88,14 +96,6 @@ class FCEFootnoteService extends AbstractService
             throw new UnexpectedValueException('cObj was not set', 1393843943);
         }
         return $this->cObj;
-    }
-
-    /**
-     * @param ContentObjectRenderer $cObj
-     */
-    public function setCObj(ContentObjectRenderer $cObj)
-    {
-        $this->cObj = $cObj;
     }
 
     /**
