@@ -35,8 +35,6 @@ use UnexpectedValueException;
 /**
  * @package HappyFeet
  * @subpackage Service_Test
- * @author Torsten Zander <torsten.zander@aoe.com>
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class FCEFootnoteServiceTest extends UnitTestCase
 {

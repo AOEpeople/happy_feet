@@ -31,7 +31,6 @@ use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 /**
  * @package HappyFeet
  * @subpackage Service_Test
- * @author Kevin Schu <kevin.schu@aoe.com>
  */
 class FlatifyViewHelperTest extends ViewHelperBaseTestcase
 {

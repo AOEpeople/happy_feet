@@ -27,8 +27,6 @@ namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /**
  * Tests for class Tx_HappyFeet_Typo3_Hooks_Tcemain.
- *
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 
 use AOE\HappyFeet\Domain\Model\Footnote;

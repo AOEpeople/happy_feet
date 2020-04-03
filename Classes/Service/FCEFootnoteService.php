@@ -33,7 +33,6 @@ use UnexpectedValueException;
  *
  * @package HappyFeet
  * @subpackage Service
- * @author Bilal Arslan <bilal.arslan@aoe.com>
  */
 class FCEFootnoteService extends AbstractService
 {

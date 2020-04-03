@@ -31,7 +31,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 /**
  * @package HappyFeet
  * @subpackage Service
- * @author Kevin Schu <kevin.schu@aoe.com>
  */
 abstract class AbstractService
 {

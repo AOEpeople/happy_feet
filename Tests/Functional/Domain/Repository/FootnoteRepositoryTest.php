@@ -36,8 +36,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 /**
  * @package HappyFeet
  * @subpackage Domain_Repository_Test
- * @author Torsten Zander <torsten.zander@aoe.com>
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class FootnoteRepositoryTest extends FunctionalTestCase
 {

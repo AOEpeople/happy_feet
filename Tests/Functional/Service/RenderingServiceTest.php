@@ -37,7 +37,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 /**
  * @package HappyFeet
  * @subpackage Service_Test
- * @author Kevin Schu <kevin.schu@aoe.com>
  */
 class RenderingServiceTest extends FunctionalTestCase
 {

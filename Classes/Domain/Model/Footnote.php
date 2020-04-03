@@ -30,8 +30,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 /**
  * @package HappyFeet
  * @subpackage Domain_Model
- * @author Torsten Zander <torsten.zander@aoe.com>
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class Footnote extends AbstractEntity
 {
