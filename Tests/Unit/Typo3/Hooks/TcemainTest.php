@@ -27,8 +27,6 @@ namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /**
  * Tests for class Tx_HappyFeet_Typo3_Hooks_Tcemain.
- *
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 
 use AOE\HappyFeet\Domain\Model\Footnote;
@@ -91,7 +89,7 @@ class TcemainTest extends UnitTestCase
      */
     public function postProcessFieldArrayWithExistingFootnote()
     {
-        $fieldArray = array();
+        $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'foo',
             Footnote::class,
@@ -107,7 +105,7 @@ class TcemainTest extends UnitTestCase
      */
     public function postProcessFieldArrayWithOtherTable()
     {
-        $fieldArray = array();
+        $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
             'tx_happyfoo_domain_model_baz',
@@ -123,7 +121,7 @@ class TcemainTest extends UnitTestCase
      */
     public function shouldResetIndexNumber()
     {
-        $fieldArray = array();
+        $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'delete',
             Footnote::class,

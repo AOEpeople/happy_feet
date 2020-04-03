@@ -30,7 +30,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * @package HappyFeet
  * @subpackage Service_Test
- * @author Kevin Schu <kevin.schu@aoe.com>
  */
 class FlatifyViewHelper extends AbstractViewHelper
 {
@@ -44,6 +43,6 @@ class FlatifyViewHelper extends AbstractViewHelper
         if ($str === null) {
             $str = $this->renderChildren();
         }
-        return str_replace(array("\r", "\n"), '', $str);
+        return str_replace(["\r", "\n"], '', $str);
     }
 }

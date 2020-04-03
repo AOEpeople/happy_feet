@@ -24,8 +24,6 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * Class which provides TCE main hooks.
- *
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class Tcemain extends AbstractService
 {

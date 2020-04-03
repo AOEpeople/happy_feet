@@ -35,8 +35,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @package HappyFeet
- * @subpackage Service_Test
- * @author Kevin Schu <kevin.schu@aoe.com>
+ * @subpackage Service
  */
 class RenderingService extends AbstractService
 {
@@ -57,9 +56,10 @@ class RenderingService extends AbstractService
 
     /**
      * @param array $uids
+     * @param array $conf TypoScript configuration for parseFunc
      * @return string
      */
-    public function renderFootnotes(array $uids)
+    public function renderFootnotes(array $uids, array $conf = [])
     {
         if (empty($uids)) {
             return '';
@@ -71,7 +71,7 @@ class RenderingService extends AbstractService
         /** @var Footnote $footnote */
         foreach ($footnotes as $footnote){
             if ($footnote InstanceOf Footnote) {
-                $footnote->setDescription(trim($this->renderRichText($footnote->getDescription())));
+                $footnote->setDescription(trim($this->renderRichText($footnote->getDescription(), $conf)));
             }
         } //render html in footnotes
 

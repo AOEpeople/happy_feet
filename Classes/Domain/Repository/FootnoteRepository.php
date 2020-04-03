@@ -38,7 +38,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @package HappyFeet
  * @subpackage Domain_Repository
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class FootnoteRepository extends Repository
 {

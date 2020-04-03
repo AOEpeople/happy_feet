@@ -31,8 +31,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 /**
  * @package HappyFeet
  * @subpackage Domain_Model_Test
- * @author Torsten Zander <torsten.zander@aoe.com>
- * @author Timo Fuchs <timo.fuchs@aoe.com>
  */
 class FootnoteTest extends UnitTestCase
 {
