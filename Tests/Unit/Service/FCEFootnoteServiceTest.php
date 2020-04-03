@@ -28,9 +28,8 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Service\FCEFootnoteService;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use UnexpectedValueException;
-
 
 /**
  * @package HappyFeet
@@ -44,11 +43,29 @@ class FCEFootnoteServiceTest extends UnitTestCase
     protected $service;
 
     /**
+     * @var RenderingService|MockObject
+     */
+    protected $renderingServiceMock;
+
+    /**
+     * @var ContentObjectRenderer|MockObject
+     */
+    protected $cObjMock;
+
+    /**
      * setup
      */
     public function setUp()
     {
-        $this->service = new FCEFootnoteService();
+        $this->renderingServiceMock = $this->getMockBuilder(RenderingService::class)
+            ->setMethods(['renderFootnotes'])
+            ->getMock();
+
+        $this->cObjMock = $this->getMockBuilder(ContentObjectRenderer::class)
+            ->setMethods(['getCurrentVal'])
+            ->disableOriginalConstructor()->getMock();
+
+        $this->service = new FCEFootnoteService($this->renderingServiceMock, $this->cObjMock);
     }
 
     /**
@@ -63,31 +80,13 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
-     * @method FCEFootnoteService:renderItemList
-     */
-    public function shouldThrowExceptionIfCObjNotExists()
-    {
-        $service = new FCEFootnoteService();
-        $service->renderItemList('', array('userFunc' => '', 'field' => ''));
-    }
-
-    /**
-     * @test
      * @method FCEFootnoteService:renderItemList
      */
     public function shouldRenderItemListIfNoFootnotesSelected()
     {
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)
-            ->setMethods(['getCurrentVal'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->cObjMock->expects($this->once())->method('getCurrentVal')->willReturn('');
 
-        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('');
-
-        $this->service->injectContentObjectRenderer($cObj);
-
-        $this->assertEquals('', $this->service->renderItemList('', array('userFunc' => '', 'field' => '')));
+        $this->assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
     }
 
     /**
@@ -96,38 +95,10 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemList()
     {
-        $renderer = $this->getMockBuilder(RenderingService::class)
-            ->setMethods(['renderFootnotes'])
-            ->getMock();
+        $this->renderingServiceMock->expects($this->once())->method('renderFootnotes')
+            ->with([1, 2])->willReturn('contentString');
 
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)
-            ->setMethods(['getCurrentVal'])
-            ->disableOriginalConstructor()->getMock();
-
-        $renderer->method('renderFootnotes')->with([1, 2])->willReturn('contentString');
-        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
-
-        $this->service->injectRenderingService($renderer);
-        $this->service->injectContentObjectRenderer($cObj);
-
-        $conf = ['userFunc' => '', 'field' => ''];
-
-        $this->assertEquals('contentString', $this->service->renderItemList('', $conf));
-    }
-
-    /**
-     * @test
-     */
-    public function shouldRenderItemLists()
-    {
-        $renderer = $this->getMockBuilder(RenderingService::class)->setMethods(['renderFootnotes'])->getMock();
-        $renderer->method('renderFootnotes')->with([1, 2])->willReturn('contentString');
-
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
-        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
-
-        $this->service->injectRenderingService($renderer);
-        $this->service->injectContentObjectRenderer($cObj);
+        $this->cObjMock->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
 
         $conf = ['userFunc' => '', 'field' => ''];
 
