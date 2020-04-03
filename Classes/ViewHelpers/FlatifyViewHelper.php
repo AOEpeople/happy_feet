@@ -43,6 +43,6 @@ class FlatifyViewHelper extends AbstractViewHelper
         if ($str === null) {
             $str = $this->renderChildren();
         }
-        return str_replace(array("\r", "\n"), '', $str);
+        return str_replace(["\r", "\n"], '', $str);
     }
 }

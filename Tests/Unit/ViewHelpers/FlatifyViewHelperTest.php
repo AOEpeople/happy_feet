@@ -62,10 +62,10 @@ class FlatifyViewHelperTest extends ViewHelperBaseTestcase
      */
     public function getTemplateFixtureProvider()
     {
-        return array(
-            'windows' => array("\r\nsuch a beautiful footnote\r\n"),
-            'unix' => array("\nsuch a beautiful footnote\n"),
-            'mac' => array("\rsuch a beautiful footnote\r")
-        );
+        return [
+            'windows' => ["\r\nsuch a beautiful footnote\r\n"],
+            'unix' => ["\nsuch a beautiful footnote\n"],
+            'mac' => ["\rsuch a beautiful footnote\r"]
+        ];
     }
 }

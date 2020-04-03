@@ -47,17 +47,17 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @var array
      */
-    protected $coreExtensionsToLoad = array(
+    protected $coreExtensionsToLoad = [
         'extbase',
         'fluid'
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $testExtensionsToLoad = array(
+    protected $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet'
-    );
+    ];
 
     /**
      *
@@ -125,7 +125,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     public function shouldGetFootnotesByUids()
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
-        $footnotes = $this->repository->getFootnotesByUids(array(2, 4));
+        $footnotes = $this->repository->getFootnotesByUids([2, 4]);
         $this->assertCount(2, $footnotes);
         $this->assertEquals(2, $footnotes[0]->getUid());
         $this->assertEquals(4, $footnotes[1]->getUid());

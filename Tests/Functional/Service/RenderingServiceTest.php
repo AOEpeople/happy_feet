@@ -43,9 +43,9 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @var array
      */
-    protected $testExtensionsToLoad = array(
+    protected $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet'
-    );
+    ];
 
     /**
      * @var RenderingService
@@ -58,16 +58,16 @@ class RenderingServiceTest extends FunctionalTestCase
     public function setUp()
     {
         parent::setUp();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = [
             'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
-            'options' => array()
-        );
+            'options' => []
+        ];
 
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
             'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
             'frontend' => 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend',
-            'groups' => array('system')
-        );
+            'groups' => ['system']
+        ];
 
         Bootstrap::getInstance()->initializeCachingFramework();
 
@@ -98,7 +98,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWithNoUids()
     {
-        $content = $this->renderingService->renderFootnotes(array());
+        $content = $this->renderingService->renderFootnotes([]);
         $this->assertEquals('', $content);
     }
 
@@ -116,7 +116,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
-        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertEquals('', $content);
     }
 
@@ -180,7 +180,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
-        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertRegExp('~HEADER@4711~', $content);
         $this->assertRegExp('~HEADER@4712~', $content);
     }
@@ -212,7 +212,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
-        $content = $this->renderingService->renderFootnotes(array(4711, 4712));
+        $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertRegExp('~DESCRIPTION@4711~', $content);
         $this->assertRegExp('~DESCRIPTION@4712~', $content);
     }
@@ -274,6 +274,6 @@ class RenderingServiceTest extends FunctionalTestCase
         $reflector = new ReflectionClass(RenderingService::class);
         $method = $reflector->getMethod($method);
         $method->setAccessible(true);
-        return $method->invokeArgs($this->renderingService, array());
+        return $method->invokeArgs($this->renderingService, []);
     }
 }
