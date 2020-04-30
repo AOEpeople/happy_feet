@@ -26,6 +26,7 @@ namespace AOE\HappyFeet\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use UnexpectedValueException;
 
 /**
  * Render Footnotes for FCE
@@ -43,37 +44,67 @@ class FCEFootnoteService extends AbstractService
     /**
      * @var ContentObjectRenderer
      */
-    private $cObj;
-
-    /**
-     * @param RenderingService $footnoteRenderer
-     * @param ContentObjectRenderer $cObj
-     */
-    public function __construct(RenderingService $footnoteRenderer, ContentObjectRenderer $cObj)
-    {
-        $this->footnoteRenderer = $footnoteRenderer;
-        $this->cObj = $cObj;
-    }
+    public $cObj;
 
     /**
      *
      * @param string $content
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
      * @return string The wrapped index value
+     * @throws UnexpectedValueException
      */
-    public function renderItemList($content, $conf = [])
+    public function renderItemList($content, $conf = array())
     {
         if (false === array_key_exists('userFunc', $conf) || false === array_key_exists('field', $conf)) {
             return '';
         }
         if (array_key_exists('isGridElement', $conf) && (boolean)$conf['isGridElement'] === true) {
-            $footnoteUids = $this->cObj->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
+            $footnoteUids = $this->getCObj()->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
         } else {
-            $footnoteUids = $this->cObj->getCurrentVal();
+            $footnoteUids = $this->getCObj()->getCurrentVal();
         }
         if (empty($footnoteUids)) {
             return '';
         }
-        return $this->footnoteRenderer->renderFootnotes(explode(',', $footnoteUids));
+        return $this->getRenderingService()->renderFootnotes(explode(',', $footnoteUids));
+    }
+
+    /**
+     * @param RenderingService $footnoteRenderer
+     */
+    public function injectRenderingService(RenderingService $footnoteRenderer)
+    {
+        $this->footnoteRenderer = $footnoteRenderer;
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     * @throws UnexpectedValueException
+     */
+    protected function getCObj()
+    {
+        if (!$this->cObj instanceof ContentObjectRenderer) {
+            throw new UnexpectedValueException('cObj was not set', 1393843943);
+        }
+        return $this->cObj;
+    }
+
+    /**
+     * @param ContentObjectRenderer $cObj
+     */
+    public function setCObj(ContentObjectRenderer $cObj)
+    {
+        $this->cObj = $cObj;
+    }
+
+    /**
+     * @return RenderingService
+     */
+    protected function getRenderingService()
+    {
+        if (null === $this->footnoteRenderer) {
+            $this->footnoteRenderer = $this->getObjectManager()->get(RenderingService::class);
+        }
+        return $this->footnoteRenderer;
     }
 }

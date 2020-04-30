@@ -4,7 +4,7 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2020 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -28,8 +28,9 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Service\FCEFootnoteService;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use UnexpectedValueException;
+
 
 /**
  * @package HappyFeet
@@ -43,29 +44,13 @@ class FCEFootnoteServiceTest extends UnitTestCase
     protected $service;
 
     /**
-     * @var RenderingService|MockObject
-     */
-    protected $renderingServiceMock;
-
-    /**
-     * @var ContentObjectRenderer|MockObject
-     */
-    protected $cObjMock;
-
-    /**
      * setup
      */
     public function setUp()
     {
-        $this->renderingServiceMock = $this->getMockBuilder(RenderingService::class)
-            ->setMethods(['renderFootnotes'])
+        $this->service = $this->getMockBuilder(FCEFootnoteService::class)
+            ->setMethods(['getCObj'])
             ->getMock();
-
-        $this->cObjMock = $this->getMockBuilder(ContentObjectRenderer::class)
-            ->setMethods(['getCurrentVal'])
-            ->disableOriginalConstructor()->getMock();
-
-        $this->service = new FCEFootnoteService($this->renderingServiceMock, $this->cObjMock);
     }
 
     /**
@@ -80,28 +65,49 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     /**
      * @test
+     * @expectedException UnexpectedValueException
      * @method FCEFootnoteService:renderItemList
      */
-    public function shouldRenderItemListIfNoFootnotesSelected()
+    public function shouldThrowExceptionIfCObjNotExists()
     {
-        $this->cObjMock->expects($this->once())->method('getCurrentVal')->willReturn('');
-
-        $this->assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
+        $service = new FCEFootnoteService();
+        $service->renderItemList('', array('userFunc' => '', 'field' => ''));
     }
 
     /**
      * @test
-     * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList
+     * @method FCEFootnoteService:renderItemList
      */
-    public function shouldRenderItemList()
+    public function shouldRenderItemListIfNoFootnotesSelected()
     {
-        $this->renderingServiceMock->expects($this->once())->method('renderFootnotes')
-            ->with([1, 2])->willReturn('contentString');
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)
+            ->setMethods(['getCurrentVal'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->cObjMock->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
+        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('');
+        $this->service->expects($this->once())->method('getCObj')->willReturn($cObj);
+
+        $this->assertEquals('', $this->service->renderItemList('', array('userFunc' => '', 'field' => '')));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldRenderItemLists()
+    {
+        $renderer = $this->getMockBuilder(RenderingService::class)->setMethods(['renderFootnotes'])->getMock();
+        $renderer->method('renderFootnotes')->with([1, 2])->willReturn('contentString');
+
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
+        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
+
+        $service = new FCEFootnoteService();
+        $service->injectRenderingService($renderer);
+        $service->setCObj($cObj);
 
         $conf = ['userFunc' => '', 'field' => ''];
 
-        $this->assertEquals('contentString', $this->service->renderItemList('', $conf));
+        $this->assertEquals('contentString', $service->renderItemList('', $conf));
     }
 }
