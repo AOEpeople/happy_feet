@@ -69,8 +69,6 @@ class RenderingServiceTest extends FunctionalTestCase
             'groups' => ['system']
         ];
 
-        Bootstrap::getInstance()->initializeCachingFramework();
-
         $footnote1 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
 
         $footnote1->_setProperty('uid', 4711);

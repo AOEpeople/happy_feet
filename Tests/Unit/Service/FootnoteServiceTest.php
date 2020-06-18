@@ -1,10 +1,10 @@
 <?php
-namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
+namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2020 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -26,61 +26,56 @@ namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
  ***************************************************************/
 
 use AOE\HappyFeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use AOE\HappyFeet\Service\FootnoteService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @package HappyFeet
- * @subpackage Domain_Model_Test
+ * @subpackage Service_Test
  */
-class FootnoteTest extends UnitTestCase
+class FootnoteServiceTest extends UnitTestCase
 {
+    /**
+     * @var FootnoteRepository
+     */
+    private $footnoteRepository;
 
     /**
-     * @var Footnote
+     * @var FootnoteService
      */
-    protected $footnote;
+    private $footnoteService;
 
-    /**
-     *
-     */
-    public function setUp()
+    protected function setUp()
     {
-        $this->footnote = new Footnote();
+        $this->footnoteRepository = $this
+            ->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getFootnoteByUid'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->footnoteService = new FootnoteService($this->footnoteRepository);
     }
 
     /**
      * @test
      */
-    public function shouldSetTitle()
+    public function shouldGetFootnoteById()
     {
-        $this->footnote->setTitle('Dummy title');
-        $this->assertEquals('Dummy title', $this->footnote->getTitle());
+        $footnote = new Footnote();
+
+        $this->footnoteRepository
+            ->method('getFootnoteByUid')
+            ->with(123)
+            ->willReturn($footnote);
+
+        $this->assertSame($footnote, $this->footnoteService->getFootnoteById(123));
     }
 
     /**
      * @test
      */
-    public function shouldSetDescription()
+    public function shouldReturnNullIfFootnoteNotFound()
     {
-        $this->footnote->setDescription('Dummy Description');
-        $this->assertEquals('Dummy Description', $this->footnote->getDescription());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldSetHeader()
-    {
-        $this->footnote->setHeader('Dummy Header');
-        $this->assertEquals('Dummy Header', $this->footnote->getHeader());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldSetIndexNumber()
-    {
-        $this->footnote->setIndexNumber('Dummy IndexNumber');
-        $this->assertEquals('Dummy IndexNumber', $this->footnote->getIndexNumber());
+        $this->assertNull($this->footnoteService->getFootnoteById(456));
     }
 }

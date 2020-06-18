@@ -4,7 +4,7 @@ namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2020 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -30,7 +30,7 @@ use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use Throwable;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
@@ -117,6 +117,27 @@ class FootnoteRepositoryTest extends FunctionalTestCase
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertEquals(3, $lowestIndex);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetFootnoteByUid()
+    {
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $footnote = $this->repository->getFootnoteByUid(1);
+        $this->assertInstanceOf(Footnote::class, $footnote);
+        $this->assertEquals(1, $footnote->getUid());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnNullIfFootnoteNotFound()
+    {
+        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $footnote = $this->repository->getFootnoteByUid(99);
+        $this->assertNull($footnote);
     }
 
     /**

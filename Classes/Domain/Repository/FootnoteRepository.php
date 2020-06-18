@@ -4,7 +4,7 @@ namespace AOE\HappyFeet\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2020 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -30,7 +30,9 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use PDO;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -56,7 +58,7 @@ class FootnoteRepository extends Repository
      */
     public function initializeObject()
     {
-        /** @var $defaultQuerySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+        /** @var $defaultQuerySettings Typo3QuerySettings */
         $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
@@ -102,13 +104,13 @@ class FootnoteRepository extends Repository
     /**
      * @param Footnote $object
      * @return void
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws IllegalObjectTypeException
      */
     public function add($object)
     {
         /** @var Footnote $object */
         if (false === ($object instanceof Footnote)) {
-            throw new \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException(
+            throw new IllegalObjectTypeException(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
             );
@@ -118,8 +120,20 @@ class FootnoteRepository extends Repository
     }
 
     /**
+     * @param integer $uid
+     * @return Footnote|null
+     */
+    public function getFootnoteByUid($uid)
+    {
+        $query = $this->createQuery();
+        $query->setQuerySettings($this->defaultQuerySettings);
+
+        return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+    }
+
+    /**
      * @param array $uids
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function getFootnotesByUids(array $uids)
     {
@@ -131,13 +145,13 @@ class FootnoteRepository extends Repository
     }
 
     /**
-     * @param array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $queryResult
+     * @param array|QueryResultInterface $queryResult
      * @param $uids
      * @return mixed
      */
     public function sortFootnotesByUids($queryResult, $uids)
     {
-        if ($queryResult instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
+        if ($queryResult instanceof QueryResultInterface) {
             $queryResult = $queryResult->toArray();
         }
         usort($queryResult, [$this, 'usortFootnotesByUids']);

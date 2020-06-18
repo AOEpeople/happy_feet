@@ -1,10 +1,10 @@
 <?php
-namespace AOE\HappyFeet\ViewHelpers;
+namespace AOE\HappyFeet\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AOE GmbH <dev@aoe.com>
+ *  (c) 2020 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -25,24 +25,30 @@ namespace AOE\HappyFeet\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use AOE\HappyFeet\Domain\Model\Footnote;
+use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
-class FlatifyViewHelper extends AbstractViewHelper
+class FootnoteService extends AbstractService
 {
-    protected $escapeOutput = false;
     /**
-     * @param string|null $str
-     * @return string
+     * @var FootnoteRepository
      */
-    public function render($str = null)
+    private $footnoteRepository;
+
+    /**
+     * @param FootnoteRepository $footnoteRepository
+     */
+    public function __construct(FootnoteRepository $footnoteRepository)
     {
-        if ($str === null) {
-            $str = $this->renderChildren();
-        }
-        return str_replace(["\r", "\n"], '', $str);
+        $this->footnoteRepository = $footnoteRepository;
+    }
+
+    /**
+     * @param integer $footnoteId
+     * @return Footnote|null
+     */
+    public function getFootnoteById($footnoteId)
+    {
+        return $this->footnoteRepository->getFootnoteByUid($footnoteId);
     }
 }
