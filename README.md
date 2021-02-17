@@ -1,8 +1,8 @@
 # happy_feet
 
-[![Build Status](https://github.com/AOEpeople/happy_feet/workflows/CI/badge.svg?branch=master)](https://github.com/AOEpeople/happy_feet/actions)
-[![Code Coverage](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=master)
+[![Build Status](https://github.com/AOEpeople/happy_feet/workflows/CI/badge.svg?branch=main)](https://github.com/AOEpeople/happy_feet/actions)
+[![Code Coverage](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=main)
 
 Footnote Extension for TYPO3 using Extbase
 
