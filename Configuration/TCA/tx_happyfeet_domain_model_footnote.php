@@ -9,7 +9,6 @@ return [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'searchFields' => 'index_number,title,header,description',
         'delete' => 'deleted',
         'enablecolumns' => [
