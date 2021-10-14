@@ -12,10 +12,14 @@ jobs:
       matrix:
         typo3: [ ^8.7, ^9.5, ^10.4 ]
         php: [ '7.2', '7.3', '7.4' ]
+        mysql: [ '5.7' ]
 
     steps:
-      - name: Start database server
-        run: sudo /etc/init.d/mysql start
+      - name: Set up MySQL ${{ matrix.mysql }}
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: ${{ matrix.mysql }}
+          mysql root password: 'root'
 
       - name: Checkout
         uses: actions/checkout@v2
