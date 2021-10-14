@@ -21,7 +21,7 @@ Target group: **Administrators**
 Installation
 ------------
 
-You can install / download this extension from `[TER (TYPO3 Extension Repository)] <http://typo3.org/extensions/repository/view/happy_feet>`_.
+You can install / download this extension from `[TER (TYPO3 Extension Repository)] <https://extensions.typo3.org/extension/happy_feet>`_.
 
 
 Configuration
