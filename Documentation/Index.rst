@@ -30,7 +30,7 @@ Happy Feet
 		footnotes, overlay, text-highlight
 
 	:Copyright:
-		2016
+		2021
 
 	:Author:
 		AOE GmbH
@@ -39,7 +39,7 @@ Happy Feet
 		dev@aoe.com
 
 	:License:
-		copyright 2016 AOE GmbH
+		copyright 2014 - 2021 AOE GmbH
 
 		All rights reserved
 

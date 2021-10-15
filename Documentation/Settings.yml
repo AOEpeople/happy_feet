@@ -4,10 +4,10 @@
 
 ---
 conf.py:
-  copyright: 2016
+  copyright: 2014 - 2021
   project: Happy Feet
-  version: 1.3
-  release: 1.3.7
+  version: 8.3
+  release: 8.3.*
   latex_documents:
   - - Index
     - happy_feet.tex

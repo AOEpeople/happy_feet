@@ -14,9 +14,10 @@ You can install / download this extension from [TER (TYPO3 Extension Repository)
 
 The documentation is available online at [docs.typo3.org][2].
 
-## License
+## Copyright / License
 
-License: GPLv3 or later. See LICENSE.
+Copyright: (c) 2014 - 2021, AOE GmbH
+License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
 
 ## Contributing
 
@@ -27,5 +28,5 @@ License: GPLv3 or later. See LICENSE.
 	5. Run the tests, ensuring they all pass
 	6. Submit a Pull Request using Github
 
-[1]: http://typo3.org/extensions/repository/view/happy_feet
+[1]: https://extensions.typo3.org/extension/happy_feet
 [2]: https://docs.typo3.org/typo3cms/extensions/happy_feet/

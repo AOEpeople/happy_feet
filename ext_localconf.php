@@ -3,7 +3,6 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$extKey = 'happy_feet';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
     '
         # ***************************************************************************************
@@ -51,8 +50,7 @@ $extKey = 'happy_feet';
 ');
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['happy_feet'] =
-    'AOE\HappyFeet\Typo3\Hook\Tcemain';
+    \AOE\HappyFeet\Typo3\Hook\Tcemain::class;
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['typolinkBuilder']['happy_feet'] = 'AOE\HappyFeet\Typo3\Hook\LinkRenderer';
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['linkHandler']['happy_feet'] = 'AOE\HappyFeet\Typo3\Hook\LinkHandler';
-
+$GLOBALS['TYPO3_CONF_VARS']['FE']['typolinkBuilder']['happy_feet'] = \AOE\HappyFeet\Typo3\Hook\LinkRenderer::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['linkHandler']['happy_feet'] = \AOE\HappyFeet\Typo3\Hook\LinkHandler::class;

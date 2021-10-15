@@ -4,7 +4,7 @@ namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2020 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -43,14 +43,6 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      * @var FootnoteRepository
      */
     private $repository;
-
-    /**
-     * @var array
-     */
-    protected $coreExtensionsToLoad = [
-        'extbase',
-        'fluid'
-    ];
 
     /**
      * @var array
