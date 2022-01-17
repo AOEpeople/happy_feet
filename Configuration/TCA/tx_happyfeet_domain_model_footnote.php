@@ -75,8 +75,8 @@ return [
             'label'   => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.starttime',
             'config'  => [
                 'type'     => 'input',
+                'renderType' => 'inputDateTime',
                 'size'     => '8',
-                'max'      => '20',
                 'eval'     => 'date',
                 'default'  => '0',
                 'checkbox' => '0'
@@ -87,8 +87,8 @@ return [
             'label'   => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.endtime',
             'config'  => [
                 'type'     => 'input',
+                'renderType' => 'inputDateTime',
                 'size'     => '8',
-                'max'      => '20',
                 'eval'     => 'date',
                 'checkbox' => '0',
                 'default'  => '0',
