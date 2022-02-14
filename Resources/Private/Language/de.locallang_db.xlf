@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:happy_feet/Resources/Private/Language/locallang_db.xlf" date="2022-02-11T11:10:37Z" product-name="happy_feet">
+		<header/>
+		<body>
+			<trans-unit id="tx_happyfeet_domain_model_footnote" resname="tx_happyfeet_domain_model_footnote">
+				<source>Happy Feet Fußnote</source>
+			</trans-unit>
+			<trans-unit id="tx_happyfeet_domain_model_footnote.tab.access" resname="tx_happyfeet_domain_model_footnote.tab.access">
+				<source>Access</source>
+			</trans-unit>
+			<trans-unit id="tx_happyfeet_domain_model_footnote.index_number" resname="tx_happyfeet_domain_model_footnote.index_number">
+				<source>Index</source>
+			</trans-unit>
+			<trans-unit id="tx_happyfeet_domain_model_footnote.title" resname="tx_happyfeet_domain_model_footnote.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_happyfeet_domain_model_footnote.header" resname="tx_happyfeet_domain_model_footnote.header">
+				<source>Header</source>
+			</trans-unit>
+            <trans-unit id="tx_happyfeet_domain_model_footnote.description" resname="tx_happyfeet_domain_model_footnote.description">
+                <source>Beschreibung</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>
