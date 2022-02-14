@@ -46,7 +46,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
     /**
      * setup
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->service = $this->getMockBuilder(FCEFootnoteService::class)
             ->setMethods(['getCObj'])

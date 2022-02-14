@@ -23,7 +23,7 @@
         "typo3/cms-extbase": "*"
     },
     "require-dev": {
-        "nimut/testing-framework": "^5.3",
+        "nimut/testing-framework": "^5.3 || ^6.0",
         "phpunit/phpcov": "*",
         "squizlabs/php_codesniffer": "*",
         "sebastian/phpcpd": "*",

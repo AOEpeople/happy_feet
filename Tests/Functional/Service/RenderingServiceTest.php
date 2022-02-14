@@ -55,7 +55,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * Set up test case
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = [

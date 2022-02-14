@@ -50,7 +50,7 @@ class TcemainTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)

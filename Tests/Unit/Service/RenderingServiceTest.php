@@ -46,7 +46,7 @@ class RenderingServiceTest extends UnitTestCase
      */
     private $contentObjectRenderer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
