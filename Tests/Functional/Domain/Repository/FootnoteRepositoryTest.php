@@ -31,7 +31,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use Throwable;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * @package HappyFeet
@@ -57,8 +56,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->repository = $objectManager->get(FootnoteRepository::class);
+        $this->repository = GeneralUtility::makeInstance(FootnoteRepository::class);
         $this->repository->initializeObject();
     }
 

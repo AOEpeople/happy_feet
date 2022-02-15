@@ -34,17 +34,25 @@ use UnexpectedValueException;
  * @package HappyFeet
  * @subpackage Service
  */
-class FCEFootnoteService extends AbstractService
+class FCEFootnoteService
 {
     /**
      * @var RenderingService
      */
-    private $footnoteRenderer;
+    private $renderingService;
 
     /**
      * @var ContentObjectRenderer
      */
     public $cObj;
+
+    /**
+     * @param RenderingService $renderingService
+     */
+    public function __construct(RenderingService $renderingService)
+    {
+        $this->renderingService = $renderingService;
+    }
 
     /**
      *
@@ -66,15 +74,7 @@ class FCEFootnoteService extends AbstractService
         if (empty($footnoteUids)) {
             return '';
         }
-        return $this->getRenderingService()->renderFootnotes(explode(',', $footnoteUids));
-    }
-
-    /**
-     * @param RenderingService $footnoteRenderer
-     */
-    public function injectRenderingService(RenderingService $footnoteRenderer)
-    {
-        $this->footnoteRenderer = $footnoteRenderer;
+        return $this->renderingService->renderFootnotes(explode(',', $footnoteUids));
     }
 
     /**
@@ -95,16 +95,5 @@ class FCEFootnoteService extends AbstractService
     public function setCObj(ContentObjectRenderer $cObj)
     {
         $this->cObj = $cObj;
-    }
-
-    /**
-     * @return RenderingService
-     */
-    protected function getRenderingService()
-    {
-        if (null === $this->footnoteRenderer) {
-            $this->footnoteRenderer = $this->getObjectManager()->get(RenderingService::class);
-        }
-        return $this->footnoteRenderer;
     }
 }

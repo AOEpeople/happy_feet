@@ -44,18 +44,29 @@ class FCEFootnoteServiceTest extends UnitTestCase
     protected $service;
 
     /**
+     * @var RenderingService
+     */
+    protected $renderingService;
+
+    /**
      * setup
      */
     public function setUp(): void
     {
+        $this->renderingService = $this->getMockBuilder(RenderingService::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['renderFootnotes'])
+            ->getMock();
+
         $this->service = $this->getMockBuilder(FCEFootnoteService::class)
+            ->setConstructorArgs([$this->renderingService])
             ->setMethods(['getCObj'])
             ->getMock();
     }
 
     /**
      * @test
-     * @method Tx_HappyFeet_Service_FCEFootnoteService:renderItemList
+     * @method FCEFootnoteService:renderItemList
      */
     public function shouldRenderItemListWithEmptyConf()
     {
@@ -65,13 +76,15 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
      * @method FCEFootnoteService:renderItemList
      */
     public function shouldThrowExceptionIfCObjNotExists()
     {
-        $service = new FCEFootnoteService();
-        $service->renderItemList('', array('userFunc' => '', 'field' => ''));
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionCode(1393843943);
+
+        $service = new FCEFootnoteService($this->renderingService);
+        $service->renderItemList('', ['userFunc' => '', 'field' => '']);
     }
 
     /**
@@ -80,15 +93,12 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemListIfNoFootnotesSelected()
     {
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)
-            ->setMethods(['getCurrentVal'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
         $cObj->expects($this->once())->method('getCurrentVal')->willReturn('');
+
         $this->service->expects($this->once())->method('getCObj')->willReturn($cObj);
 
-        $this->assertEquals('', $this->service->renderItemList('', array('userFunc' => '', 'field' => '')));
+        $this->assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
     }
 
     /**
@@ -96,14 +106,12 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemLists()
     {
-        $renderer = $this->getMockBuilder(RenderingService::class)->setMethods(['renderFootnotes'])->getMock();
-        $renderer->method('renderFootnotes')->with([1, 2])->willReturn('contentString');
+        $this->renderingService->method('renderFootnotes')->with(['1', '2'])->willReturn('contentString');
 
         $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
         $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
 
-        $service = new FCEFootnoteService();
-        $service->injectRenderingService($renderer);
+        $service = new FCEFootnoteService($this->renderingService);
         $service->setCObj($cObj);
 
         $conf = ['userFunc' => '', 'field' => ''];

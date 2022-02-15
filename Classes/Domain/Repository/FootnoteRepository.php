@@ -59,7 +59,7 @@ class FootnoteRepository extends Repository
     public function initializeObject()
     {
         /** @var $defaultQuerySettings Typo3QuerySettings */
-        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
         $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);

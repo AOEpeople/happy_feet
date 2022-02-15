@@ -1,7 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
+defined('TYPO3') or die();
 
 // configure range of endtime here (and NOT in Configuration/TCA/[tablename].php), because the configuration-data is not cacheable!
 $GLOBALS['TCA']['tx_happyfeet_domain_model_footnote']['columns']['endtime']['config']['range'] = [

@@ -28,7 +28,6 @@ namespace AOE\HappyFeet\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -37,22 +36,30 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @package HappyFeet
  * @subpackage Service
  */
-class RenderingService extends AbstractService
+class RenderingService
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $footnoteRepository;
-
     /**
      * @var ContentObjectRenderer
      */
     private $contentObjectRenderer;
 
     /**
+     * @var FootnoteRepository
+     */
+    private $footnoteRepository;
+
+    /**
      * @var string
      */
     private $defaultTemplate = 'Markup';
+
+    /**
+     * @param FootnoteRepository $footnoteRepository
+     */
+    public function __construct(FootnoteRepository $footnoteRepository)
+    {
+        $this->footnoteRepository = $footnoteRepository;
+    }
 
     /**
      * @param array $uids
@@ -64,7 +71,7 @@ class RenderingService extends AbstractService
         if (empty($uids)) {
             return '';
         }
-        $footnotes = $this->getFootnoteRepository()->getFootnotesByUids($uids);
+        $footnotes = $this->footnoteRepository->getFootnotesByUids($uids);
         if (count($footnotes) < 1) {
             return '';
         }
@@ -79,7 +86,7 @@ class RenderingService extends AbstractService
 
         $view = $this->createView($templatePath);
         $view->assign('footnotes', $footnotes);
-        return $view->render($templatePath);
+        return $view->render();
     }
 
     /**
@@ -101,25 +108,12 @@ class RenderingService extends AbstractService
     }
 
     /**
-     * @return FootnoteRepository
-     */
-    protected function getFootnoteRepository()
-    {
-        if (null === $this->footnoteRepository) {
-            $this->footnoteRepository = $this->getObjectManager()->get(
-                FootnoteRepository::class
-            );
-        }
-        return $this->footnoteRepository;
-    }
-
-    /**
      * @param string $template
      * @return \TYPO3\CMS\Fluid\View\StandaloneView
      */
     private function createView($template)
     {
-        $view = $this->getObjectManager()->get(StandaloneView::class);
+        $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
         return $view;
     }
@@ -157,21 +151,12 @@ class RenderingService extends AbstractService
     }
 
     /**
-     * @param FootnoteRepository $footnoteRepository
-     */
-    public function setFootnoteRepository(FootnoteRepository $footnoteRepository)
-    {
-        $this->footnoteRepository = $footnoteRepository;
-    }
-
-    /**
      * @return ContentObjectRenderer
      */
     protected function getContentObjectRenderer()
     {
         if (null === $this->contentObjectRenderer) {
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-            $this->contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+            $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         }
         return $this->contentObjectRenderer;
     }

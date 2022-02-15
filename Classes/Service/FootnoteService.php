@@ -28,7 +28,7 @@ namespace AOE\HappyFeet\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 
-class FootnoteService extends AbstractService
+class FootnoteService
 {
     /**
      * @var FootnoteRepository

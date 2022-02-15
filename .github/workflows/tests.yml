@@ -10,18 +10,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3: [ ^8.7, ^9.5, ^10.4, ^11.5 ]
-        php: [ '7.2', '7.3', '7.4' ]
+        typo3: [ ^11.5 ]
+        php: [ '7.4', '8.0' ]
         mysql: [ '5.7' ]
-        include:
-          - typo3: ^11.5
-            php: 8.0
-            experimental: true
-        exclude:
-          - typo3: ^11.5
-            php: 7.2
-          - typo3: ^11.5
-            php: 7.3
     steps:
       - name: Set up MySQL ${{ matrix.mysql }}
         uses: mirromutth/mysql-action@v1.1

@@ -30,9 +30,7 @@ use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use ReflectionClass;
-use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * @package HappyFeet
@@ -59,13 +57,13 @@ class RenderingServiceTest extends FunctionalTestCase
     {
         parent::setUp();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = [
-            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
+            'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
             'options' => []
         ];
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
-            'frontend' => 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend',
+            'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
+            'frontend' => \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class,
             'groups' => ['system']
         ];
 
@@ -87,8 +85,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
 
-        $this->renderingService = GeneralUtility::makeInstance(ObjectManager::class)->get(RenderingService::class);
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
+        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class);
     }
 
     /**
@@ -179,8 +176,8 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertRegExp('~HEADER@4711~', $content);
-        $this->assertRegExp('~HEADER@4712~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4711~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4712~', $content);
     }
 
     /**
@@ -211,8 +208,8 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertRegExp('~DESCRIPTION@4711~', $content);
-        $this->assertRegExp('~DESCRIPTION@4712~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
     }
 
     /**
