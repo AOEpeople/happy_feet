@@ -29,6 +29,7 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -51,6 +52,11 @@ class RenderingServiceTest extends FunctionalTestCase
     protected $renderingService;
 
     /**
+     * @var FootnoteRepository|MockObject
+     */
+    protected $footnoteRepository;
+
+    /**
      * Set up test case
      */
     public function setUp(): void
@@ -67,6 +73,21 @@ class RenderingServiceTest extends FunctionalTestCase
             'groups' => ['system']
         ];
 
+        $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->setMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+
+
+        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $footnoteRepository);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldNotRenderWithNoUids()
+    {
         $footnote1 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
 
         $footnote1->_setProperty('uid', 4711);
@@ -81,18 +102,9 @@ class RenderingServiceTest extends FunctionalTestCase
         $footnote2->method('getIndexNumber')->willReturn('4712');
         $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
 
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)->setMethods(['getFootnotesByUids'])->disableOriginalConstructor()->getMock();
 
-        $footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
 
-        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldNotRenderWithNoUids()
-    {
         $content = $this->renderingService->renderFootnotes([]);
         $this->assertEquals('', $content);
     }
@@ -102,14 +114,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn([]);
-
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertEquals('', $content);
@@ -120,12 +125,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteIdIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -140,8 +140,6 @@ class RenderingServiceTest extends FunctionalTestCase
             ]
         );
 
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
-
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
 
         $this->assertRegExp('~[^@]4711~', $content);
@@ -153,12 +151,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteHeaderIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -173,8 +166,6 @@ class RenderingServiceTest extends FunctionalTestCase
             ]
         );
 
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
-
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertMatchesRegularExpression('~HEADER@4711~', $content);
         $this->assertMatchesRegularExpression('~HEADER@4712~', $content);
@@ -185,12 +176,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteDescriptionIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -204,8 +190,6 @@ class RenderingServiceTest extends FunctionalTestCase
                 ]
             ]
         );
-
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
