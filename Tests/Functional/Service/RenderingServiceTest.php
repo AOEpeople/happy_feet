@@ -78,9 +78,7 @@ class RenderingServiceTest extends FunctionalTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-
-
-        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $footnoteRepository);
+        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $this->footnoteRepository);
     }
 
     /**
