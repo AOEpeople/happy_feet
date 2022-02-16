@@ -31,6 +31,9 @@ use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\NormalizedParams;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -78,6 +81,10 @@ class RenderingServiceTest extends FunctionalTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest('https://www.example.com/'))
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+            ->withAttribute('normalizedParams', new NormalizedParams([], [], '', ''));
+
         $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $this->footnoteRepository);
     }
 
@@ -99,7 +106,6 @@ class RenderingServiceTest extends FunctionalTestCase
         $footnote2->method('getHeader')->willReturn('HEADER@4712');
         $footnote2->method('getIndexNumber')->willReturn('4712');
         $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
-
 
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
 
