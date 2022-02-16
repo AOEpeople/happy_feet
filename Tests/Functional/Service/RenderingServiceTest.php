@@ -226,8 +226,6 @@ class RenderingServiceTest extends FunctionalTestCase
         $failingTemplate = 'EXT:happy_feet/Resources/Private/Templates/Rendering/TestTemplate.html';
 
         // define typoscript config
-        var_dump($GLOBALS['TSFE']);
-
         $GLOBALS['TSFE'] = $this->createMock(TypoScriptFrontendController::class);
         $GLOBALS['TSFE']->tmpl = new \stdClass();
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
@@ -245,6 +243,8 @@ class RenderingServiceTest extends FunctionalTestCase
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
 
         // define typoscript config
+        $GLOBALS['TSFE'] = $this->createMock(TypoScriptFrontendController::class);
+        $GLOBALS['TSFE']->tmpl = new \stdClass();
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
