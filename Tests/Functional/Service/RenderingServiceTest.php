@@ -146,8 +146,8 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
 
-        $this->assertRegExp('~[^@]4711~', $content);
-        $this->assertRegExp('~[^@]4712~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4711~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4712~', $content);
     }
 
     /**
@@ -213,7 +213,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldRenderRichText()
     {
-        $this->assertContains('test', $this->renderingService->renderRichText('test'));
+        $this->assertStringContainsString('test', $this->renderingService->renderRichText('test'));
     }
 
     /**
