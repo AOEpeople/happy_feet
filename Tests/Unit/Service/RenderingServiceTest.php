@@ -51,16 +51,16 @@ class RenderingServiceTest extends UnitTestCase
         parent::setUp();
 
         $this->contentObjectRenderer = $this->getMockBuilder(ContentObjectRenderer::class)
-            ->setMethods(['parseFunc'])
+            ->onlyMethods(['parseFunc'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->renderingService = $this->getMockBuilder(RenderingService::class)
-            ->setMethods(['getContentObjectRenderer'])
+            ->onlyMethods(['getContentObjectRenderer'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->renderingService->expects($this->any())->method('getContentObjectRenderer')
+        $this->renderingService->expects(self::any())->method('getContentObjectRenderer')
             ->willReturn($this->contentObjectRenderer);
     }
 
@@ -69,7 +69,7 @@ class RenderingServiceTest extends UnitTestCase
      */
     public function renderRichTextWithEmptyText()
     {
-        $this->contentObjectRenderer->expects($this->never())->method('parseFunc');
+        $this->contentObjectRenderer->expects(self::never())->method('parseFunc');
         $this->renderingService->renderRichText('');
     }
 
@@ -78,7 +78,7 @@ class RenderingServiceTest extends UnitTestCase
      */
     public function renderRichTextWithDefaultParams()
     {
-        $this->contentObjectRenderer->expects($this->once())->method('parseFunc')
+        $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
             ->with('text', [], '< lib.parseFunc_HappyFeet');
 
         $this->renderingService->renderRichText('text');
@@ -89,7 +89,7 @@ class RenderingServiceTest extends UnitTestCase
      */
     public function renderRichTextWithSpecificParams()
     {
-        $this->contentObjectRenderer->expects($this->once())->method('parseFunc')
+        $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
             ->with('special text', [], '< lib.parseFunc_HappyFeet_custom');
 
         $this->renderingService->renderRichText('special text', [], '< lib.parseFunc_HappyFeet_custom');

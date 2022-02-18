@@ -60,7 +60,7 @@ class TcemainTest extends UnitTestCase
     {
         parent::setUp();
         $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getLowestFreeIndexNumber'])
+            ->onlyMethods(['getLowestFreeIndexNumber'])
             ->disableOriginalConstructor()
             ->getMock();
 

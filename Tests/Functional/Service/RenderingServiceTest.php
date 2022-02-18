@@ -31,6 +31,8 @@ use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\ServerRequest;
@@ -66,24 +68,24 @@ class RenderingServiceTest extends FunctionalTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = [
-            'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [
+            'backend' => NullBackend::class,
             'options' => []
         ];
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-            'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
-            'frontend' => \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class,
+            'backend' => NullBackend::class,
+            'frontend' => PhpFrontend::class,
             'groups' => ['system']
         ];
 
         $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
+            ->onlyMethods(['getFootnotesByUids'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest('https://www.example.com/'))
-            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
             ->withAttribute('normalizedParams', new NormalizedParams([], [], '', ''));
 
         $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $this->footnoteRepository);
@@ -94,14 +96,14 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWithNoUids()
     {
-        $footnote1 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+        $footnote1 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
 
         $footnote1->_setProperty('uid', 4711);
-        $footnote1->expects($this->any())->method('getHeader')->willReturn('HEADER@4711');
+        $footnote1->expects(self::any())->method('getHeader')->willReturn('HEADER@4711');
         $footnote1->method('getIndexNumber')->willReturn('4711');
-        $footnote1->expects($this->any())->method('getDescription')->willReturn('DESCRIPTION@4711');
+        $footnote1->expects(self::any())->method('getDescription')->willReturn('DESCRIPTION@4711');
 
-        $footnote2 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+        $footnote2 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
 
         $footnote2->_setProperty('uid', 4712);
         $footnote2->method('getHeader')->willReturn('HEADER@4712');

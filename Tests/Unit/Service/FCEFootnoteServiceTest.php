@@ -55,12 +55,12 @@ class FCEFootnoteServiceTest extends UnitTestCase
     {
         $this->renderingService = $this->getMockBuilder(RenderingService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['renderFootnotes'])
+            ->onlyMethods(['renderFootnotes'])
             ->getMock();
 
         $this->service = $this->getMockBuilder(FCEFootnoteService::class)
             ->setConstructorArgs([$this->renderingService])
-            ->setMethods(['getCObj'])
+            ->onlyMethods(['getCObj'])
             ->getMock();
     }
 
@@ -93,10 +93,10 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     public function shouldRenderItemListIfNoFootnotesSelected()
     {
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
-        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('');
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->onlyMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
+        $cObj->expects(self::once())->method('getCurrentVal')->willReturn('');
 
-        $this->service->expects($this->once())->method('getCObj')->willReturn($cObj);
+        $this->service->expects(self::once())->method('getCObj')->willReturn($cObj);
 
         $this->assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
     }
@@ -108,8 +108,8 @@ class FCEFootnoteServiceTest extends UnitTestCase
     {
         $this->renderingService->method('renderFootnotes')->with(['1', '2'])->willReturn('contentString');
 
-        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->setMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
-        $cObj->expects($this->once())->method('getCurrentVal')->willReturn('1,2');
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->onlyMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
+        $cObj->expects(self::once())->method('getCurrentVal')->willReturn('1,2');
 
         $service = new FCEFootnoteService($this->renderingService);
         $service->setCObj($cObj);

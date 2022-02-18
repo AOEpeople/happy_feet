@@ -25,6 +25,7 @@ class LinkRenderer extends AbstractTypolinkBuilder
         TypoScriptFrontendController $typoScriptFrontendController = null,
         RenderingService $renderingService = null
     ) {
+        parent::__construct($contentObjectRenderer, $typoScriptFrontendController);
         $this->renderingService = $renderingService ?? GeneralUtility::makeInstance(RenderingService::class);
     }
 
