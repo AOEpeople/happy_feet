@@ -14,9 +14,6 @@ return [
         ],
         'iconfile' => 'EXT:happy_feet/Resources/Public/Icons/TCA/Footnote.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'title,index_number'
-    ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => 1,
