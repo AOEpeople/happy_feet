@@ -27,6 +27,7 @@ namespace AOE\HappyFeet\Service;
 
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -36,7 +37,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @package HappyFeet
  * @subpackage Service
  */
-class RenderingService
+class RenderingService implements SingletonInterface
 {
     /**
      * @var ContentObjectRenderer
