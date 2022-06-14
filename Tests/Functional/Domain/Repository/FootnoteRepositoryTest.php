@@ -31,7 +31,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use Throwable;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /**
  * @package HappyFeet
@@ -54,19 +54,17 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->repository = $objectManager->get(FootnoteRepository::class);
+        $this->repository = GeneralUtility::makeInstance(FootnoteRepository::class);
         $this->repository->initializeObject();
     }
 
     /**
      * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         unset($this->repository);
@@ -161,10 +159,11 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public function shouldThrowExceptionWithInvalidObject()
     {
+        $this->expectException(IllegalObjectTypeException::class);
+
         $footnote = new stdClass();
         $this->repository->add($footnote);
     }

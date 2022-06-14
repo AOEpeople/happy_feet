@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -18,15 +18,12 @@ namespace AOE\HappyFeet\Typo3\Hook;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\LinkHandling\LinkService;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Recordlist\Browser\RecordBrowser;
 use TYPO3\CMS\Recordlist\Controller\AbstractLinkBrowserController;
 use TYPO3\CMS\Recordlist\LinkHandler\AbstractLinkHandler;
 use TYPO3\CMS\Recordlist\LinkHandler\LinkHandlerInterface;
 use TYPO3\CMS\Recordlist\Tree\View\LinkParameterProviderInterface;
-use TYPO3\CMS\Recordlist\Tree\View\RecordBrowserPageTreeView;
 
 /**
  * Link handler for arbitrary database records
@@ -132,8 +129,12 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
      */
     public function render(ServerRequestInterface $request): string
     {
-        // Declare JS module
-        GeneralUtility::makeInstance(PageRenderer::class)->loadRequireJsModule('TYPO3/CMS/Recordlist/RecordLinkHandler');
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Recordlist/RecordLinkHandler');
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Recordlist/RecordSearch');
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Viewport/ResizableNavigation');
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/ColumnSelectorButton');
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Tree/PageBrowser');
+        $this->getBackendUser()->initializeWebmountsForElementBrowser();
 
         // Define the current page
         if (isset($request->getQueryParams()['expandPage'])) {
@@ -143,51 +144,24 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
         } elseif (isset($this->linkParts['pid'])) {
             $this->expandPage = (int)$this->linkParts['pid'];
         }
-        $this->setTemporaryDbMounts();
 
         $databaseBrowser = GeneralUtility::makeInstance(RecordBrowser::class);
-
         $recordList = $databaseBrowser->displayRecordsForPage(
             $this->expandPage,
             $this->configuration['table'],
             $this->getUrlParameters([])
         );
 
-        $path = GeneralUtility::getFileAbsFileName('EXT:recordlist/Resources/Private/Templates/LinkBrowser/Record.html');
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename($path);
-        $view->assignMultiple([
-            'tree' => $this->configuration['hidePageTree'] ? '' : $this->renderPageTree(),
+        $this->view->assignMultiple([
+            'treeEnabled' => (bool)($this->configuration['hidePageTree'] ?? false) === false,
+            'pageTreeMountPoints' => GeneralUtility::intExplode(',', $this->configuration['pageTreeMountPoints'] ?? '', true),
             'recordList' => $recordList,
+            'initialNavigationWidth' => $this->getBackendUser()->uc['selector']['navigation']['width'] ?? 250,
+            'treeActions' => ['link'],
         ]);
 
-        return $view->render();
-    }
-
-    /**
-     * Renders the page tree.
-     *
-     * @return string
-     */
-    protected function renderPageTree(): string
-    {
-        $userTsConfig = $this->getBackendUser()->getTSConfig();
-
-        /** @var RecordBrowserPageTreeView $pageTree */
-        $pageTree = GeneralUtility::makeInstance(RecordBrowserPageTreeView::class);
-        $pageTree->setLinkParameterProvider($this);
-        $pageTree->ext_showPageId = (bool)($userTsConfig['options.']['pageTree.']['showPageIdWithTitle'] ?? false);
-        $pageTree->ext_showNavTitle = (bool)($userTsConfig['options.']['pageTree.']['showNavTitle'] ?? false);
-        $pageTree->ext_showPathAboveMounts = (bool)($userTsConfig['options.']['pageTree.']['showPathAboveMounts'] ?? false);
-        $pageTree->addField('nav_title');
-
-        // Load the mount points, if any
-        // NOTE: mount points actually override the page tree
-        if (!empty($this->configuration['pageTreeMountPoints'])) {
-            $pageTree->MOUNTS = GeneralUtility::intExplode(',', $this->configuration['pageTreeMountPoints'], true);
-        }
-
-        return $pageTree->getBrowsableTree();
+        $this->view->setTemplate('Record');
+        return '';
     }
 
     /**

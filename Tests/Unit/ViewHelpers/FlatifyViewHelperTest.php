@@ -42,7 +42,7 @@ class FlatifyViewHelperTest extends ViewHelperBaseTestcase
     /**
      * Set up the test case
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewHelper = new FlatifyViewHelper();
     }

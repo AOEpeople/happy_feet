@@ -19,14 +19,26 @@ namespace AOE\HappyFeet\Typo3\Hook;
  */
 
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
-use AOE\HappyFeet\Service\AbstractService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * Class which provides TCE main hooks.
  */
-class Tcemain extends AbstractService
+class Tcemain
 {
+    /**
+     * @var FootnoteRepository
+     */
+    private $footnoteRepository;
+
+    /**
+     * @param FootnoteRepository $footnoteRepository
+     */
+    public function __construct(FootnoteRepository $footnoteRepository)
+    {
+        $this->footnoteRepository = $footnoteRepository;
+    }
+
     /**
      * @param string $status Operation type e.g new, update, delete.
      * @param string $table Database table on which the operation is performed.
@@ -43,20 +55,10 @@ class Tcemain extends AbstractService
             return;
         }
         if ($status === 'new') {
-            $fieldArray['index_number'] = $this->getFootnoteRepository()->getLowestFreeIndexNumber();
+            $fieldArray['index_number'] = $this->footnoteRepository->getLowestFreeIndexNumber();
         }
         if ($status === 'delete') {
             $fieldArray['index_number'] = 0;
         }
-    }
-
-    /**
-     * @return FootnoteRepository
-     */
-    protected function getFootnoteRepository()
-    {
-        /** @var FootnoteRepository $footnoteRepository */
-        $footnoteRepository = $this->getObjectManager()->get(FootnoteRepository::class);
-        return $footnoteRepository;
     }
 }

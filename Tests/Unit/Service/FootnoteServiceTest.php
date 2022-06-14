@@ -46,11 +46,11 @@ class FootnoteServiceTest extends UnitTestCase
      */
     private $footnoteService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->footnoteRepository = $this
             ->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnoteByUid'])
+            ->onlyMethods(['getFootnoteByUid'])
             ->disableOriginalConstructor()
             ->getMock();
         $this->footnoteService = new FootnoteService($this->footnoteRepository);

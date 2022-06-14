@@ -43,7 +43,7 @@ class FootnoteTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->footnote = new Footnote();
     }

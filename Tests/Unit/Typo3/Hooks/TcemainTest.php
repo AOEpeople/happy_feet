@@ -33,6 +33,7 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Typo3\Hook\Tcemain;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 class TcemainTest extends UnitTestCase
@@ -48,21 +49,22 @@ class TcemainTest extends UnitTestCase
     protected $dataHandler;
 
     /**
+     * @var FootnoteRepository|MockObject
+     */
+    protected $footnoteRepository;
+
+    /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getLowestFreeIndexNumber'])
+        $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->onlyMethods(['getLowestFreeIndexNumber'])
             ->disableOriginalConstructor()
             ->getMock();
-        $footnoteRepository->method('getLowestFreeIndexNumber')->willReturn(1);
 
-        $this->tcemainHook = $this->getMockBuilder(Tcemain::class)
-            ->setMethods(['getFootnoteRepository'])
-            ->getMock();
-        $this->tcemainHook->method('getFootnoteRepository')->willReturn($footnoteRepository);
+        $this->tcemainHook = new Tcemain($this->footnoteRepository);
 
         $this->dataHandler = $this->getMockBuilder(DataHandler::class)->disableOriginalConstructor()->getMock();
     }
@@ -72,6 +74,8 @@ class TcemainTest extends UnitTestCase
      */
     public function postProcessFieldArrayWithNewFootnote()
     {
+        $this->footnoteRepository->expects(self::once())->method('getLowestFreeIndexNumber')->willReturn(1);
+
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
@@ -80,6 +84,7 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
+
         $this->assertArrayHasKey('index_number', $fieldArray);
         $this->assertEquals(1, $fieldArray['index_number']);
     }
@@ -89,6 +94,8 @@ class TcemainTest extends UnitTestCase
      */
     public function postProcessFieldArrayWithExistingFootnote()
     {
+        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'foo',
@@ -105,6 +112,8 @@ class TcemainTest extends UnitTestCase
      */
     public function postProcessFieldArrayWithOtherTable()
     {
+        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
@@ -121,6 +130,8 @@ class TcemainTest extends UnitTestCase
      */
     public function shouldResetIndexNumber()
     {
+        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'delete',

@@ -29,10 +29,15 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
-use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\NormalizedParams;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @package HappyFeet
@@ -53,42 +58,37 @@ class RenderingServiceTest extends FunctionalTestCase
     protected $renderingService;
 
     /**
+     * @var FootnoteRepository|MockObject
+     */
+    protected $footnoteRepository;
+
+    /**
      * Set up test case
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase_object'] = [
-            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [
+            'backend' => NullBackend::class,
             'options' => []
         ];
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-            'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend',
-            'frontend' => 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend',
+            'backend' => NullBackend::class,
+            'frontend' => PhpFrontend::class,
             'groups' => ['system']
         ];
 
-        $footnote1 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+        $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
+            ->onlyMethods(['getFootnotesByUids'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $footnote1->_setProperty('uid', 4711);
-        $footnote1->expects($this->any())->method('getHeader')->willReturn('HEADER@4711');
-        $footnote1->method('getIndexNumber')->willReturn('4711');
-        $footnote1->expects($this->any())->method('getDescription')->willReturn('DESCRIPTION@4711');
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest('https://www.example.com/'))
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+            ->withAttribute('normalizedParams', new NormalizedParams([], [], '', ''));
 
-        $footnote2 = $this->getMockBuilder(Footnote::class)->setMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
-
-        $footnote2->_setProperty('uid', 4712);
-        $footnote2->method('getHeader')->willReturn('HEADER@4712');
-        $footnote2->method('getIndexNumber')->willReturn('4712');
-        $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
-
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)->setMethods(['getFootnotesByUids'])->disableOriginalConstructor()->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
-
-        $this->renderingService = GeneralUtility::makeInstance(ObjectManager::class)->get(RenderingService::class);
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
+        $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $this->footnoteRepository);
     }
 
     /**
@@ -96,6 +96,22 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWithNoUids()
     {
+        $footnote1 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+
+        $footnote1->_setProperty('uid', 4711);
+        $footnote1->expects(self::any())->method('getHeader')->willReturn('HEADER@4711');
+        $footnote1->method('getIndexNumber')->willReturn('4711');
+        $footnote1->expects(self::any())->method('getDescription')->willReturn('DESCRIPTION@4711');
+
+        $footnote2 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
+
+        $footnote2->_setProperty('uid', 4712);
+        $footnote2->method('getHeader')->willReturn('HEADER@4712');
+        $footnote2->method('getIndexNumber')->willReturn('4712');
+        $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
+
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
+
         $content = $this->renderingService->renderFootnotes([]);
         $this->assertEquals('', $content);
     }
@@ -105,14 +121,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn([]);
-
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
         $this->assertEquals('', $content);
@@ -123,12 +132,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteIdIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -143,12 +147,10 @@ class RenderingServiceTest extends FunctionalTestCase
             ]
         );
 
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
-
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
 
-        $this->assertRegExp('~[^@]4711~', $content);
-        $this->assertRegExp('~[^@]4712~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4711~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4712~', $content);
     }
 
     /**
@@ -156,12 +158,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteHeaderIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -176,11 +173,9 @@ class RenderingServiceTest extends FunctionalTestCase
             ]
         );
 
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
-
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertRegExp('~HEADER@4711~', $content);
-        $this->assertRegExp('~HEADER@4712~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4711~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4712~', $content);
     }
 
     /**
@@ -188,12 +183,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function footnoteDescriptionIsPresent()
     {
-        $footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
-            ->setMethods(['getFootnotesByUids'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $footnoteRepository->method('getFootnotesByUids')->willReturn(
+        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
                 [
                     'indexNumber' => 4711,
@@ -208,11 +198,9 @@ class RenderingServiceTest extends FunctionalTestCase
             ]
         );
 
-        $this->renderingService->setFootnoteRepository($footnoteRepository);
-
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertRegExp('~DESCRIPTION@4711~', $content);
-        $this->assertRegExp('~DESCRIPTION@4712~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
     }
 
     /**
@@ -228,7 +216,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldRenderRichText()
     {
-        $this->assertContains('test', $this->renderingService->renderRichText('test'));
+        $this->assertStringContainsString('test', $this->renderingService->renderRichText('test'));
     }
 
     /**
@@ -240,6 +228,8 @@ class RenderingServiceTest extends FunctionalTestCase
         $failingTemplate = 'EXT:happy_feet/Resources/Private/Templates/Rendering/TestTemplate.html';
 
         // define typoscript config
+        $GLOBALS['TSFE'] = $this->createMock(TypoScriptFrontendController::class);
+        $GLOBALS['TSFE']->tmpl = new \stdClass();
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $failingTemplate;
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
@@ -255,6 +245,8 @@ class RenderingServiceTest extends FunctionalTestCase
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
 
         // define typoscript config
+        $GLOBALS['TSFE'] = $this->createMock(TypoScriptFrontendController::class);
+        $GLOBALS['TSFE']->tmpl = new \stdClass();
         $GLOBALS['TSFE']->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'] = $template;
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
