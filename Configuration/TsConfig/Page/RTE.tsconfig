@@ -1,0 +1,15 @@
+# ***************************************************************************************
+# CONFIGURATION of RTE in table "tx_happyfeet_domain_model_footnote", field "description"
+# ***************************************************************************************
+RTE.config.tx_happyfeet_domain_model_footnote.description {
+  disableColorPicker = 1
+  proc.exitHTMLparser_db=1
+  proc.exitHTMLparser_db {
+    allowTags = span, b, strong, i, em, u, a, h1, h2, h3, h4, h5, h6, pre, ul, li, ol, blockquote, sup, sub, strong, em, hr
+    tags.div.remap = P
+  }
+}
+
+TCEFORM.tx_happyfeet_domain_model_footnote {
+    sys_language_uid.disabled = 1
+}

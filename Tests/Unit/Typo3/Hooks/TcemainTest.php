@@ -85,8 +85,8 @@ class TcemainTest extends UnitTestCase
             $this->dataHandler
         );
 
-        $this->assertArrayHasKey('index_number', $fieldArray);
-        $this->assertEquals(1, $fieldArray['index_number']);
+        self::assertArrayHasKey('index_number', $fieldArray);
+        self::assertEquals(1, $fieldArray['index_number']);
     }
 
     /**
@@ -104,7 +104,7 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        $this->assertArrayNotHasKey('index_number', $fieldArray);
+        self::assertArrayNotHasKey('index_number', $fieldArray);
     }
 
     /**
@@ -122,7 +122,7 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        $this->assertArrayNotHasKey('index_number', $fieldArray);
+        self::assertArrayNotHasKey('index_number', $fieldArray);
     }
 
     /**
@@ -140,6 +140,6 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        $this->assertArrayNotHasKey('index_number', $fieldArray);
+        self::assertArrayNotHasKey('index_number', $fieldArray);
     }
 }

@@ -83,10 +83,10 @@ class FootnoteRepository extends Repository
                 $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, PDO::PARAM_INT))
             )
             ->execute()
-            ->fetchAll();
+            ->fetchAllAssociative();
 
         $index = 1;
-        if (false === is_array($results) || count($results) < 1) {
+        if (count($results) < 1) {
             return $index;
         }
         $indexes = [];

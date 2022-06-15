@@ -51,9 +51,6 @@ class FootnoteRepositoryTest extends FunctionalTestCase
         'typo3conf/ext/happy_feet'
     ];
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -76,7 +73,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     public function shouldGetDefaultIndexWhenNoRecordsAvailable()
     {
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(1, $lowestIndex);
+        self::assertEquals(1, $lowestIndex);
     }
 
     /**
@@ -86,7 +83,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(1, $lowestIndex);
+        self::assertEquals(1, $lowestIndex);
     }
 
     /**
@@ -96,7 +93,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(2, $lowestIndex);
+        self::assertEquals(2, $lowestIndex);
     }
 
     /**
@@ -106,7 +103,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        $this->assertEquals(3, $lowestIndex);
+        self::assertEquals(3, $lowestIndex);
     }
 
     /**
@@ -116,8 +113,8 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(1);
-        $this->assertInstanceOf(Footnote::class, $footnote);
-        $this->assertEquals(1, $footnote->getUid());
+        self::assertInstanceOf(Footnote::class, $footnote);
+        self::assertEquals(1, $footnote->getUid());
     }
 
     /**
@@ -127,7 +124,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(99);
-        $this->assertNull($footnote);
+        self::assertNull($footnote);
     }
 
     /**
@@ -137,9 +134,9 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([2, 4]);
-        $this->assertCount(2, $footnotes);
-        $this->assertEquals(2, $footnotes[0]->getUid());
-        $this->assertEquals(4, $footnotes[1]->getUid());
+        self::assertCount(2, $footnotes);
+        self::assertEquals(2, $footnotes[0]->getUid());
+        self::assertEquals(4, $footnotes[1]->getUid());
     }
 
     /**
@@ -149,12 +146,12 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
-        $this->assertCount(5, $footnotes);
-        $this->assertEquals(4, $footnotes[0]->getUid());
-        $this->assertEquals(1, $footnotes[1]->getUid());
-        $this->assertEquals(5, $footnotes[2]->getUid());
-        $this->assertEquals(3, $footnotes[3]->getUid());
-        $this->assertEquals(2, $footnotes[4]->getUid());
+        self::assertCount(5, $footnotes);
+        self::assertEquals(4, $footnotes[0]->getUid());
+        self::assertEquals(1, $footnotes[1]->getUid());
+        self::assertEquals(5, $footnotes[2]->getUid());
+        self::assertEquals(3, $footnotes[3]->getUid());
+        self::assertEquals(2, $footnotes[4]->getUid());
     }
 
     /**
@@ -181,6 +178,6 @@ class FootnoteRepositoryTest extends FunctionalTestCase
             $this->fail('assert that no exception is thrown.');
         }
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 }

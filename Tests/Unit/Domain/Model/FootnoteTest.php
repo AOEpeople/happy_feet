@@ -54,7 +54,7 @@ class FootnoteTest extends UnitTestCase
     public function shouldSetTitle()
     {
         $this->footnote->setTitle('Dummy title');
-        $this->assertEquals('Dummy title', $this->footnote->getTitle());
+        self::assertEquals('Dummy title', $this->footnote->getTitle());
     }
 
     /**
@@ -63,7 +63,7 @@ class FootnoteTest extends UnitTestCase
     public function shouldSetDescription()
     {
         $this->footnote->setDescription('Dummy Description');
-        $this->assertEquals('Dummy Description', $this->footnote->getDescription());
+        self::assertEquals('Dummy Description', $this->footnote->getDescription());
     }
 
     /**
@@ -72,7 +72,7 @@ class FootnoteTest extends UnitTestCase
     public function shouldSetHeader()
     {
         $this->footnote->setHeader('Dummy Header');
-        $this->assertEquals('Dummy Header', $this->footnote->getHeader());
+        self::assertEquals('Dummy Header', $this->footnote->getHeader());
     }
 
     /**
@@ -81,6 +81,6 @@ class FootnoteTest extends UnitTestCase
     public function shouldSetIndexNumber()
     {
         $this->footnote->setIndexNumber('Dummy IndexNumber');
-        $this->assertEquals('Dummy IndexNumber', $this->footnote->getIndexNumber());
+        self::assertEquals('Dummy IndexNumber', $this->footnote->getIndexNumber());
     }
 }

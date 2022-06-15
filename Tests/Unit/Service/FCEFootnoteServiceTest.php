@@ -71,7 +71,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
     public function shouldRenderItemListWithEmptyConf()
     {
         $content = $this->service->renderItemList('');
-        $this->assertEquals('', $content);
+        self::assertEquals('', $content);
     }
 
     /**
@@ -98,7 +98,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
         $this->service->expects(self::once())->method('getCObj')->willReturn($cObj);
 
-        $this->assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
+        self::assertEquals('', $this->service->renderItemList('', ['userFunc' => '', 'field' => '']));
     }
 
     /**
@@ -116,6 +116,6 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
         $conf = ['userFunc' => '', 'field' => ''];
 
-        $this->assertEquals('contentString', $service->renderItemList('', $conf));
+        self::assertEquals('contentString', $service->renderItemList('', $conf));
     }
 }
