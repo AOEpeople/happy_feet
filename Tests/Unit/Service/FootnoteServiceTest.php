@@ -68,7 +68,7 @@ class FootnoteServiceTest extends UnitTestCase
             ->with(123)
             ->willReturn($footnote);
 
-        $this->assertSame($footnote, $this->footnoteService->getFootnoteById(123));
+        self::assertSame($footnote, $this->footnoteService->getFootnoteById(123));
     }
 
     /**
@@ -76,6 +76,6 @@ class FootnoteServiceTest extends UnitTestCase
      */
     public function shouldReturnNullIfFootnoteNotFound()
     {
-        $this->assertNull($this->footnoteService->getFootnoteById(456));
+        self::assertNull($this->footnoteService->getFootnoteById(456));
     }
 }

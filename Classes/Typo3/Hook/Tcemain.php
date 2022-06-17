@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -45,7 +46,6 @@ class Tcemain
      * @param integer $id Table record ID.
      * @param array $fieldArray Key/value pair of record fields.
      * @param DataHandler $tcemain Parent class instance from which the hook method is called.
-     * @return void
      *
      * @codingStandardsIgnore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
      */

@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -27,7 +28,6 @@ use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
  */
 class LinkHandler implements LinkHandlingInterface
 {
-
     /**
      * The Base URN for this link handling to act on
      *

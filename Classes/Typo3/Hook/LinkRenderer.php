@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 use AOE\HappyFeet\Service\RenderingService;

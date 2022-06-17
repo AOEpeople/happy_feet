@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -29,7 +31,7 @@ use TYPO3\CMS\Recordlist\Tree\View\LinkParameterProviderInterface;
  * Link handler for arbitrary database records
  * @internal This class is a specific LinkHandler implementation and is not part of the TYPO3's Core API.
  */
-class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, LinkParameterProviderInterface
+final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, LinkParameterProviderInterface
 {
     /**
      * Configuration key in TSconfig TCEMAIN.linkHandler.record
@@ -97,7 +99,7 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
             $linkParts['title'] = $this->getLanguageService()->getLL('recordNotFound');
         } else {
             $linkParts['tableName'] = $this->getLanguageService()->sL($GLOBALS['TCA'][$table]['ctrl']['title']);
-            $linkParts['pid'] = (int)$record['pid'];
+            $linkParts['pid'] = (int) $record['pid'];
             $linkParts['title'] = $linkParts['title'] ?: BackendUtility::getRecordTitle($table, $record);
         }
         $linkParts['url']['type'] = $linkParts['type'];
@@ -134,15 +136,16 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
         $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Viewport/ResizableNavigation');
         $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/ColumnSelectorButton');
         $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Tree/PageBrowser');
-        $this->getBackendUser()->initializeWebmountsForElementBrowser();
+        $this->getBackendUser()
+            ->initializeWebmountsForElementBrowser();
 
         // Define the current page
         if (isset($request->getQueryParams()['expandPage'])) {
-            $this->expandPage = (int)$request->getQueryParams()['expandPage'];
+            $this->expandPage = (int) $request->getQueryParams()['expandPage'];
         } elseif (isset($this->configuration['storagePid'])) {
-            $this->expandPage = (int)$this->configuration['storagePid'];
+            $this->expandPage = (int) $this->configuration['storagePid'];
         } elseif (isset($this->linkParts['pid'])) {
-            $this->expandPage = (int)$this->linkParts['pid'];
+            $this->expandPage = (int) $this->linkParts['pid'];
         }
 
         $databaseBrowser = GeneralUtility::makeInstance(RecordBrowser::class);
@@ -153,10 +156,11 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
         );
 
         $this->view->assignMultiple([
-            'treeEnabled' => (bool)($this->configuration['hidePageTree'] ?? false) === false,
+            'treeEnabled' => (bool) ($this->configuration['hidePageTree'] ?? false) === false,
             'pageTreeMountPoints' => GeneralUtility::intExplode(',', $this->configuration['pageTreeMountPoints'] ?? '', true),
             'recordList' => $recordList,
-            'initialNavigationWidth' => $this->getBackendUser()->uc['selector']['navigation']['width'] ?? 250,
+            'initialNavigationWidth' => $this->getBackendUser()
+                ->uc['selector']['navigation']['width'] ?? 250,
             'treeActions' => ['link'],
         ]);
 
@@ -189,7 +193,7 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
      */
     public function getUrlParameters(array $values): array
     {
-        $pid = isset($values['pid']) ? (int)$values['pid'] : $this->expandPage;
+        $pid = isset($values['pid']) ? (int) $values['pid'] : $this->expandPage;
         $parameters = [
             'expandPage' => $pid,
         ];
@@ -209,7 +213,7 @@ class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, L
      */
     public function isCurrentlySelectedItem(array $values): bool
     {
-        return !empty($this->linkParts) && (int)$this->linkParts['pid'] === (int)$values['pid'];
+        return !empty($this->linkParts) && (int) $this->linkParts['pid'] === (int) $values['pid'];
     }
 
     /**

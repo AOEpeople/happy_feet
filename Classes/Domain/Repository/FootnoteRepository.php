@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Domain\Repository;
 
 /***************************************************************
@@ -53,16 +54,15 @@ class FootnoteRepository extends Repository
      */
     protected $tableName = 'tx_happyfeet_domain_model_footnote';
 
-    /**
-     * @return void
-     */
+
     public function initializeObject()
     {
-        /** @var $defaultQuerySettings Typo3QuerySettings */
+        /** @var Typo3QuerySettings $defaultQuerySettings */
         $defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(false);
         $defaultQuerySettings->setRespectSysLanguage(false);
-        $defaultQuerySettings->setIgnoreEnableFields(false)->setIncludeDeleted(false);
+        $defaultQuerySettings->setIgnoreEnableFields(false)
+            ->setIncludeDeleted(false);
         $this->setDefaultQuerySettings($defaultQuerySettings);
     }
 
@@ -80,21 +80,22 @@ class FootnoteRepository extends Repository
             ->select('index_number')
             ->from($this->tableName)
             ->where(
-                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, PDO::PARAM_INT))
+                $queryBuilder->expr()
+                    ->eq('deleted', $queryBuilder->createNamedParameter(0, PDO::PARAM_INT))
             )
             ->execute()
-            ->fetchAll();
+            ->fetchAllAssociative();
 
         $index = 1;
-        if (false === is_array($results) || count($results) < 1) {
+        if (count($results) < 1) {
             return $index;
         }
         $indexes = [];
         foreach ($results as $result) {
-            $indexes[] = (integer)$result['index_number'];
+            $indexes[] = (int) $result['index_number'];
         }
         for ($index = 1; $index <= count($indexes) + 1; $index++) {
-            if (false === in_array($index, $indexes, true)) {
+            if (in_array($index, $indexes, true) === false) {
                 break;
             }
         }
@@ -103,7 +104,6 @@ class FootnoteRepository extends Repository
 
     /**
      * @param Footnote $object
-     * @return void
      * @throws IllegalObjectTypeException
      */
     public function add($object)
@@ -128,7 +128,9 @@ class FootnoteRepository extends Repository
         $query = $this->createQuery();
         $query->setQuerySettings($this->defaultQuerySettings);
 
-        return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+        return $query->matching($query->equals('uid', $uid))
+            ->execute()
+            ->getFirst();
     }
 
     /**
@@ -166,8 +168,7 @@ class FootnoteRepository extends Repository
     public static function usortFootnotesByUids(
         Footnote $a,
         Footnote $b
-    )
-    {
+    ) {
         $map = array_flip(self::$uids);
         if ($map[$a->getUid()] >= $map[$b->getUid()]) {
             return 1;

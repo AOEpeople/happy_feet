@@ -113,7 +113,7 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
 
         $content = $this->renderingService->renderFootnotes([]);
-        $this->assertEquals('', $content);
+        self::assertEquals('', $content);
     }
 
     /**
@@ -124,7 +124,7 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertEquals('', $content);
+        self::assertEquals('', $content);
     }
 
     /**
@@ -149,8 +149,8 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
 
-        $this->assertMatchesRegularExpression('~[^@]4711~', $content);
-        $this->assertMatchesRegularExpression('~[^@]4712~', $content);
+        self::assertMatchesRegularExpression('~[^@]4711~', $content);
+        self::assertMatchesRegularExpression('~[^@]4712~', $content);
     }
 
     /**
@@ -174,8 +174,8 @@ class RenderingServiceTest extends FunctionalTestCase
         );
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertMatchesRegularExpression('~HEADER@4711~', $content);
-        $this->assertMatchesRegularExpression('~HEADER@4712~', $content);
+        self::assertMatchesRegularExpression('~HEADER@4711~', $content);
+        self::assertMatchesRegularExpression('~HEADER@4712~', $content);
     }
 
     /**
@@ -199,8 +199,8 @@ class RenderingServiceTest extends FunctionalTestCase
         );
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        $this->assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
-        $this->assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
+        self::assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
+        self::assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
     }
 
     /**
@@ -208,7 +208,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderRichText()
     {
-        $this->assertEquals('', $this->renderingService->renderRichText(''));
+        self::assertEquals('', $this->renderingService->renderRichText(''));
     }
 
     /**
@@ -216,7 +216,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldRenderRichText()
     {
-        $this->assertStringContainsString('test', $this->renderingService->renderRichText('test'));
+        self::assertStringContainsString('test', $this->renderingService->renderRichText('test'));
     }
 
     /**
@@ -234,7 +234,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
-        $this->assertEquals($template, $result);
+        self::assertEquals($template, $result);
     }
 
     /**
@@ -251,7 +251,7 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
-        $this->assertEquals($template, $result);
+        self::assertEquals($template, $result);
     }
 
     /**

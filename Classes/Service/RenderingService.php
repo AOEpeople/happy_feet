@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Service;
 
 /***************************************************************
@@ -77,8 +78,8 @@ class RenderingService implements SingletonInterface
             return '';
         }
         /** @var Footnote $footnote */
-        foreach ($footnotes as $footnote){
-            if ($footnote InstanceOf Footnote) {
+        foreach ($footnotes as $footnote) {
+            if ($footnote instanceof Footnote) {
                 $footnote->setDescription(trim($this->renderRichText($footnote->getDescription(), $conf)));
             }
         } //render html in footnotes
@@ -105,7 +106,19 @@ class RenderingService implements SingletonInterface
             return '';
         }
 
-        return $this->getContentObjectRenderer()->parseFunc($richText, $conf, $ref);
+        return $this->getContentObjectRenderer()
+            ->parseFunc($richText, $conf, $ref);
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     */
+    protected function getContentObjectRenderer()
+    {
+        if ($this->contentObjectRenderer === null) {
+            $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        }
+        return $this->contentObjectRenderer;
     }
 
     /**
@@ -135,9 +148,7 @@ class RenderingService implements SingletonInterface
      */
     private function getTemplatePath()
     {
-        /**
-         * @var $tsfe TypoScriptFrontendController
-         */
+        /** @var TypoScriptFrontendController $tsfe */
         $tsfe = $GLOBALS['TSFE'];
         if (isset($tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'])) {
             $templateFile = GeneralUtility::getFileAbsFileName(
@@ -149,16 +160,5 @@ class RenderingService implements SingletonInterface
         }
 
         return $this->getTemplatePathAndFilename($this->defaultTemplate);
-    }
-
-    /**
-     * @return ContentObjectRenderer
-     */
-    protected function getContentObjectRenderer()
-    {
-        if (null === $this->contentObjectRenderer) {
-            $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        }
-        return $this->contentObjectRenderer;
     }
 }

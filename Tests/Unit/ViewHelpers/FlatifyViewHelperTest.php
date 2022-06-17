@@ -54,7 +54,7 @@ class FlatifyViewHelperTest extends ViewHelperBaseTestcase
     public function lineBreaksWillBeRemoved($fixture)
     {
         $actualOutput = $this->viewHelper->render($fixture);
-        $this->assertEquals('such a beautiful footnote', $actualOutput);
+        self::assertEquals('such a beautiful footnote', $actualOutput);
     }
 
     /**

@@ -1,0 +1,23 @@
+TCEMAIN.linkHandler {
+  happy_feet {
+    handler = AOE\HappyFeet\Typo3\Hook\LinkWizzard
+    label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xlf:tx_happyfeet_domain_model_footnote
+    configuration.table = tx_happyfeet_domain_model_footnote
+    scanBefore = page
+  }
+}
+
+RTE {
+  classes.happy_feet.name = Happy Feet
+  classesAnchor {
+    happyfeet {
+      class = happy_feet
+      type = happyfeet
+    }
+  }
+
+  default.buttons.link {
+    properties.class.allowedClasses := addToList(happy_feet)
+    happyfeet.properties.class.default = happy_feet
+  }
+}

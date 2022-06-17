@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Domain\Model;
 
 /***************************************************************
@@ -33,7 +34,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Footnote extends AbstractEntity
 {
-
     /**
      * @var integer
      */
