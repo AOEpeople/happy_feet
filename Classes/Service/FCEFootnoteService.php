@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Service;
 
 /***************************************************************
@@ -37,14 +38,13 @@ use UnexpectedValueException;
 class FCEFootnoteService
 {
     /**
-     * @var RenderingService
-     */
-    private $renderingService;
-
-    /**
      * @var ContentObjectRenderer
      */
     public $cObj;
+    /**
+     * @var RenderingService
+     */
+    private $renderingService;
 
     /**
      * @param RenderingService $renderingService
@@ -55,26 +55,35 @@ class FCEFootnoteService
     }
 
     /**
-     *
      * @param string $content
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
      * @return string The wrapped index value
      * @throws UnexpectedValueException
      */
-    public function renderItemList($content, $conf = array())
+    public function renderItemList($content, $conf = [])
     {
-        if (false === array_key_exists('userFunc', $conf) || false === array_key_exists('field', $conf)) {
+        if (array_key_exists('userFunc', $conf) === false || array_key_exists('field', $conf) === false) {
             return '';
         }
-        if (array_key_exists('isGridElement', $conf) && (boolean)$conf['isGridElement'] === true) {
-            $footnoteUids = $this->getCObj()->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
+        if (array_key_exists('isGridElement', $conf) && (bool) $conf['isGridElement'] === true) {
+            $footnoteUids = $this->getCObj()
+                ->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
         } else {
-            $footnoteUids = $this->getCObj()->getCurrentVal();
+            $footnoteUids = $this->getCObj()
+                ->getCurrentVal();
         }
         if (empty($footnoteUids)) {
             return '';
         }
         return $this->renderingService->renderFootnotes(explode(',', $footnoteUids));
+    }
+
+    /**
+     * @param ContentObjectRenderer $cObj
+     */
+    public function setCObj(ContentObjectRenderer $cObj)
+    {
+        $this->cObj = $cObj;
     }
 
     /**
@@ -87,13 +96,5 @@ class FCEFootnoteService
             throw new UnexpectedValueException('cObj was not set', 1393843943);
         }
         return $this->cObj;
-    }
-
-    /**
-     * @param ContentObjectRenderer $cObj
-     */
-    public function setCObj(ContentObjectRenderer $cObj)
-    {
-        $this->cObj = $cObj;
     }
 }
