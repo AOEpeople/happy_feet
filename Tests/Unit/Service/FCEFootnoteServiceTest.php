@@ -78,19 +78,6 @@ class FCEFootnoteServiceTest extends UnitTestCase
      * @test
      * @method FCEFootnoteService:renderItemList
      */
-    public function shouldThrowExceptionIfCObjNotExists()
-    {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionCode(1393843943);
-
-        $service = new FCEFootnoteService($this->renderingService);
-        $service->renderItemList('', ['userFunc' => '', 'field' => '']);
-    }
-
-    /**
-     * @test
-     * @method FCEFootnoteService:renderItemList
-     */
     public function shouldRenderItemListIfNoFootnotesSelected()
     {
         $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->onlyMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();

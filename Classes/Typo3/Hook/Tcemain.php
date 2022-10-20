@@ -27,14 +27,8 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  */
 class Tcemain
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $footnoteRepository;
+    private FootnoteRepository $footnoteRepository;
 
-    /**
-     * @param FootnoteRepository $footnoteRepository
-     */
     public function __construct(FootnoteRepository $footnoteRepository)
     {
         $this->footnoteRepository = $footnoteRepository;
@@ -49,7 +43,7 @@ class Tcemain
      *
      * @codingStandardsIgnore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $id, array &$fieldArray, DataHandler $tcemain)
+    public function processDatamap_postProcessFieldArray($status, $table, $id, array &$fieldArray, DataHandler $tcemain): void
     {
         if ($table !== 'tx_happyfeet_domain_model_footnote') {
             return;

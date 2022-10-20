@@ -20,6 +20,7 @@ namespace AOE\HappyFeet\Typo3\Hook;
  */
 
 use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
+use InvalidArgumentException;
 
 /**
  * Linkhandler hook to manipulate link data before it is processed by core typolink method.
@@ -30,17 +31,13 @@ class LinkHandler implements LinkHandlingInterface
 {
     /**
      * The Base URN for this link handling to act on
-     *
-     * @var string
      */
-    protected $baseUrn = 't3://happy_feet';
+    protected string $baseUrn = 't3://happy_feet';
 
     /**
      * Returns all valid parameters for linking to a TYPO3 page as a string
      *
-     * @param array $parameters
-     * @return string
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function asString(array $parameters): string
     {
@@ -60,14 +57,12 @@ class LinkHandler implements LinkHandlingInterface
     /**
      * Returns all relevant information built in the link to a page (see asString())
      *
-     * @param array $data
-     * @return array
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function resolveHandlerData(array $data): array
     {
         if (empty($data['uid'])) {
-            throw new \InvalidArgumentException('The HappyFeetLinkHandler expects identifier, uid as $data configuration', 1486155151);
+            throw new InvalidArgumentException('The HappyFeetLinkHandler expects identifier, uid as $data configuration', 1486155151);
         }
 
         return $data;

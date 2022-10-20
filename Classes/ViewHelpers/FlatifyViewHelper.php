@@ -34,6 +34,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FlatifyViewHelper extends AbstractViewHelper
 {
+    /**
+     * @var bool
+     */
     protected $escapeOutput = false;
     /**
      * @param string|null $str

@@ -34,38 +34,23 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Footnote extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    protected $indexNumber;
+    protected ?int $indexNumber = null;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected ?string $title = null;
 
-    /**
-     * @var string
-     */
-    protected $header;
+    protected ?string $header = null;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -73,15 +58,12 @@ class Footnote extends AbstractEntity
     /**
      * @param string $header
      */
-    public function setHeader($header)
+    public function setHeader($header): void
     {
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    public function getHeader(): ?string
     {
         return $this->header;
     }
@@ -89,15 +71,12 @@ class Footnote extends AbstractEntity
     /**
      * @param integer $index
      */
-    public function setIndexNumber($index)
+    public function setIndexNumber($index): void
     {
         $this->indexNumber = $index;
     }
 
-    /**
-     * @return integer
-     */
-    public function getIndexNumber()
+    public function getIndexNumber(): ?int
     {
         return $this->indexNumber;
     }
@@ -105,15 +84,12 @@ class Footnote extends AbstractEntity
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }

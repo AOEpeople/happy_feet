@@ -41,34 +41,23 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class RenderingService implements SingletonInterface
 {
     /**
-     * @var ContentObjectRenderer
-     */
-    private $contentObjectRenderer;
-
-    /**
-     * @var FootnoteRepository
-     */
-    private $footnoteRepository;
-
-    /**
      * @var string
      */
-    private $defaultTemplate = 'Markup';
+    private const DEFAULT_TEMPLATE = 'Markup';
 
-    /**
-     * @param FootnoteRepository $footnoteRepository
-     */
+    private ?ContentObjectRenderer $contentObjectRenderer = null;
+
+    private FootnoteRepository $footnoteRepository;
+
     public function __construct(FootnoteRepository $footnoteRepository)
     {
         $this->footnoteRepository = $footnoteRepository;
     }
 
     /**
-     * @param array $uids
      * @param array $conf TypoScript configuration for parseFunc
-     * @return string
      */
-    public function renderFootnotes(array $uids, array $conf = [])
+    public function renderFootnotes(array $uids, array $conf = []): ?string
     {
         if (empty($uids)) {
             return '';
@@ -110,10 +99,7 @@ class RenderingService implements SingletonInterface
             ->parseFunc($richText, $conf, $ref);
     }
 
-    /**
-     * @return ContentObjectRenderer
-     */
-    protected function getContentObjectRenderer()
+    protected function getContentObjectRenderer(): ContentObjectRenderer
     {
         if ($this->contentObjectRenderer === null) {
             $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
@@ -159,6 +145,6 @@ class RenderingService implements SingletonInterface
             }
         }
 
-        return $this->getTemplatePathAndFilename($this->defaultTemplate);
+        return $this->getTemplatePathAndFilename(self::DEFAULT_TEMPLATE);
     }
 }

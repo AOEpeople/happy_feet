@@ -96,6 +96,8 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldNotRenderWithNoUids()
     {
+        $this->markTestSkipped('Makes no sense if we use typehints, then getIndexNumber can not return a string');
+
         $footnote1 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
 
         $footnote1->_setProperty('uid', 4711);
