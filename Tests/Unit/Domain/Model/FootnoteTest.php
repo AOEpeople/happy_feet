@@ -80,7 +80,7 @@ class FootnoteTest extends UnitTestCase
      */
     public function shouldSetIndexNumber()
     {
-        $this->footnote->setIndexNumber('Dummy IndexNumber');
-        self::assertEquals('Dummy IndexNumber', $this->footnote->getIndexNumber());
+        $this->footnote->setIndexNumber(123);
+        self::assertEquals(123, $this->footnote->getIndexNumber());
     }
 }

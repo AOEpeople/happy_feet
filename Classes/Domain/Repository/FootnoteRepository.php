@@ -44,18 +44,12 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class FootnoteRepository extends Repository
 {
-    /**
-     * @var array
-     */
-    public static $uids;
+    public static array $uids = [];
 
-    /**
-     * @var string
-     */
-    protected $tableName = 'tx_happyfeet_domain_model_footnote';
+    protected string $tableName = 'tx_happyfeet_domain_model_footnote';
 
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** @var Typo3QuerySettings $defaultQuerySettings */
         $defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
@@ -94,8 +88,9 @@ class FootnoteRepository extends Repository
         foreach ($results as $result) {
             $indexes[] = (int) $result['index_number'];
         }
-        for ($index = 1; $index <= count($indexes) + 1; $index++) {
-            if (in_array($index, $indexes, true) === false) {
+        $indexCount = count($indexes);
+        for ($index = 1; $index <= $indexCount + 1; $index++) {
+            if (!in_array($index, $indexes, true)) {
                 break;
             }
         }
@@ -106,10 +101,10 @@ class FootnoteRepository extends Repository
      * @param Footnote $object
      * @throws IllegalObjectTypeException
      */
-    public function add($object)
+    public function add($object): void
     {
         /** @var Footnote $object */
-        if (false === ($object instanceof Footnote)) {
+        if (!($object instanceof Footnote)) {
             throw new IllegalObjectTypeException(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
                 1392911702
@@ -134,7 +129,6 @@ class FootnoteRepository extends Repository
     }
 
     /**
-     * @param array $uids
      * @return array|QueryResultInterface
      */
     public function getFootnotesByUids(array $uids)
@@ -148,7 +142,7 @@ class FootnoteRepository extends Repository
 
     /**
      * @param array|QueryResultInterface $queryResult
-     * @param $uids
+     * @param array $uids
      * @return mixed
      */
     public function sortFootnotesByUids($queryResult, $uids)
@@ -161,8 +155,6 @@ class FootnoteRepository extends Repository
     }
 
     /**
-     * @param Footnote $a
-     * @param Footnote $b
      * @return integer
      */
     public static function usortFootnotesByUids(

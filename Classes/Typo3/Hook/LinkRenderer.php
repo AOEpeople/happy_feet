@@ -11,15 +11,10 @@ use TYPO3\CMS\Frontend\Typolink\UnableToLinkException;
 
 class LinkRenderer extends AbstractTypolinkBuilder
 {
-    /**
-     * @var RenderingService
-     */
-    private $renderingService;
+    private ?RenderingService $renderingService = null;
 
     /**
-     * @param ContentObjectRenderer $contentObjectRenderer
      * @param TypoScriptFrontendController|null $typoScriptFrontendController
-     * @param RenderingService $renderingService
      */
     public function __construct(
         ContentObjectRenderer $contentObjectRenderer,

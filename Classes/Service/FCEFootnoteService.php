@@ -37,18 +37,10 @@ use UnexpectedValueException;
  */
 class FCEFootnoteService
 {
-    /**
-     * @var ContentObjectRenderer
-     */
-    public $cObj;
-    /**
-     * @var RenderingService
-     */
-    private $renderingService;
+    public ?ContentObjectRenderer $cObj = null;
 
-    /**
-     * @param RenderingService $renderingService
-     */
+    private RenderingService $renderingService;
+
     public function __construct(RenderingService $renderingService)
     {
         $this->renderingService = $renderingService;
@@ -57,15 +49,15 @@ class FCEFootnoteService
     /**
      * @param string $content
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
-     * @return string The wrapped index value
+     * @return ?string The wrapped index value
      * @throws UnexpectedValueException
      */
     public function renderItemList($content, $conf = [])
     {
-        if (array_key_exists('userFunc', $conf) === false || array_key_exists('field', $conf) === false) {
+        if (!array_key_exists('userFunc', $conf) || !array_key_exists('field', $conf)) {
             return '';
         }
-        if (array_key_exists('isGridElement', $conf) && (bool) $conf['isGridElement'] === true) {
+        if (array_key_exists('isGridElement', $conf) && (bool) $conf['isGridElement']) {
             $footnoteUids = $this->getCObj()
                 ->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
         } else {
@@ -78,23 +70,13 @@ class FCEFootnoteService
         return $this->renderingService->renderFootnotes(explode(',', $footnoteUids));
     }
 
-    /**
-     * @param ContentObjectRenderer $cObj
-     */
-    public function setCObj(ContentObjectRenderer $cObj)
+    public function setCObj(ContentObjectRenderer $cObj): void
     {
         $this->cObj = $cObj;
     }
 
-    /**
-     * @return ContentObjectRenderer
-     * @throws UnexpectedValueException
-     */
-    protected function getCObj()
+    protected function getCObj(): ContentObjectRenderer
     {
-        if (!$this->cObj instanceof ContentObjectRenderer) {
-            throw new UnexpectedValueException('cObj was not set', 1393843943);
-        }
         return $this->cObj;
     }
 }

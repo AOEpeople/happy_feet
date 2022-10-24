@@ -35,38 +35,28 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
 {
     /**
      * Configuration key in TSconfig TCEMAIN.linkHandler.record
-     *
-     * @var string
      */
-    protected $identifier;
+    private string $identifier;
 
     /**
      * Specific TSconfig for the current instance (corresponds to TCEMAIN.linkHandler.record.identifier.configuration)
-     *
-     * @var array
      */
-    protected $configuration = [];
+    private array $configuration = [];
 
     /**
      * Parts of the current link
-     *
-     * @var array
      */
-    protected $linkParts = [];
+    private array $linkParts = [];
 
-    /**
-     * @var int
-     */
-    protected $expandPage = 0;
+    private int $expandPage = 0;
 
     /**
      * Initializes the handler.
      *
-     * @param AbstractLinkBrowserController $linkBrowser
      * @param string $identifier
      * @param array $configuration Page TSconfig
      */
-    public function initialize(AbstractLinkBrowserController $linkBrowser, $identifier, array $configuration)
+    public function initialize(AbstractLinkBrowserController $linkBrowser, $identifier, array $configuration): void
     {
         parent::initialize($linkBrowser, $identifier, $configuration);
         $this->identifier = $identifier;
@@ -79,7 +69,6 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
      * Also stores information locally about currently linked record.
      *
      * @param array $linkParts Link parts as returned from TypoLinkCodecService
-     * @return bool
      */
     public function canHandleLink(array $linkParts): bool
     {
@@ -110,8 +99,6 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
 
     /**
      * Formats information for the current record for HTML output.
-     *
-     * @return string
      */
     public function formatCurrentUrl(): string
     {
@@ -125,9 +112,6 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
 
     /**
      * Renders the link handler.
-     *
-     * @param ServerRequestInterface $request
-     * @return string
      */
     public function render(ServerRequestInterface $request): string
     {
@@ -156,7 +140,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
         );
 
         $this->view->assignMultiple([
-            'treeEnabled' => (bool) ($this->configuration['hidePageTree'] ?? false) === false,
+            'treeEnabled' => !($this->configuration['hidePageTree'] ?? false),
             'pageTreeMountPoints' => GeneralUtility::intExplode(',', $this->configuration['pageTreeMountPoints'] ?? '', true),
             'recordList' => $recordList,
             'initialNavigationWidth' => $this->getBackendUser()
@@ -218,8 +202,6 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
 
     /**
      * Returns the URL of the current script
-     *
-     * @return string
      */
     public function getScriptUrl(): string
     {
