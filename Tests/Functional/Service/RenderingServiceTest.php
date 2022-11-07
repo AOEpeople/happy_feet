@@ -94,33 +94,6 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldNotRenderWithNoUids()
-    {
-        $this->markTestSkipped('Makes no sense if we use typehints, then getIndexNumber can not return a string');
-
-        $footnote1 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
-
-        $footnote1->_setProperty('uid', 4711);
-        $footnote1->expects(self::any())->method('getHeader')->willReturn('HEADER@4711');
-        $footnote1->method('getIndexNumber')->willReturn('4711');
-        $footnote1->expects(self::any())->method('getDescription')->willReturn('DESCRIPTION@4711');
-
-        $footnote2 = $this->getMockBuilder(Footnote::class)->onlyMethods(['getHeader', 'getDescription', 'getIndexNumber'])->getMock();
-
-        $footnote2->_setProperty('uid', 4712);
-        $footnote2->method('getHeader')->willReturn('HEADER@4712');
-        $footnote2->method('getIndexNumber')->willReturn('4712');
-        $footnote2->method('getDescription')->willReturn('DESCRIPTION@4712');
-
-        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([$footnote1, $footnote2]);
-
-        $content = $this->renderingService->renderFootnotes([]);
-        self::assertEquals('', $content);
-    }
-
-    /**
-     * @test
-     */
     public function shouldNotRenderWhenNoFootnotesAvailable()
     {
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
