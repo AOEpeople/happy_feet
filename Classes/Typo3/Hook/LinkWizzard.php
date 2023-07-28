@@ -72,9 +72,12 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
      */
     public function canHandleLink(array $linkParts): bool
     {
-        if ($linkParts['type'] === null || strcmp($linkParts['type'], 'happy_feet') !== 0) {
-            return false;
+        if (isset($linkParts['type'])) {
+            if ($linkParts['type'] === null || strcmp($linkParts['type'], 'happy_feet') !== 0) {
+                return false;
+            }
         }
+
         if (!$linkParts['url']) {
             return false;
         }
@@ -89,7 +92,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
         } else {
             $linkParts['tableName'] = $this->getLanguageService()->sL($GLOBALS['TCA'][$table]['ctrl']['title']);
             $linkParts['pid'] = (int) $record['pid'];
-            $linkParts['title'] = $linkParts['title'] ?: BackendUtility::getRecordTitle($table, $record);
+            $linkParts['title'] = isset($linkParts['title']) ?: BackendUtility::getRecordTitle($table, $record);
         }
         $linkParts['url']['type'] = $linkParts['type'];
         $this->linkParts = $linkParts;
