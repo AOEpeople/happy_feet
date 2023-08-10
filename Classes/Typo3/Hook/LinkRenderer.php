@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 use AOE\HappyFeet\Service\RenderingService;
@@ -13,22 +15,15 @@ class LinkRenderer extends AbstractTypolinkBuilder
 {
     private ?RenderingService $renderingService = null;
 
-    /**
-     * @param TypoScriptFrontendController|null $typoScriptFrontendController
-     */
     public function __construct(
         ContentObjectRenderer $contentObjectRenderer,
-        TypoScriptFrontendController $typoScriptFrontendController = null,
+        ?TypoScriptFrontendController $typoScriptFrontendController = null,
         RenderingService $renderingService = null
     ) {
         parent::__construct($contentObjectRenderer, $typoScriptFrontendController);
         $this->renderingService = $renderingService ?? GeneralUtility::makeInstance(RenderingService::class);
     }
 
-    /**
-     * @inheritDoc
-     * @throws UnableToLinkException
-     */
     public function build(array &$linkDetails, string $linkText, string $target, array $conf): array
     {
         $footnoteHtml = $this->renderingService->renderFootnotes([$linkDetails['uid']], $conf);

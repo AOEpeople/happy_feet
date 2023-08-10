@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Service;
 
 /***************************************************************
@@ -34,10 +36,6 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * @package HappyFeet
- * @subpackage Service
- */
 class RenderingService implements SingletonInterface
 {
     /**

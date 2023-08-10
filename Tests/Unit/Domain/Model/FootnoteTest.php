@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 
 /***************************************************************
@@ -28,10 +31,6 @@ namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Model_Test
- */
 class FootnoteTest extends UnitTestCase
 {
 
@@ -51,7 +50,7 @@ class FootnoteTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldSetTitle()
+    public function shouldSetTitle(): void
     {
         $this->footnote->setTitle('Dummy title');
         self::assertEquals('Dummy title', $this->footnote->getTitle());
@@ -60,7 +59,7 @@ class FootnoteTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldSetDescription()
+    public function shouldSetDescription(): void
     {
         $this->footnote->setDescription('Dummy Description');
         self::assertEquals('Dummy Description', $this->footnote->getDescription());
@@ -69,7 +68,7 @@ class FootnoteTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldSetHeader()
+    public function shouldSetHeader(): void
     {
         $this->footnote->setHeader('Dummy Header');
         self::assertEquals('Dummy Header', $this->footnote->getHeader());
@@ -78,7 +77,7 @@ class FootnoteTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldSetIndexNumber()
+    public function shouldSetIndexNumber(): void
     {
         $this->footnote->setIndexNumber(123);
         self::assertEquals(123, $this->footnote->getIndexNumber());

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -43,7 +45,7 @@ class Tcemain
      *
      * @codingStandardsIgnore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $id, array &$fieldArray, DataHandler $tcemain): void
+    public function processDatamap_postProcessFieldArray(string $status, string $table, int $id, array &$fieldArray, DataHandler $tcemain): void
     {
         if ($table !== 'tx_happyfeet_domain_model_footnote') {
             return;

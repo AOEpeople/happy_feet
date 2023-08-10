@@ -73,7 +73,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
     public function canHandleLink(array $linkParts): bool
     {
         if (isset($linkParts['type'])) {
-            if ($linkParts['type'] === null || strcmp($linkParts['type'], 'happy_feet') !== 0) {
+            if (strcmp($linkParts['type'], 'happy_feet') !== 0) {
                 return false;
             }
         }

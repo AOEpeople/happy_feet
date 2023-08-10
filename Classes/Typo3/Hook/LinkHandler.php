@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Typo3\Hook;
 
 /*
@@ -24,8 +26,6 @@ use InvalidArgumentException;
 
 /**
  * Linkhandler hook to manipulate link data before it is processed by core typolink method.
- *
- * @package HappyFeet
  */
 class LinkHandler implements LinkHandlingInterface
 {
@@ -36,8 +36,6 @@ class LinkHandler implements LinkHandlingInterface
 
     /**
      * Returns all valid parameters for linking to a TYPO3 page as a string
-     *
-     * @throws InvalidArgumentException
      */
     public function asString(array $parameters): string
     {
@@ -56,8 +54,6 @@ class LinkHandler implements LinkHandlingInterface
 
     /**
      * Returns all relevant information built in the link to a page (see asString())
-     *
-     * @throws InvalidArgumentException
      */
     public function resolveHandlerData(array $data): array
     {

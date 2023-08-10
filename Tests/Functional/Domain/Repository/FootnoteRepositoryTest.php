@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 /***************************************************************
@@ -33,10 +36,6 @@ use Throwable;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Repository_Test
- */
 class FootnoteRepositoryTest extends FunctionalTestCase
 {
     /**
@@ -70,7 +69,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetDefaultIndexWhenNoRecordsAvailable()
+    public function shouldGetDefaultIndexWhenNoRecordsAvailable(): void
     {
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         self::assertEquals(1, $lowestIndex);
@@ -79,7 +78,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetLowestIndex()
+    public function shouldGetLowestIndex(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
@@ -89,7 +88,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetIndexWithGap()
+    public function shouldGetIndexWithGap(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
@@ -99,7 +98,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetNextIndexInRow()
+    public function shouldGetNextIndexInRow(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
@@ -109,7 +108,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetFootnoteByUid()
+    public function shouldGetFootnoteByUid(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(1);
@@ -120,7 +119,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldReturnNullIfFootnoteNotFound()
+    public function shouldReturnNullIfFootnoteNotFound(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(99);
@@ -130,7 +129,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldGetFootnotesByUids()
+    public function shouldGetFootnotesByUids(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([2, 4]);
@@ -142,7 +141,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldSortFootnotesByGivenOrderOfUids()
+    public function shouldSortFootnotesByGivenOrderOfUids(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
@@ -157,7 +156,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWithInvalidObject()
+    public function shouldThrowExceptionWithInvalidObject(): void
     {
         $this->expectException(IllegalObjectTypeException::class);
 
@@ -169,7 +168,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
      * @test
      * assert that no exception is thrown
      */
-    public function shouldAddObject()
+    public function shouldAddObject(): void
     {
         try {
             $footnote = new Footnote();

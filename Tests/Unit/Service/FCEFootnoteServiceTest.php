@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -29,13 +32,7 @@ use AOE\HappyFeet\Service\FCEFootnoteService;
 use AOE\HappyFeet\Service\RenderingService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use UnexpectedValueException;
 
-
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FCEFootnoteServiceTest extends UnitTestCase
 {
     /**
@@ -48,9 +45,6 @@ class FCEFootnoteServiceTest extends UnitTestCase
      */
     protected $renderingService;
 
-    /**
-     * setup
-     */
     public function setUp(): void
     {
         $this->renderingService = $this->getMockBuilder(RenderingService::class)
@@ -66,9 +60,8 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     /**
      * @test
-     * @method FCEFootnoteService:renderItemList
      */
-    public function shouldRenderItemListWithEmptyConf()
+    public function shouldRenderItemListWithEmptyConf(): void
     {
         $content = $this->service->renderItemList('');
         self::assertEquals('', $content);
@@ -76,9 +69,8 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     /**
      * @test
-     * @method FCEFootnoteService:renderItemList
      */
-    public function shouldRenderItemListIfNoFootnotesSelected()
+    public function shouldRenderItemListIfNoFootnotesSelected(): void
     {
         $cObj = $this->getMockBuilder(ContentObjectRenderer::class)->onlyMethods(['getCurrentVal'])->disableOriginalConstructor()->getMock();
         $cObj->expects(self::once())->method('getCurrentVal')->willReturn('');
@@ -91,7 +83,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldRenderItemLists()
+    public function shouldRenderItemLists(): void
     {
         $this->renderingService->method('renderFootnotes')->with(['1', '2'])->willReturn('contentString');
 

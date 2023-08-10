@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -29,22 +32,13 @@ use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\FootnoteService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FootnoteServiceTest extends UnitTestCase
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $footnoteRepository;
+    private FootnoteRepository $footnoteRepository;
 
-    /**
-     * @var FootnoteService
-     */
-    private $footnoteService;
+    private FootnoteService $footnoteService;
 
     protected function setUp(): void
     {
@@ -59,7 +53,7 @@ class FootnoteServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldGetFootnoteById()
+    public function shouldGetFootnoteById(): void
     {
         $footnote = new Footnote();
 
@@ -74,7 +68,7 @@ class FootnoteServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldReturnNullIfFootnoteNotFound()
+    public function shouldReturnNullIfFootnoteNotFound(): void
     {
         self::assertNull($this->footnoteService->getFootnoteById(456));
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Functional\Service;
 
 /***************************************************************
@@ -39,10 +42,6 @@ use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends FunctionalTestCase
 {
     /**
@@ -94,7 +93,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldNotRenderWhenNoFootnotesAvailable()
+    public function shouldNotRenderWhenNoFootnotesAvailable(): void
     {
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
 
@@ -105,7 +104,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function footnoteIdIsPresent()
+    public function footnoteIdIsPresent(): void
     {
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
@@ -131,7 +130,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function footnoteHeaderIsPresent()
+    public function footnoteHeaderIsPresent(): void
     {
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
@@ -156,7 +155,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function footnoteDescriptionIsPresent()
+    public function footnoteDescriptionIsPresent(): void
     {
         $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
             [
@@ -181,7 +180,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldNotRenderRichText()
+    public function shouldNotRenderRichText(): void
     {
         self::assertEquals('', $this->renderingService->renderRichText(''));
     }
@@ -189,7 +188,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function shouldRenderRichText()
+    public function shouldRenderRichText(): void
     {
         self::assertStringContainsString('test', $this->renderingService->renderRichText('test'));
     }
@@ -197,7 +196,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function alternativeTemplateIsDefinedButFileDoesntExist()
+    public function alternativeTemplateIsDefinedButFileDoesntExist(): void
     {
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
         $failingTemplate = 'EXT:happy_feet/Resources/Private/Templates/Rendering/TestTemplate.html';
@@ -215,7 +214,7 @@ class RenderingServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function alternativeTemplateIsDefined()
+    public function alternativeTemplateIsDefined(): void
     {
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
 
@@ -229,12 +228,7 @@ class RenderingServiceTest extends FunctionalTestCase
         self::assertEquals($template, $result);
     }
 
-    /**
-     * @param $method string
-     * @return string
-     * @throws \ReflectionException
-     */
-    private function reflectMethodInRenderingService($method)
+    private function reflectMethodInRenderingService(string $method): string
     {
         $reflector = new ReflectionClass(RenderingService::class);
         $method = $reflector->getMethod($method);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\ViewHelpers;
 
 /***************************************************************
@@ -28,10 +30,6 @@ namespace AOE\HappyFeet\ViewHelpers;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FlatifyViewHelper extends AbstractViewHelper
 {
     /**

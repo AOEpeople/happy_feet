@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Domain\Repository;
 
 /***************************************************************
@@ -36,12 +38,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- * Repository for Footnote objects.
- *
- * @package HappyFeet
- * @subpackage Domain_Repository
- */
 class FootnoteRepository extends Repository
 {
     public static array $uids = [];
@@ -99,11 +95,9 @@ class FootnoteRepository extends Repository
 
     /**
      * @param Footnote $object
-     * @throws IllegalObjectTypeException
      */
     public function add($object): void
     {
-        /** @var Footnote $object */
         if (!($object instanceof Footnote)) {
             throw new IllegalObjectTypeException(
                 'The object given to add() was not of the type (' . $this->objectType . ') this repository manages.',
@@ -114,11 +108,7 @@ class FootnoteRepository extends Repository
         parent::add($object);
     }
 
-    /**
-     * @param integer $uid
-     * @return Footnote|null
-     */
-    public function getFootnoteByUid($uid)
+    public function getFootnoteByUid(int $uid): ?Footnote
     {
         $query = $this->createQuery();
         $query->setQuerySettings($this->defaultQuerySettings);

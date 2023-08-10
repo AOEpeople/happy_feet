@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /***************************************************************
@@ -72,7 +75,7 @@ class TcemainTest extends UnitTestCase
     /**
      * @test
      */
-    public function postProcessFieldArrayWithNewFootnote()
+    public function postProcessFieldArrayWithNewFootnote(): void
     {
         $this->footnoteRepository->expects(self::once())->method('getLowestFreeIndexNumber')->willReturn(1);
 
@@ -80,7 +83,7 @@ class TcemainTest extends UnitTestCase
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
             'tx_happyfeet_domain_model_footnote',
-            null,
+            0,
             $fieldArray,
             $this->dataHandler
         );
@@ -92,7 +95,7 @@ class TcemainTest extends UnitTestCase
     /**
      * @test
      */
-    public function postProcessFieldArrayWithExistingFootnote()
+    public function postProcessFieldArrayWithExistingFootnote(): void
     {
         $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
 
@@ -100,7 +103,7 @@ class TcemainTest extends UnitTestCase
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'foo',
             Footnote::class,
-            null,
+            0,
             $fieldArray,
             $this->dataHandler
         );
@@ -110,7 +113,7 @@ class TcemainTest extends UnitTestCase
     /**
      * @test
      */
-    public function postProcessFieldArrayWithOtherTable()
+    public function postProcessFieldArrayWithOtherTable(): void
     {
         $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
 
@@ -118,7 +121,7 @@ class TcemainTest extends UnitTestCase
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'new',
             'tx_happyfoo_domain_model_baz',
-            null,
+            0,
             $fieldArray,
             $this->dataHandler
         );
@@ -128,7 +131,7 @@ class TcemainTest extends UnitTestCase
     /**
      * @test
      */
-    public function shouldResetIndexNumber()
+    public function shouldResetIndexNumber(): void
     {
         $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
 
@@ -136,7 +139,7 @@ class TcemainTest extends UnitTestCase
         $this->tcemainHook->processDatamap_postProcessFieldArray(
             'delete',
             Footnote::class,
-            null,
+            0,
             $fieldArray,
             $this->dataHandler
         );

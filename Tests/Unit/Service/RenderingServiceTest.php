@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -30,10 +33,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends UnitTestCase
 {
     /**
@@ -67,7 +66,7 @@ class RenderingServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function renderRichTextWithEmptyText()
+    public function renderRichTextWithEmptyText(): void
     {
         $this->contentObjectRenderer->expects(self::never())->method('parseFunc');
         $this->renderingService->renderRichText('');
@@ -76,7 +75,7 @@ class RenderingServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function renderRichTextWithDefaultParams()
+    public function renderRichTextWithDefaultParams(): void
     {
         $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
             ->with('text', [], '< lib.parseFunc_HappyFeet');
@@ -87,7 +86,7 @@ class RenderingServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function renderRichTextWithSpecificParams()
+    public function renderRichTextWithSpecificParams(): void
     {
         $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
             ->with('special text', [], '< lib.parseFunc_HappyFeet_custom');

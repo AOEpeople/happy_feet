@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Service;
 
 /***************************************************************
@@ -27,14 +29,7 @@ namespace AOE\HappyFeet\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use UnexpectedValueException;
 
-/**
- * Render Footnotes for FCE
- *
- * @package HappyFeet
- * @subpackage Service
- */
 class FCEFootnoteService
 {
     public ?ContentObjectRenderer $cObj = null;
@@ -47,12 +42,9 @@ class FCEFootnoteService
     }
 
     /**
-     * @param string $content
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
-     * @return ?string The wrapped index value
-     * @throws UnexpectedValueException
      */
-    public function renderItemList($content, $conf = [])
+    public function renderItemList(string $content, $conf = []): ?string
     {
         if (!array_key_exists('userFunc', $conf) || !array_key_exists('field', $conf)) {
             return '';
