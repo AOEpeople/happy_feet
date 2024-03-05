@@ -27,8 +27,8 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 
 use AOE\HappyFeet\Service\FCEFootnoteService;
 use AOE\HappyFeet\Service\RenderingService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use UnexpectedValueException;
 
 
