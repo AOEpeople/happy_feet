@@ -49,18 +49,18 @@ jobs:
       - name: Unit Tests without coverage
         if: matrix.typo3 != '^11.5' || matrix.php != '7.4'
         run: |
-          export "UNIT_XML"=Tests/Unit/UnitTests.xml
+          export "UNIT_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml
           .Build/bin/phpunit --colors -c $UNIT_XML Tests/Unit
 
       - name: Unit Tests with coverage
         if: matrix.typo3 == '^11.5' && matrix.php == '7.4'
         run: |
-          export "UNIT_XML"=Tests/Unit/UnitTests.xml
+          export "UNIT_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml
           .Build/bin/phpunit --whitelist Classes --coverage-clover=unittest-coverage.clover --colors -c $UNIT_XML Tests/Unit/
 
       - name: Functional Tests without coverage
         run: |
-          export "FUNCTIONAL_XML"=Tests/Functional/FunctionalTests.xml
+          export "FUNCTIONAL_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml
           .Build/bin/phpunit --colors -c $FUNCTIONAL_XML Tests/Functional
         if: matrix.typo3 != '^11.5' || matrix.php != '7.4'
         env:
@@ -71,7 +71,7 @@ jobs:
 
       - name: Functional Tests with coverage
         run: |
-          export "FUNCTIONAL_XML"=Tests/Functional/FunctionalTests.xml
+          export "FUNCTIONAL_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml
           find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --whitelist Classes --coverage-clover={}functionaltest-coverage.clover --colors -c $FUNCTIONAL_XML {}'
         if: matrix.typo3 == '^11.5' && matrix.php == '7.4'
         env:
