@@ -185,7 +185,7 @@ class RenderingServiceTest extends FunctionalTestCase
      */
     public function shouldRenderRichText()
     {
-        self::assertStringContainsString('test', $this->renderingService->renderRichText('test'));
+        self::assertStringContainsString('test', $this->renderingService->renderRichText('test', ['htmlSanitize' => 1]));
     }
 
     /**

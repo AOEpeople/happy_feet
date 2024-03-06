@@ -135,7 +135,7 @@ class RenderingService implements SingletonInterface
     private function getTemplatePath()
     {
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = $GLOBALS['TSFE'];
+        $tsfe = ($GLOBALS['TSFE'] ?? false);
         if (isset($tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template'])) {
             $templateFile = GeneralUtility::getFileAbsFileName(
                 $tsfe->tmpl->setup['lib.']['plugins.']['tx_happyfeet.']['view.']['template']
