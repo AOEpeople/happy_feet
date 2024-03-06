@@ -45,27 +45,21 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class RenderingServiceTest extends FunctionalTestCase
 {
-    /**
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet'
     ];
 
-    /**
-     * @var RenderingService
-     */
-    protected $renderingService;
+    protected RenderingService $renderingService;
 
     /**
-     * @var FootnoteRepository|MockObject
+     * @var FootnoteRepository
      */
-    protected $footnoteRepository;
+    protected MockObject $footnoteRepository;
 
     /**
      * Set up test case
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [

@@ -39,19 +39,13 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class FootnoteRepositoryTest extends FunctionalTestCase
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $repository;
+    private FootnoteRepository $repository;
 
-    /**
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet'
     ];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->repository = GeneralUtility::makeInstance(FootnoteRepository::class);
