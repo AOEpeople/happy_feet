@@ -7,6 +7,7 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\Set\ValueObject\SetList;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\YieldDataProviderRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector;
@@ -38,6 +39,7 @@ return RectorConfig::configure()
         TypedPropertyFromStrictSetUpRector::class,
         AddMethodCallBasedStrictParamTypeRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
+        YieldDataProviderRector::class,
     ])
     ->withAutoloadPaths([__DIR__ . '/../Classes'])
     ->registerService(RemoveUnusedPrivatePropertyRector::class);

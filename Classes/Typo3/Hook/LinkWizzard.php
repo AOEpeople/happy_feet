@@ -34,11 +34,6 @@ use TYPO3\CMS\Recordlist\Tree\View\LinkParameterProviderInterface;
 final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterface, LinkParameterProviderInterface
 {
     /**
-     * Configuration key in TSconfig TCEMAIN.linkHandler.record
-     */
-    private string $identifier;
-
-    /**
      * Specific TSconfig for the current instance (corresponds to TCEMAIN.linkHandler.record.identifier.configuration)
      */
     private array $configuration = [];
@@ -53,13 +48,11 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
     /**
      * Initializes the handler.
      *
-     * @param string $identifier
      * @param array $configuration Page TSconfig
      */
-    public function initialize(AbstractLinkBrowserController $linkBrowser, $identifier, array $configuration): void
+    public function initialize(AbstractLinkBrowserController $linkBrowser, mixed $identifier, array $configuration): void
     {
         parent::initialize($linkBrowser, $identifier, $configuration);
-        $this->identifier = $identifier;
         $this->configuration = $configuration;
     }
 
@@ -72,10 +65,8 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
      */
     public function canHandleLink(array $linkParts): bool
     {
-        if (isset($linkParts['type'])) {
-            if ($linkParts['type'] === null || strcmp($linkParts['type'], 'happy_feet') !== 0) {
-                return false;
-            }
+        if (isset($linkParts['type']) && ($linkParts['type'] == null || strcmp($linkParts['type'], 'happy_feet') !== 0)) {
+            return false;
         }
 
         if (!$linkParts['url']) {
@@ -94,6 +85,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
             $linkParts['pid'] = (int) $record['pid'];
             $linkParts['title'] = isset($linkParts['title']) ?: BackendUtility::getRecordTitle($table, $record);
         }
+
         $linkParts['url']['type'] = $linkParts['type'];
         $this->linkParts = $linkParts;
 
@@ -151,7 +143,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
             'treeActions' => ['link'],
         ]);
 
-        $this->view->setTemplate('Record');
+        #$this->view->setTemplate('Record');
         return '';
     }
 
@@ -165,7 +157,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
         $attributes = [
             'data-identifier' => 't3://happy_feet?uid=',
         ];
-        if (!empty($this->linkParts)) {
+        if ($this->linkParts !== []) {
             $attributes['data-current-link'] = GeneralUtility::makeInstance(LinkService::class)->asString($this->linkParts['url']);
         }
 
@@ -200,7 +192,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
      */
     public function isCurrentlySelectedItem(array $values): bool
     {
-        return !empty($this->linkParts) && (int) $this->linkParts['pid'] === (int) $values['pid'];
+        return $this->linkParts !== [] && (int) $this->linkParts['pid'] === (int) $values['pid'];
     }
 
     /**

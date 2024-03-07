@@ -59,13 +59,15 @@ class RenderingService implements SingletonInterface
      */
     public function renderFootnotes(array $uids, array $conf = []): ?string
     {
-        if (empty($uids)) {
+        if ($uids === []) {
             return '';
         }
+
         $footnotes = $this->footnoteRepository->getFootnotesByUids($uids);
         if (count($footnotes) < 1) {
             return '';
         }
+
         /** @var Footnote $footnote */
         foreach ($footnotes as $footnote) {
             if ($footnote instanceof Footnote) {
@@ -104,25 +106,18 @@ class RenderingService implements SingletonInterface
         if ($this->contentObjectRenderer === null) {
             $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         }
+
         return $this->contentObjectRenderer;
     }
 
-    /**
-     * @param string $template
-     * @return \TYPO3\CMS\Fluid\View\StandaloneView
-     */
-    private function createView($template)
+    private function createView(string $template): StandaloneView
     {
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
         return $view;
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
-    private function getTemplatePathAndFilename($template)
+    private function getTemplatePathAndFilename(string $template): string
     {
         return 'EXT:happy_feet/Resources/Private/Templates/Rendering/' . $template . '.html';
     }

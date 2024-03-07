@@ -13,9 +13,6 @@ class LinkRenderer extends AbstractTypolinkBuilder
 {
     private ?RenderingService $renderingService = null;
 
-    /**
-     * @param TypoScriptFrontendController|null $typoScriptFrontendController
-     */
     public function __construct(
         ContentObjectRenderer $contentObjectRenderer,
         TypoScriptFrontendController $typoScriptFrontendController = null,
@@ -26,7 +23,6 @@ class LinkRenderer extends AbstractTypolinkBuilder
     }
 
     /**
-     * @inheritDoc
      * @throws UnableToLinkException
      */
     public function build(array &$linkDetails, string $linkText, string $target, array $conf): array

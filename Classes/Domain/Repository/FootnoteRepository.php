@@ -48,7 +48,6 @@ class FootnoteRepository extends Repository
 
     protected string $tableName = 'tx_happyfeet_domain_model_footnote';
 
-
     public function initializeObject(): void
     {
         /** @var Typo3QuerySettings $defaultQuerySettings */
@@ -62,10 +61,8 @@ class FootnoteRepository extends Repository
 
     /**
      * Returns the smallest index which is not used.
-     *
-     * @return integer
      */
-    public function getLowestFreeIndexNumber()
+    public function getLowestFreeIndexNumber(): int
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
@@ -84,16 +81,19 @@ class FootnoteRepository extends Repository
         if (count($results) < 1) {
             return $index;
         }
+
         $indexes = [];
         foreach ($results as $result) {
             $indexes[] = (int) $result['index_number'];
         }
+
         $indexCount = count($indexes);
-        for ($index = 1; $index <= $indexCount + 1; $index++) {
+        for ($index = 1; $index <= $indexCount + 1; ++$index) {
             if (!in_array($index, $indexes, true)) {
                 break;
             }
         }
+
         return $index;
     }
 
@@ -110,6 +110,7 @@ class FootnoteRepository extends Repository
                 1392911702
             );
         }
+
         $object->setIndexNumber($this->getLowestFreeIndexNumber());
         parent::add($object);
     }
@@ -150,21 +151,20 @@ class FootnoteRepository extends Repository
         if ($queryResult instanceof QueryResultInterface) {
             $queryResult = $queryResult->toArray();
         }
-        usort($queryResult, [$this, 'usortFootnotesByUids']);
+
+        usort($queryResult, fn (Footnote $a, Footnote $b): int => $this::usortFootnotesByUids($a, $b));
         return $queryResult;
     }
 
-    /**
-     * @return integer
-     */
     public static function usortFootnotesByUids(
         Footnote $a,
         Footnote $b
-    ) {
+    ): int {
         $map = array_flip(self::$uids);
         if ($map[$a->getUid()] >= $map[$b->getUid()]) {
             return 1;
         }
+
         return -1;
     }
 }

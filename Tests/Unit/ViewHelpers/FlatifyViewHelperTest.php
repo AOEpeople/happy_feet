@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Unit\ViewHelpers;
 
 /***************************************************************
@@ -42,30 +43,26 @@ class FlatifyViewHelperTest extends UnitTestCase
     /**
      * Set up the test case
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->viewHelper = new FlatifyViewHelper();
     }
 
     /**
-     * @test
      * @dataProvider getTemplateFixtureProvider
      */
-    public function lineBreaksWillBeRemoved($fixture)
+    public function testLineBreaksWillBeRemoved(string $fixture): void
     {
         $actualOutput = $this->viewHelper->render($fixture);
-        self::assertEquals('such a beautiful footnote', $actualOutput);
+        $this->assertSame('such a beautiful footnote', $actualOutput);
     }
 
-    /**
-     * @return array
-     */
-    public function getTemplateFixtureProvider()
+    public function getTemplateFixtureProvider(): array
     {
         return [
             'windows' => ["\r\nsuch a beautiful footnote\r\n"],
             'unix' => ["\nsuch a beautiful footnote\n"],
-            'mac' => ["\rsuch a beautiful footnote\r"]
+            'mac' => ["\rsuch a beautiful footnote\r"],
         ];
     }
 }

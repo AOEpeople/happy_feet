@@ -12,3 +12,4 @@ Build/testing-docker/.env
 /typo3_src
 /typo3conf
 /vendor
+/phpstan-baseline.neon

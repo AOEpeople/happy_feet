@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 
 /***************************************************************
@@ -34,53 +35,34 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class FootnoteTest extends UnitTestCase
 {
+    protected Footnote $footnote;
 
-    /**
-     * @var Footnote
-     */
-    protected $footnote;
-
-    /**
-     *
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->footnote = new Footnote();
     }
 
-    /**
-     * @test
-     */
-    public function shouldSetTitle()
+    public function testShouldSetTitle(): void
     {
         $this->footnote->setTitle('Dummy title');
-        self::assertEquals('Dummy title', $this->footnote->getTitle());
+        $this->assertSame('Dummy title', $this->footnote->getTitle());
     }
 
-    /**
-     * @test
-     */
-    public function shouldSetDescription()
+    public function testShouldSetDescription(): void
     {
         $this->footnote->setDescription('Dummy Description');
-        self::assertEquals('Dummy Description', $this->footnote->getDescription());
+        $this->assertSame('Dummy Description', $this->footnote->getDescription());
     }
 
-    /**
-     * @test
-     */
-    public function shouldSetHeader()
+    public function testShouldSetHeader(): void
     {
         $this->footnote->setHeader('Dummy Header');
-        self::assertEquals('Dummy Header', $this->footnote->getHeader());
+        $this->assertSame('Dummy Header', $this->footnote->getHeader());
     }
 
-    /**
-     * @test
-     */
-    public function shouldSetIndexNumber()
+    public function testShouldSetIndexNumber(): void
     {
         $this->footnote->setIndexNumber(123);
-        self::assertEquals(123, $this->footnote->getIndexNumber());
+        $this->assertSame(123, $this->footnote->getIndexNumber());
     }
 }

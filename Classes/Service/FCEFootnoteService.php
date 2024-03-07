@@ -47,16 +47,16 @@ class FCEFootnoteService
     }
 
     /**
-     * @param string $content
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
      * @return ?string The wrapped index value
      * @throws UnexpectedValueException
      */
-    public function renderItemList($content, $conf = [])
+    public function renderItemList(string $content, array $conf = []): ?string
     {
         if (!array_key_exists('userFunc', $conf) || !array_key_exists('field', $conf)) {
             return '';
         }
+
         if (array_key_exists('isGridElement', $conf) && (bool) $conf['isGridElement']) {
             $footnoteUids = $this->getCObj()
                 ->data['pi_flexform']['data']['sDEF']['lDEF'][$conf['field']]['vDEF'];
@@ -64,9 +64,11 @@ class FCEFootnoteService
             $footnoteUids = $this->getCObj()
                 ->getCurrentVal();
         }
+
         if (empty($footnoteUids)) {
             return '';
         }
+
         return $this->renderingService->renderFootnotes(explode(',', $footnoteUids));
     }
 

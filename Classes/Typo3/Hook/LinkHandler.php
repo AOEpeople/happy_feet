@@ -19,8 +19,8 @@ namespace AOE\HappyFeet\Typo3\Hook;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
 use InvalidArgumentException;
+use TYPO3\CMS\Core\LinkHandling\LinkHandlingInterface;
 
 /**
  * Linkhandler hook to manipulate link data before it is processed by core typolink method.
@@ -44,6 +44,7 @@ class LinkHandler implements LinkHandlingInterface
         if (empty($parameters['uid'])) {
             throw new \InvalidArgumentException('The HappyFeetLinkHandler expects uid as $parameter configuration.', 1486155150);
         }
+
         $urn = $this->baseUrn;
         $urn .= sprintf('?uid=%s', $parameters['uid']);
 

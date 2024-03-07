@@ -34,19 +34,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FlatifyViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var bool
-     */
     protected $escapeOutput = false;
-    /**
-     * @param string|null $str
-     * @return string
-     */
-    public function render($str = null)
+
+    public function render(?string $str = null): string
     {
         if ($str === null) {
             $str = $this->renderChildren();
         }
+
         return str_replace(["\r", "\n"], '', $str);
     }
 }
