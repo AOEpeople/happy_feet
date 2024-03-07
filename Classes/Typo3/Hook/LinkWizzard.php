@@ -48,9 +48,10 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
     /**
      * Initializes the handler.
      *
+     * @param mixed $identifier
      * @param array $configuration Page TSconfig
      */
-    public function initialize(AbstractLinkBrowserController $linkBrowser, mixed $identifier, array $configuration): void
+    public function initialize(AbstractLinkBrowserController $linkBrowser, $identifier, array $configuration): void
     {
         parent::initialize($linkBrowser, $identifier, $configuration);
         $this->configuration = $configuration;
@@ -143,7 +144,6 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
             'treeActions' => ['link'],
         ]);
 
-        #$this->view->setTemplate('Record');
         return '';
     }
 
