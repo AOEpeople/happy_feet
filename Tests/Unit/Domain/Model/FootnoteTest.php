@@ -29,10 +29,6 @@ namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Model_Test
- */
 class FootnoteTest extends UnitTestCase
 {
     protected Footnote $footnote;

@@ -28,10 +28,6 @@ namespace AOE\HappyFeet\ViewHelpers;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FlatifyViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;

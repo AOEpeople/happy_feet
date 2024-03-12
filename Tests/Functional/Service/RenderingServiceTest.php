@@ -39,10 +39,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [
@@ -204,9 +200,6 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->assertSame($template, $result);
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     private function reflectMethodInRenderingService(string $method): string
     {
         $reflector = new ReflectionClass(RenderingService::class);

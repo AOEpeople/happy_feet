@@ -22,9 +22,6 @@ class LinkRenderer extends AbstractTypolinkBuilder
         $this->renderingService = $renderingService ?? GeneralUtility::makeInstance(RenderingService::class);
     }
 
-    /**
-     * @throws UnableToLinkException
-     */
     public function build(array &$linkDetails, string $linkText, string $target, array $conf): array
     {
         $footnoteHtml = $this->renderingService->renderFootnotes([$linkDetails['uid']], $conf);

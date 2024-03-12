@@ -31,10 +31,6 @@ use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\FootnoteService;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FootnoteServiceTest extends UnitTestCase
 {
     private FootnoteRepository $footnoteRepository;

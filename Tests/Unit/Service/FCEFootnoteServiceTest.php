@@ -31,10 +31,6 @@ use AOE\HappyFeet\Service\RenderingService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FCEFootnoteServiceTest extends UnitTestCase
 {
     protected FCEFootnoteService $service;

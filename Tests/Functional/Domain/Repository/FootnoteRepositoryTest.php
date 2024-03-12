@@ -34,10 +34,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Repository_Test
- */
 class FootnoteRepositoryTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [

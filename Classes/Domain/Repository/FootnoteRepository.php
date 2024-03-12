@@ -38,9 +38,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Repository for Footnote objects.
- *
- * @package HappyFeet
- * @subpackage Domain_Repository
  */
 class FootnoteRepository extends Repository
 {
@@ -99,7 +96,6 @@ class FootnoteRepository extends Repository
 
     /**
      * @param Footnote $object
-     * @throws IllegalObjectTypeException
      */
     public function add($object): void
     {

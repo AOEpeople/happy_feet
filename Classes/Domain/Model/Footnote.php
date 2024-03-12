@@ -28,10 +28,6 @@ namespace AOE\HappyFeet\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Model
- */
 class Footnote extends AbstractEntity
 {
     protected ?int $indexNumber = null;

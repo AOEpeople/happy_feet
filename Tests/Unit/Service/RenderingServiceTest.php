@@ -31,10 +31,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends UnitTestCase
 {
     /**

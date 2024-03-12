@@ -27,13 +27,9 @@ namespace AOE\HappyFeet\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use UnexpectedValueException;
 
 /**
  * Render Footnotes for FCE
- *
- * @package HappyFeet
- * @subpackage Service
  */
 class FCEFootnoteService
 {
@@ -49,7 +45,6 @@ class FCEFootnoteService
     /**
      * @param array $conf optional (this will be automatically set, of this method is called via 'TYPOSCRIPT-userFunc')
      * @return ?string The wrapped index value
-     * @throws UnexpectedValueException
      */
     public function renderItemList(string $content, array $conf = []): ?string
     {
