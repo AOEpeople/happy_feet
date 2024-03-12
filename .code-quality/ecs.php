@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
@@ -37,11 +36,6 @@ return ECSConfig::configure()
         DocBlockLineLengthFixer::class => null,
         ArrayListItemNewlineFixer::class => null,
         ArrayOpenerAndCloserNewlineFixer::class => null,
-        FunctionTypehintSpaceFixer::class => [
-            __DIR__ . '/../Tests/Unit/TYPO3/AdditionalResponseHeadersTest.php',
-            __DIR__ . '/../Classes/TYPO3/Hooks/ClearCacheMenuHook.php',
-            __DIR__ . '/../Classes/TYPO3/Configuration/ExtensionConfiguration.php',
-        ],
         DeclareStrictTypesFixer::class => null,
     ])
     ->withSpacing(OPTION::INDENTATION_SPACES, "\n");
