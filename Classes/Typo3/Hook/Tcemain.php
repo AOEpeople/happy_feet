@@ -48,9 +48,11 @@ class Tcemain
         if ($table !== 'tx_happyfeet_domain_model_footnote') {
             return;
         }
+
         if ($status === 'new') {
             $fieldArray['index_number'] = $this->footnoteRepository->getLowestFreeIndexNumber();
         }
+
         if ($status === 'delete') {
             $fieldArray['index_number'] = 0;
         }

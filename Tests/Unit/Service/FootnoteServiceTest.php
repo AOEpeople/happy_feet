@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -28,23 +29,13 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\FootnoteService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class FootnoteServiceTest extends UnitTestCase
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $footnoteRepository;
+    private FootnoteRepository $footnoteRepository;
 
-    /**
-     * @var FootnoteService
-     */
-    private $footnoteService;
+    private FootnoteService $footnoteService;
 
     protected function setUp(): void
     {
@@ -56,10 +47,7 @@ class FootnoteServiceTest extends UnitTestCase
         $this->footnoteService = new FootnoteService($this->footnoteRepository);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetFootnoteById()
+    public function testShouldGetFootnoteById(): void
     {
         $footnote = new Footnote();
 
@@ -68,14 +56,11 @@ class FootnoteServiceTest extends UnitTestCase
             ->with(123)
             ->willReturn($footnote);
 
-        self::assertSame($footnote, $this->footnoteService->getFootnoteById(123));
+        $this->assertSame($footnote, $this->footnoteService->getFootnoteById(123));
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnNullIfFootnoteNotFound()
+    public function testShouldReturnNullIfFootnoteNotFound(): void
     {
-        self::assertNull($this->footnoteService->getFootnoteById(456));
+        $this->assertNull($this->footnoteService->getFootnoteById(456));
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Functional\Service;
 
 /***************************************************************
@@ -25,10 +26,8 @@ namespace AOE\HappyFeet\Tests\Functional\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Service\RenderingService;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
@@ -38,45 +37,33 @@ use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends FunctionalTestCase
 {
-    /**
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/happy_feet'
+    protected array $testExtensionsToLoad = [
+        'typo3conf/ext/happy_feet',
     ];
 
-    /**
-     * @var RenderingService
-     */
-    protected $renderingService;
+    protected RenderingService $renderingService;
 
     /**
-     * @var FootnoteRepository|MockObject
+     * @var FootnoteRepository
      */
-    protected $footnoteRepository;
+    protected MockObject $footnoteRepository;
 
-    /**
-     * Set up test case
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [
             'backend' => NullBackend::class,
-            'options' => []
+            'options' => [],
         ];
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
             'backend' => NullBackend::class,
             'frontend' => PhpFrontend::class,
-            'groups' => ['system']
+            'groups' => ['system'],
         ];
 
         $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
@@ -91,113 +78,100 @@ class RenderingServiceTest extends FunctionalTestCase
         $this->renderingService = GeneralUtility::makeInstance(RenderingService::class, $this->footnoteRepository);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotRenderWhenNoFootnotesAvailable()
+    public function testShouldNotRenderWhenNoFootnotesAvailable(): void
     {
-        $this->footnoteRepository->method('getFootnotesByUids')->willReturn([]);
+        $this->footnoteRepository
+            ->method('getFootnotesByUids')
+            ->willReturn([]);
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        self::assertEquals('', $content);
+        $this->assertSame('', $content);
     }
 
-    /**
-     * @test
-     */
-    public function footnoteIdIsPresent()
+    public function testFootnoteIdIsPresent(): void
     {
-        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
-            [
+        $this->footnoteRepository
+            ->method('getFootnotesByUids')
+            ->willReturn(
                 [
-                    'indexNumber' => 4711,
-                    'header' => '',
-                    'description' => ''
-                ],
-                [
-                    'indexNumber' => 4712,
-                    'header' => '',
-                    'description' => ''
+                    [
+                        'indexNumber' => 4711,
+                        'header' => '',
+                        'description' => '',
+                    ],
+                    [
+                        'indexNumber' => 4712,
+                        'header' => '',
+                        'description' => '',
+                    ],
                 ]
-            ]
-        );
+            );
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
 
-        self::assertMatchesRegularExpression('~[^@]4711~', $content);
-        self::assertMatchesRegularExpression('~[^@]4712~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4711~', $content);
+        $this->assertMatchesRegularExpression('~[^@]4712~', $content);
     }
 
-    /**
-     * @test
-     */
-    public function footnoteHeaderIsPresent()
+    public function testFootnoteHeaderIsPresent(): void
     {
-        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
-            [
+        $this->footnoteRepository
+            ->method('getFootnotesByUids')
+            ->willReturn(
                 [
-                    'indexNumber' => 4711,
-                    'header' => 'HEADER@4711',
-                    'description' => ''
-                ],
-                [
-                    'indexNumber' => 4712,
-                    'header' => 'HEADER@4712',
-                    'description' => ''
+                    [
+                        'indexNumber' => 4711,
+                        'header' => 'HEADER@4711',
+                        'description' => '',
+                    ],
+                    [
+                        'indexNumber' => 4712,
+                        'header' => 'HEADER@4712',
+                        'description' => '',
+                    ],
                 ]
-            ]
-        );
+            );
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        self::assertMatchesRegularExpression('~HEADER@4711~', $content);
-        self::assertMatchesRegularExpression('~HEADER@4712~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4711~', $content);
+        $this->assertMatchesRegularExpression('~HEADER@4712~', $content);
     }
 
-    /**
-     * @test
-     */
-    public function footnoteDescriptionIsPresent()
+    public function testFootnoteDescriptionIsPresent(): void
     {
-        $this->footnoteRepository->method('getFootnotesByUids')->willReturn(
-            [
+        $this->footnoteRepository
+            ->method('getFootnotesByUids')
+            ->willReturn(
                 [
-                    'indexNumber' => 4711,
-                    'header' => 'HEADER@4711',
-                    'description' => 'DESCRIPTION@4711'
-                ],
-                [
-                    'indexNumber' => 4712,
-                    'header' => 'HEADER@4712',
-                    'description' => 'DESCRIPTION@4712'
+                    [
+                        'indexNumber' => 4711,
+                        'header' => 'HEADER@4711',
+                        'description' => 'DESCRIPTION@4711',
+                    ],
+                    [
+                        'indexNumber' => 4712,
+                        'header' => 'HEADER@4712',
+                        'description' => 'DESCRIPTION@4712',
+                    ],
                 ]
-            ]
-        );
+            );
 
         $content = $this->renderingService->renderFootnotes([4711, 4712]);
-        self::assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
-        self::assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4711~', $content);
+        $this->assertMatchesRegularExpression('~DESCRIPTION@4712~', $content);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotRenderRichText()
+    public function testShouldNotRenderRichText(): void
     {
-        self::assertEquals('', $this->renderingService->renderRichText(''));
+        $this->assertSame('', $this->renderingService->renderRichText(''));
     }
 
-    /**
-     * @test
-     */
-    public function shouldRenderRichText()
+    public function testShouldRenderRichText(): void
     {
-        self::assertStringContainsString('test', $this->renderingService->renderRichText('test'));
+        $this->assertStringContainsString('test', $this->renderingService->renderRichText('test', ['htmlSanitize' => 1]));
     }
 
-    /**
-     * @test
-     */
-    public function alternativeTemplateIsDefinedButFileDoesntExist()
+    public function testAlternativeTemplateIsDefinedButFileDoesntExist(): void
     {
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
         $failingTemplate = 'EXT:happy_feet/Resources/Private/Templates/Rendering/TestTemplate.html';
@@ -209,13 +183,10 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
-        self::assertEquals($template, $result);
+        $this->assertSame($template, $result);
     }
 
-    /**
-     * @test
-     */
-    public function alternativeTemplateIsDefined()
+    public function testAlternativeTemplateIsDefined(): void
     {
         $template = 'EXT:happy_feet/Resources/Private/Templates/Rendering/Markup.html';
 
@@ -226,15 +197,10 @@ class RenderingServiceTest extends FunctionalTestCase
 
         $result = $this->reflectMethodInRenderingService('getTemplatePath');
 
-        self::assertEquals($template, $result);
+        $this->assertSame($template, $result);
     }
 
-    /**
-     * @param $method string
-     * @return string
-     * @throws \ReflectionException
-     */
-    private function reflectMethodInRenderingService($method)
+    private function reflectMethodInRenderingService(string $method): string
     {
         $reflector = new ReflectionClass(RenderingService::class);
         $method = $reflector->getMethod($method);

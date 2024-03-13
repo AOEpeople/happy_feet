@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 /***************************************************************
@@ -27,137 +28,97 @@ namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use stdClass;
 use Throwable;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Repository_Test
- */
 class FootnoteRepositoryTest extends FunctionalTestCase
 {
-    /**
-     * @var FootnoteRepository
-     */
-    private $repository;
-
-    /**
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/happy_feet'
+    protected array $testExtensionsToLoad = [
+        'typo3conf/ext/happy_feet',
     ];
 
-    public function setUp(): void
+    private FootnoteRepository $repository;
+
+    protected function setUp(): void
     {
         parent::setUp();
         $this->repository = GeneralUtility::makeInstance(FootnoteRepository::class);
         $this->repository->initializeObject();
     }
 
-    /**
-     * (non-PHPdoc)
-     */
     protected function tearDown(): void
     {
         parent::tearDown();
         unset($this->repository);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetDefaultIndexWhenNoRecordsAvailable()
+    public function testShouldGetDefaultIndexWhenNoRecordsAvailable(): void
     {
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        self::assertEquals(1, $lowestIndex);
+        $this->assertSame(1, $lowestIndex);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetLowestIndex()
+    public function testShouldGetLowestIndex(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        self::assertEquals(1, $lowestIndex);
+        $this->assertSame(1, $lowestIndex);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetIndexWithGap()
+    public function testShouldGetIndexWithGap(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        self::assertEquals(2, $lowestIndex);
+        $this->assertSame(2, $lowestIndex);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetNextIndexInRow()
+    public function testShouldGetNextIndexInRow(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
-        self::assertEquals(3, $lowestIndex);
+        $this->assertSame(3, $lowestIndex);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetFootnoteByUid()
+    public function testShouldGetFootnoteByUid(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(1);
-        self::assertInstanceOf(Footnote::class, $footnote);
-        self::assertEquals(1, $footnote->getUid());
+        $this->assertInstanceOf(Footnote::class, $footnote);
+        $this->assertSame(1, $footnote->getUid());
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnNullIfFootnoteNotFound()
+    public function testShouldReturnNullIfFootnoteNotFound(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
         $footnote = $this->repository->getFootnoteByUid(99);
-        self::assertNull($footnote);
+        $this->assertNull($footnote);
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetFootnotesByUids()
+    public function testShouldGetFootnotesByUids(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([2, 4]);
-        self::assertCount(2, $footnotes);
-        self::assertEquals(2, $footnotes[0]->getUid());
-        self::assertEquals(4, $footnotes[1]->getUid());
+        $this->assertCount(2, $footnotes);
+        $this->assertSame(2, $footnotes[0]->getUid());
+        $this->assertSame(4, $footnotes[1]->getUid());
     }
 
-    /**
-     * @test
-     */
-    public function shouldSortFootnotesByGivenOrderOfUids()
+    public function testShouldSortFootnotesByGivenOrderOfUids(): void
     {
         $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
         $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
-        self::assertCount(5, $footnotes);
-        self::assertEquals(4, $footnotes[0]->getUid());
-        self::assertEquals(1, $footnotes[1]->getUid());
-        self::assertEquals(5, $footnotes[2]->getUid());
-        self::assertEquals(3, $footnotes[3]->getUid());
-        self::assertEquals(2, $footnotes[4]->getUid());
+        $this->assertCount(5, $footnotes);
+        $this->assertSame(4, $footnotes[0]->getUid());
+        $this->assertSame(1, $footnotes[1]->getUid());
+        $this->assertSame(5, $footnotes[2]->getUid());
+        $this->assertSame(3, $footnotes[3]->getUid());
+        $this->assertSame(2, $footnotes[4]->getUid());
     }
 
-    /**
-     * @test
-     */
-    public function shouldThrowExceptionWithInvalidObject()
+    public function testShouldThrowExceptionWithInvalidObject(): void
     {
         $this->expectException(IllegalObjectTypeException::class);
 
@@ -166,18 +127,17 @@ class FootnoteRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @test
      * assert that no exception is thrown
      */
-    public function shouldAddObject()
+    public function testShouldAddObject(): void
     {
         try {
             $footnote = new Footnote();
             $this->repository->add($footnote);
-        } catch (Throwable $notExpected) {
+        } catch (Throwable $throwable) {
             $this->fail('assert that no exception is thrown.');
         }
 
-        self::assertTrue(true);
+        $this->assertTrue(true);
     }
 }

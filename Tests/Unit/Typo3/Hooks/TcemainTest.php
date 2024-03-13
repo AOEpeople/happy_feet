@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /***************************************************************
@@ -32,9 +33,9 @@ namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 use AOE\HappyFeet\Typo3\Hook\Tcemain;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TcemainTest extends UnitTestCase
 {
@@ -53,10 +54,7 @@ class TcemainTest extends UnitTestCase
      */
     protected $footnoteRepository;
 
-    /**
-     * @return void
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->footnoteRepository = $this->getMockBuilder(FootnoteRepository::class)
@@ -69,12 +67,12 @@ class TcemainTest extends UnitTestCase
         $this->dataHandler = $this->getMockBuilder(DataHandler::class)->disableOriginalConstructor()->getMock();
     }
 
-    /**
-     * @test
-     */
-    public function postProcessFieldArrayWithNewFootnote()
+    public function testPostProcessFieldArrayWithNewFootnote(): void
     {
-        $this->footnoteRepository->expects(self::once())->method('getLowestFreeIndexNumber')->willReturn(1);
+        $this->footnoteRepository
+            ->expects($this->once())
+            ->method('getLowestFreeIndexNumber')
+            ->willReturn(1);
 
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
@@ -85,16 +83,16 @@ class TcemainTest extends UnitTestCase
             $this->dataHandler
         );
 
-        self::assertArrayHasKey('index_number', $fieldArray);
-        self::assertEquals(1, $fieldArray['index_number']);
+        $this->assertArrayHasKey('index_number', $fieldArray);
+        $this->assertSame(1, $fieldArray['index_number']);
     }
 
-    /**
-     * @test
-     */
-    public function postProcessFieldArrayWithExistingFootnote()
+    public function testPostProcessFieldArrayWithExistingFootnote(): void
     {
-        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+        $this->footnoteRepository
+            ->expects($this->atMost(1))
+            ->method('getLowestFreeIndexNumber')
+            ->willReturn(1);
 
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
@@ -104,15 +102,15 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        self::assertArrayNotHasKey('index_number', $fieldArray);
+        $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
 
-    /**
-     * @test
-     */
-    public function postProcessFieldArrayWithOtherTable()
+    public function testPostProcessFieldArrayWithOtherTable(): void
     {
-        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+        $this->footnoteRepository
+            ->expects($this->atMost(1))
+            ->method('getLowestFreeIndexNumber')
+            ->willReturn(1);
 
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
@@ -122,15 +120,15 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        self::assertArrayNotHasKey('index_number', $fieldArray);
+        $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
 
-    /**
-     * @test
-     */
-    public function shouldResetIndexNumber()
+    public function testShouldResetIndexNumber(): void
     {
-        $this->footnoteRepository->expects(self::atMost(1))->method('getLowestFreeIndexNumber')->willReturn(1);
+        $this->footnoteRepository
+            ->expects($this->atMost(1))
+            ->method('getLowestFreeIndexNumber')
+            ->willReturn(1);
 
         $fieldArray = [];
         $this->tcemainHook->processDatamap_postProcessFieldArray(
@@ -140,6 +138,6 @@ class TcemainTest extends UnitTestCase
             $fieldArray,
             $this->dataHandler
         );
-        self::assertArrayNotHasKey('index_number', $fieldArray);
+        $this->assertArrayNotHasKey('index_number', $fieldArray);
     }
 }

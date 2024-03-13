@@ -1,4 +1,5 @@
 <?php
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -26,25 +27,21 @@ namespace AOE\HappyFeet\Tests\Unit\Service;
  ***************************************************************/
 
 use AOE\HappyFeet\Service\RenderingService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @package HappyFeet
- * @subpackage Service_Test
- */
 class RenderingServiceTest extends UnitTestCase
 {
     /**
-     * @var RenderingService|MockObject
+     * @var RenderingService
      */
-    private $renderingService;
+    private MockObject $renderingService;
 
     /**
-     * @var ContentObjectRenderer|MockObject
+     * @var ContentObjectRenderer
      */
-    private $contentObjectRenderer;
+    private MockObject $contentObjectRenderer;
 
     protected function setUp(): void
     {
@@ -60,36 +57,34 @@ class RenderingServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->renderingService->expects(self::any())->method('getContentObjectRenderer')
+        $this->renderingService
+            ->method('getContentObjectRenderer')
             ->willReturn($this->contentObjectRenderer);
     }
 
-    /**
-     * @test
-     */
-    public function renderRichTextWithEmptyText()
+    public function testRenderRichTextWithEmptyText(): void
     {
-        $this->contentObjectRenderer->expects(self::never())->method('parseFunc');
+        $this->contentObjectRenderer
+            ->expects($this->never())
+            ->method('parseFunc');
         $this->renderingService->renderRichText('');
     }
 
-    /**
-     * @test
-     */
-    public function renderRichTextWithDefaultParams()
+    public function testRenderRichTextWithDefaultParams(): void
     {
-        $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
+        $this->contentObjectRenderer
+            ->expects($this->once())
+            ->method('parseFunc')
             ->with('text', [], '< lib.parseFunc_HappyFeet');
 
         $this->renderingService->renderRichText('text');
     }
 
-    /**
-     * @test
-     */
-    public function renderRichTextWithSpecificParams()
+    public function testRenderRichTextWithSpecificParams(): void
     {
-        $this->contentObjectRenderer->expects(self::once())->method('parseFunc')
+        $this->contentObjectRenderer
+            ->expects($this->once())
+            ->method('parseFunc')
             ->with('special text', [], '< lib.parseFunc_HappyFeet_custom');
 
         $this->renderingService->renderRichText('special text', [], '< lib.parseFunc_HappyFeet_custom');

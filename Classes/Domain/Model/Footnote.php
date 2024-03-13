@@ -28,10 +28,6 @@ namespace AOE\HappyFeet\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * @package HappyFeet
- * @subpackage Domain_Model
- */
 class Footnote extends AbstractEntity
 {
     protected ?int $indexNumber = null;
@@ -42,10 +38,7 @@ class Footnote extends AbstractEntity
 
     protected ?string $description = null;
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -55,10 +48,7 @@ class Footnote extends AbstractEntity
         return $this->description;
     }
 
-    /**
-     * @param string $header
-     */
-    public function setHeader($header): void
+    public function setHeader(?string $header): void
     {
         $this->header = $header;
     }
@@ -68,10 +58,7 @@ class Footnote extends AbstractEntity
         return $this->header;
     }
 
-    /**
-     * @param integer $index
-     */
-    public function setIndexNumber($index): void
+    public function setIndexNumber(?int $index): void
     {
         $this->indexNumber = $index;
     }
@@ -81,10 +68,7 @@ class Footnote extends AbstractEntity
         return $this->indexNumber;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
