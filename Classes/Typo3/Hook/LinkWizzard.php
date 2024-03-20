@@ -144,6 +144,7 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
             'treeActions' => ['link'],
         ]);
 
+        $this->view->setTemplate('Record');
         return '';
     }
 

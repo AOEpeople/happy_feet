@@ -1,2 +1,6 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method TYPO3Fluid\\\\Fluid\\\\View\\\\ViewInterface\\:\\:setTemplate\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/Typo3/Hook/LinkWizzard.php
