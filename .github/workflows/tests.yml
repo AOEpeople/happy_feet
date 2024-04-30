@@ -22,6 +22,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
 
       - name: Set up PHP Version ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
@@ -80,9 +82,14 @@ jobs:
           typo3DatabasePassword: root
           typo3DatabaseUsername: root
 
-      - name: Upload coverage results to Scrutinizer
+      - name: Upload functional coverage results to Scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
         if: matrix.typo3 == '^11.5' && matrix.php == '8.3'
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
-          find 'Tests/Functional' -wholename '*Test.php' -exec php ocular.phar code-coverage:upload --format=php-clover {}functionaltest-coverage.clover \;
+        with:
+          cli-args: "--format=php-clover functional-coverage.clover --revision=${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - name: Upload unit coverage results to Scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
+        if: matrix.typo3 == '^11.5' && matrix.php == '8.3'
+        with:
+          cli-args: "--format=php-clover unittest-coverage.clover --revision=${{ github.event.pull_request.head.sha || github.sha }}"
