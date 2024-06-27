@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "phpunit/phpcov": "^9.0",
-        "typo3/testing-framework": "^8.0",
+        "typo3/testing-framework": "^7.0 || ^8.0",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.10",
         "rector/rector": "^1.0",
