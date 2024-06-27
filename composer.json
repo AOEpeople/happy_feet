@@ -23,8 +23,8 @@
         "typo3/cms-extbase": "*"
     },
     "require-dev": {
-        "phpunit/phpcov": "^8.2",
-        "typo3/testing-framework": "^7.0.4",
+        "phpunit/phpcov": "^9.0",
+        "typo3/testing-framework": "^8.0",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.10",
         "rector/rector": "^1.0",
@@ -68,7 +68,7 @@
         ],
         "test:functional": [
             "[ -e .Build/bin/phpunit ] || composer update",
-            "TYPO3_PATH_ROOT=$(pwd)/.Build/Web typo3DatabaseName=t3_congo_dev typo3DatabasePort=3307 typo3DatabaseHost=127.0.0.1 typo3DatabaseUsername=root typo3DatabasePassword=root .Build/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/"
+            "TYPO3_PATH_ROOT=$(pwd)/.Build/Web typo3DatabaseName=t3_congo_dev typo3DatabasePort=3306 typo3DatabaseHost=127.0.0.1 typo3DatabaseUsername=root typo3DatabasePassword=root .Build/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/"
         ],
         "code-style": [
             "[ -e ./.Build/bin/rector ] || composer install",

@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method TYPO3Fluid\\\\Fluid\\\\View\\\\ViewInterface\\:\\:setTemplate\\(\\)\\.$#"
+			message: "#^Parameter \\#2 \\$conf of method TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\:\\:parseFunc\\(\\) expects non\\-empty\\-array\\<string, mixed\\>\\|null, array given\\.$#"
+			count: 1
+			path: ../Classes/Service/RenderingService.php
+
+		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Core\\\\View\\\\ViewInterface\\:\\:setTemplate\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/Typo3/Hook/LinkWizzard.php
+
+		-
+			message: "#^Call to method displayRecordsForPage\\(\\) on an unknown class TYPO3\\\\CMS\\\\Recordlist\\\\Browser\\\\RecordBrowser\\.$#"
+			count: 1
+			path: ../Classes/Typo3/Hook/LinkWizzard.php
+
+		-
+			message: "#^Class TYPO3\\\\CMS\\\\Recordlist\\\\Browser\\\\RecordBrowser not found\\.$#"
 			count: 1
 			path: ../Classes/Typo3/Hook/LinkWizzard.php

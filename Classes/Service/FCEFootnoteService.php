@@ -35,11 +35,9 @@ class FCEFootnoteService
 {
     public ?ContentObjectRenderer $cObj = null;
 
-    private RenderingService $renderingService;
-
-    public function __construct(RenderingService $renderingService)
-    {
-        $this->renderingService = $renderingService;
+    public function __construct(
+        private RenderingService $renderingService
+    ) {
     }
 
     /**

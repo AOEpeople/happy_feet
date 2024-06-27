@@ -24,8 +24,14 @@ return [
                 'foreign_table'       => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items'               => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
+                        'value' => -1,
+                    ],
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value',
+                        'value' => 0,
+                    ],
                 ]
             ]
         ],
@@ -37,7 +43,10 @@ return [
                 'type'        => 'select',
                 'renderType'  => 'selectSingle',
                 'items'       => [
-                    ['', 0],
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
                 ],
                 'foreign_table'       => 'tx_happyfeet_domain_model_footnote',
                 'foreign_table_where' => 'AND tx_happyfeet_domain_model_footnote.pid=###CURRENT_PID### AND tx_happyfeet_domain_model_footnote.sys_language_uid IN (-1,0)',
@@ -62,7 +71,7 @@ return [
             'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config'  => [
                 'type'       => 'input',
-                'renderType' => 'inputDateTime',
+                'renderType' => 'datetime',
                 'size'       => '8',
                 'eval'       => 'date',
                 'default'    => '0',
@@ -74,7 +83,7 @@ return [
             'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config'  => [
                 'type'       => 'input',
-                'renderType' => 'inputDateTime',
+                'renderType' => 'datetime',
                 'size'       => '8',
                 'eval'       => 'date',
                 'checkbox'   => '0',
@@ -93,10 +102,11 @@ return [
         'title' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xlf:tx_happyfeet_domain_model_footnote.title',
+            'required' => true,
             'config'  => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required,unique'
+                'eval' => 'trim,unique'
             ]
         ],
         'header' => [
@@ -111,11 +121,11 @@ return [
         'description' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xlf:tx_happyfeet_domain_model_footnote.description',
+            'required' => true,
             'config'  => [
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '5',
-                'eval' => 'required',
                 'enableRichtext' => true
             ],
         ]

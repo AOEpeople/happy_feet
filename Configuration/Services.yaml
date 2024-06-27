@@ -8,13 +8,9 @@ services:
         resource: '../Classes/*'
 
     AOE\HappyFeet\Typo3\Hook\LinkRenderer:
-        public: true
 
     AOE\HappyFeet\Typo3\Hook\Tcemain:
-        public: true
 
     AOE\HappyFeet\Service\RenderingService:
-        public: true
 
     AOE\HappyFeet\Domain\Repository\FootnoteRepository:
-        public: true

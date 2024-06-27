@@ -31,11 +31,9 @@ use AOE\HappyFeet\Domain\Repository\FootnoteRepository;
 
 class FootnoteService
 {
-    private FootnoteRepository $footnoteRepository;
-
-    public function __construct(FootnoteRepository $footnoteRepository)
-    {
-        $this->footnoteRepository = $footnoteRepository;
+    public function __construct(
+        private FootnoteRepository $footnoteRepository
+    ) {
     }
 
     /**

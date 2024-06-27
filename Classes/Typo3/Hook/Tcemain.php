@@ -27,11 +27,9 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  */
 class Tcemain
 {
-    private FootnoteRepository $footnoteRepository;
-
-    public function __construct(FootnoteRepository $footnoteRepository)
-    {
-        $this->footnoteRepository = $footnoteRepository;
+    public function __construct(
+        private FootnoteRepository $footnoteRepository
+    ) {
     }
 
     /**

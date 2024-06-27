@@ -18,14 +18,14 @@ namespace AOE\HappyFeet\Typo3\Hook;
  */
 
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Controller\AbstractLinkBrowserController;
+use TYPO3\CMS\Backend\LinkHandler\AbstractLinkHandler;
+use TYPO3\CMS\Backend\LinkHandler\LinkHandlerInterface;
+use TYPO3\CMS\Backend\Tree\View\LinkParameterProviderInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\LinkHandling\LinkService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Recordlist\Browser\RecordBrowser;
-use TYPO3\CMS\Recordlist\Controller\AbstractLinkBrowserController;
-use TYPO3\CMS\Recordlist\LinkHandler\AbstractLinkHandler;
-use TYPO3\CMS\Recordlist\LinkHandler\LinkHandlerInterface;
-use TYPO3\CMS\Recordlist\Tree\View\LinkParameterProviderInterface;
 
 /**
  * Link handler for arbitrary database records
@@ -48,10 +48,9 @@ final class LinkWizzard extends AbstractLinkHandler implements LinkHandlerInterf
     /**
      * Initializes the handler.
      *
-     * @param mixed $identifier
      * @param array $configuration Page TSconfig
      */
-    public function initialize(AbstractLinkBrowserController $linkBrowser, $identifier, array $configuration): void
+    public function initialize(AbstractLinkBrowserController $linkBrowser, mixed $identifier, array $configuration): void
     {
         parent::initialize($linkBrowser, $identifier, $configuration);
         $this->configuration = $configuration;

@@ -39,6 +39,7 @@ class FCEFootnoteServiceTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->renderingService = $this->getMockBuilder(RenderingService::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['renderFootnotes'])

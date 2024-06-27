@@ -41,6 +41,7 @@ class FlatifyViewHelperTest extends UnitTestCase
      */
     protected function setUp(): void
     {
+        parent::setUp();
         $this->viewHelper = new FlatifyViewHelper();
     }
 
@@ -53,7 +54,7 @@ class FlatifyViewHelperTest extends UnitTestCase
         $this->assertSame('such a beautiful footnote', $actualOutput);
     }
 
-    public function getTemplateFixtureProvider(): array
+    public static function getTemplateFixtureProvider(): array
     {
         return [
             'windows' => ["\r\nsuch a beautiful footnote\r\n"],

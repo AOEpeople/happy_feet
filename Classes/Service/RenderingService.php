@@ -43,11 +43,9 @@ class RenderingService implements SingletonInterface
 
     private ?ContentObjectRenderer $contentObjectRenderer = null;
 
-    private FootnoteRepository $footnoteRepository;
-
-    public function __construct(FootnoteRepository $footnoteRepository)
-    {
-        $this->footnoteRepository = $footnoteRepository;
+    public function __construct(
+        private FootnoteRepository $footnoteRepository
+    ) {
     }
 
     /**
@@ -87,7 +85,7 @@ class RenderingService implements SingletonInterface
      *                      of the object path "lib.parseFunc" will be retrieved and MERGED with what is in $conf!
      * @return string
      */
-    public function renderRichText($richText, array $conf = [], $ref = '< lib.parseFunc_HappyFeet')
+    public function renderRichText($richText, array $conf = [], ?string $ref = '< lib.parseFunc_HappyFeet')
     {
         if ($richText === '') {
             return '';

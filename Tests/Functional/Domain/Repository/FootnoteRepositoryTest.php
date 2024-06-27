@@ -63,28 +63,28 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     public function testShouldGetLowestIndex(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.csv');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertSame(1, $lowestIndex);
     }
 
     public function testShouldGetIndexWithGap(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_gap.csv');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertSame(2, $lowestIndex);
     }
 
     public function testShouldGetNextIndexInRow(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_row.csv');
         $lowestIndex = $this->repository->getLowestFreeIndexNumber();
         $this->assertSame(3, $lowestIndex);
     }
 
     public function testShouldGetFootnoteByUid(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.csv');
         $footnote = $this->repository->getFootnoteByUid(1);
         $this->assertInstanceOf(Footnote::class, $footnote);
         $this->assertSame(1, $footnote->getUid());
@@ -92,14 +92,14 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     public function testShouldReturnNullIfFootnoteNotFound(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote.csv');
         $footnote = $this->repository->getFootnoteByUid(99);
         $this->assertNull($footnote);
     }
 
     public function testShouldGetFootnotesByUids(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.csv');
         $footnotes = $this->repository->getFootnotesByUids([2, 4]);
         $this->assertCount(2, $footnotes);
         $this->assertSame(2, $footnotes[0]->getUid());
@@ -108,7 +108,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
 
     public function testShouldSortFootnotesByGivenOrderOfUids(): void
     {
-        $this->importDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.xml');
+        $this->importCSVDataSet(__DIR__ . '/fixtures/tx_happyfeet_domain_model_footnote_collection.csv');
         $footnotes = $this->repository->getFootnotesByUids([4, 1, 5, 3, 2]);
         $this->assertCount(5, $footnotes);
         $this->assertSame(4, $footnotes[0]->getUid());
@@ -134,7 +134,7 @@ class FootnoteRepositoryTest extends FunctionalTestCase
         try {
             $footnote = new Footnote();
             $this->repository->add($footnote);
-        } catch (Throwable $throwable) {
+        } catch (Throwable) {
             $this->fail('assert that no exception is thrown.');
         }
 

@@ -71,7 +71,7 @@ class FootnoteRepository extends Repository
                 $queryBuilder->expr()
                     ->eq('deleted', $queryBuilder->createNamedParameter(0, PDO::PARAM_INT))
             )
-            ->execute()
+            ->executeQuery()
             ->fetchAllAssociative();
 
         $index = 1;
@@ -120,6 +120,7 @@ class FootnoteRepository extends Repository
         $query = $this->createQuery();
         $query->setQuerySettings($this->defaultQuerySettings);
 
+        /** @var Footnote */
         return $query->matching($query->equals('uid', $uid))
             ->execute()
             ->getFirst();
