@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Typolink\AbstractTypolinkBuilder;
+use TYPO3\CMS\Frontend\Typolink\LinkResultInterface;
 use TYPO3\CMS\Frontend\Typolink\UnableToLinkException;
 
 class LinkRenderer extends AbstractTypolinkBuilder
@@ -22,7 +23,7 @@ class LinkRenderer extends AbstractTypolinkBuilder
         $this->renderingService = $renderingService ?? GeneralUtility::makeInstance(RenderingService::class);
     }
 
-    public function build(array &$linkDetails, string $linkText, string $target, array $conf): array
+    public function build(array &$linkDetails, string $linkText, string $target, array $conf): LinkResultInterface
     {
         $footnoteHtml = $this->renderingService->renderFootnotes([$linkDetails['uid']], $conf);
         // Trim HTML-code of footnotes - Otherwise some ugly problems can occur
