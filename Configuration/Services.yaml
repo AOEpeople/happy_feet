@@ -14,3 +14,6 @@ services:
     AOE\HappyFeet\Service\RenderingService:
 
     AOE\HappyFeet\Domain\Repository\FootnoteRepository:
+
+    AOE\HappyFeet\Typo3\Hook\HappyFeetLinkWizzard:
+        public: true

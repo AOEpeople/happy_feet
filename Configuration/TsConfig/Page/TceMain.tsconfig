@@ -1,10 +1,21 @@
-TCEMAIN.linkHandler {
-  happy_feet {
-    handler = AOE\HappyFeet\Typo3\Hook\LinkWizzard
+#TCEMAIN.linkHandler {
+#  happy_feet {
+#    handler = AOE\HappyFeet\Typo3\Hook\LinkWizzard
+#    label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xlf:tx_happyfeet_domain_model_footnote
+#    configuration.table = tx_happyfeet_domain_model_footnote
+#    scanBefore = page
+#  }
+#}
+
+TCEMAIN.linkHandler.happy_feet {
+    handler = AOE\HappyFeet\Typo3\Hook\HappyFeetLinkWizzard
     label = LLL:EXT:happy_feet/Resources/Private/Language/locallang_db.xlf:tx_happyfeet_domain_model_footnote
-    configuration.table = tx_happyfeet_domain_model_footnote
+    configuration {
+        table = tx_happyfeet_domain_model_footnote
+        storagePid = 49
+        pageTreeMountPoints = 49
+    }
     scanBefore = page
-  }
 }
 
 RTE {
