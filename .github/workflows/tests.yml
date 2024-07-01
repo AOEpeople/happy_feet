@@ -11,11 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         typo3: [ ^11.5, ^12.4 ]
-        php: [ '8.0', '8.1', '8.2', '8.3' ]
+        php: [ '8.1', '8.2', '8.3' ]
         mysql: [ '5.7' ]
-        exclude:
-          - typo3: '^12.4'
-            php: '8.0'
 
     steps:
       - name: Set up MySQL ${{ matrix.mysql }}
