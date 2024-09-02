@@ -47,12 +47,12 @@ class TcemainTest extends UnitTestCase
     /**
      * @var DataHandler
      */
-    protected $dataHandler;
+    protected MockObject $dataHandler;
 
     /**
      * @var FootnoteRepository|MockObject
      */
-    protected $footnoteRepository;
+    protected MockObject $footnoteRepository;
 
     protected function setUp(): void
     {

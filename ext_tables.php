@@ -7,4 +7,4 @@ $GLOBALS['TCA']['tx_happyfeet_domain_model_footnote']['columns']['endtime']['con
     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y'))
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_happyfeet_domain_model_footnote');
+$GLOBALS['TCA']['tx_happyfeet_domain_model_footnote']['ctrl']['security']['ignorePageTypeRestriction'] = true;
