@@ -1,6 +1,6 @@
 # happy_feet
 
-[![Build Status](https://github.com/AOEpeople/happy_feet/workflows/CI/badge.svg?branch=main)](https://github.com/AOEpeople/happy_feet/actions)
+[![Build Status](https://github.com/AOEpeople/happy_feet/actions/workflows/tests.yml/badge.svg)](https://github.com/AOEpeople/happy_feet/actions)
 [![Code Coverage](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=main)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/AOEpeople/happy_feet/?branch=main)
 
@@ -20,11 +20,11 @@ The documentation is available online at [docs.typo3.org][2].
 
 ## Versions and Support
 
-| Release | TYPO3    | PHP     | Fixes will contain
-|---------|----------|---------|--------------------|
-| 11.x.y  | 11.5     | 7.4-8.3 | Features, Bugfixes, Security Updates
-| 8.3.y   | 8.7-10.4 | 7.2-7.4 | Security Updates
-| 5.x.y   | 7.6      | 5.5-5.6 | End of life
+| Release | TYPO3    | PHP     | Fixes will contain                   |
+|---------|----------|---------|--------------------------------------|
+| 12.x.y  | 12.4     | 8.1-8.3 | Features, Bugfixes, Security Updates |
+| 11.x.y  | 11.5     | 7.4-8.0 | Security Updates                     |
+| 8.x.y   | 8.7      | 7.2-7.4 | End of life                          |
 
 ## Copyright / License
 
