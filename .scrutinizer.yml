@@ -1,6 +1,9 @@
 build:
     nodes:
         analysis:
+            image: default-bionic
+            environment:
+                php: 8.3.0
             tests:
                 override:
                     - php-scrutinizer-run
@@ -15,14 +18,14 @@ filter:
 
 tools:
     external_code_coverage:
-        timeout: 700
+        timeout: 1200
         runs: 1
     php_cpd:
         enabled: true
     php_code_sniffer:
         enabled: true
         config:
-            standard: TYPO3CMS
+            standard: PSR2
     php_cs_fixer:
         enabled: true
     php_hhvm:
