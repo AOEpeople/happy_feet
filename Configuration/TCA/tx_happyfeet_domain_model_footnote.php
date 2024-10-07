@@ -70,25 +70,20 @@ return [
             'exclude' => 1,
             'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config'  => [
-                'type'       => 'input',
-                'renderType' => 'datetime',
-                'size'       => '8',
-                'eval'       => 'date',
+                'type'       => 'datetime',
+                'format'     => 'date',
+                'size'       => '20',
                 'default'    => '0',
-                'checkbox'   => '0'
             ]
         ],
         'endtime' => [
             'exclude' => 1,
             'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config'  => [
-                'type'       => 'input',
-                'renderType' => 'datetime',
-                'size'       => '8',
-                'eval'       => 'date',
-                'checkbox'   => '0',
+                'type'       => 'datetime',
+                'format'     => 'date',
+                'size'       => '20',
                 'default'    => '0',
-                'range'      => 'must be configured in ext_tables.php, behause the configuration-data is not cacheable!'
             ]
         ],
         'index_number' => [

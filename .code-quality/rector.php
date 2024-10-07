@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
-use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\YieldDataProviderRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
@@ -33,7 +32,6 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_CODE_QUALITY
     ])
     ->withSkip([
-        ChangeAndIfToEarlyReturnRector::class,
         TypedPropertyFromStrictSetUpRector::class,
         AddMethodCallBasedStrictParamTypeRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
