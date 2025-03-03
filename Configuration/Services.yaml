@@ -10,6 +10,7 @@ services:
     AOE\HappyFeet\Typo3\Hook\LinkRenderer:
 
     AOE\HappyFeet\Typo3\Hook\Tcemain:
+        public: true
 
     AOE\HappyFeet\Service\RenderingService:
 
