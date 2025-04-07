@@ -31,6 +31,7 @@ The documentation is available online at [docs.typo3.org][2].
 Copyright: (c) 2014 - 2024, AOE GmbH
 License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
 
+
 ## Contributing
 
 	1. Fork the repository on Github
