@@ -16,7 +16,7 @@ return ECSConfig::configure()
     ->withPaths([
         __DIR__ . '/../Classes',
         __DIR__ . '/../Tests',
-        __DIR__ . '/ecs.php',
+        __DIR__ . '/../.code-quality',
     ])
     ->withSets([
         SetList::PSR_12,

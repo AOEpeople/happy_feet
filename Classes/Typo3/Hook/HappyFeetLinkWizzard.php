@@ -150,7 +150,7 @@ final class HappyFeetLinkWizzard extends AbstractLinkHandler implements LinkHand
             'pageTreeMountPoints' => GeneralUtility::intExplode(',', $pageTreeMountPoints, true),
             'recordList' => $this->renderTableRecords($request),
             'initialNavigationWidth' => $this->getBackendUser()
-                    ->uc['selector']['navigation']['width'] ?? 250,
+                ->uc['selector']['navigation']['width'] ?? 250,
             'treeActions' => ['link'],
         ]);
 

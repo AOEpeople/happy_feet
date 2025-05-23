@@ -16,8 +16,8 @@ class LinkRenderer extends AbstractTypolinkBuilder
 
     public function __construct(
         ContentObjectRenderer $contentObjectRenderer,
-        TypoScriptFrontendController $typoScriptFrontendController = null,
-        RenderingService $renderingService = null
+        ?TypoScriptFrontendController $typoScriptFrontendController = null,
+        ?RenderingService $renderingService = null
     ) {
         parent::__construct($contentObjectRenderer, $typoScriptFrontendController);
         $this->renderingService = $renderingService ?? GeneralUtility::makeInstance(RenderingService::class);
