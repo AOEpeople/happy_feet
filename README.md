@@ -22,13 +22,13 @@ The documentation is available online at [docs.typo3.org][2].
 
 | Release | TYPO3    | PHP     | Fixes will contain                   |
 |---------|----------|---------|--------------------------------------|
-| 12.x.y  | 12.4     | 8.1-8.3 | Features, Bugfixes, Security Updates |
+| 12.x.y  | 12.4     | 8.1-8.4 | Features, Bugfixes, Security Updates |
 | 11.x.y  | 11.5     | 7.4-8.0 | Security Updates                     |
 | 8.x.y   | 8.7      | 7.2-7.4 | End of life                          |
 
 ## Copyright / License
 
-Copyright: (c) 2014 - 2024, AOE GmbH
+Copyright: (c) 2014 - 2025, AOE GmbH
 License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
 
 
