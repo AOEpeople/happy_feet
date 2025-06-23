@@ -12,9 +12,20 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'iconfile' => 'EXT:happy_feet/Resources/Public/Icons/TCA/Footnote.gif'
+        'iconfile' => 'EXT:happy_feet/Resources/Public/Icons/TCA/Footnote.gif',
+        'versioningWS' => true,
+        'versioning_followPages' => true,
+        'origUid' => 't3_origuid',
     ],
     'columns' => [
+        't3ver_label' => [
+            'label'  => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
+            'config' => [
+                'type' => 'input',
+                'size' => '30',
+                'max'  => '30',
+            ],
+        ],
         'sys_language_uid' => [
             'exclude' => 1,
             'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -38,7 +49,7 @@ return [
         'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude'     => 1,
-            'label'       => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.l18n_parent',
+            'label'       => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config'      => [
                 'type'        => 'select',
                 'renderType'  => 'selectSingle',
