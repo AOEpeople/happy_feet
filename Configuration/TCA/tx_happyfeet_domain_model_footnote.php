@@ -112,7 +112,7 @@ return [
             'config'  => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,unique'
+                'eval' => 'trim'
             ]
         ],
         'header' => [
