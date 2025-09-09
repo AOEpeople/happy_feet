@@ -64,7 +64,7 @@ class TcemainTest extends UnitTestCase
 
         $this->tcemainHook = new Tcemain($this->footnoteRepository);
 
-        $this->dataHandler = $this->getMockBuilder(DataHandler::class)->disableOriginalConstructor()->getMock();
+        $this->dataHandler = $this->createMock(DataHandler::class);
     }
 
     public function testPostProcessFieldArrayWithNewFootnote(): void
