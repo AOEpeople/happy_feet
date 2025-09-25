@@ -204,7 +204,6 @@ class RenderingServiceTest extends FunctionalTestCase
     {
         $reflector = new ReflectionClass(RenderingService::class);
         $method = $reflector->getMethod($method);
-        $method->setAccessible(true);
         return $method->invokeArgs($this->renderingService, []);
     }
 }
