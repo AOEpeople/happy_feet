@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -31,7 +33,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class RenderingServiceTest extends UnitTestCase
+final class RenderingServiceTest extends UnitTestCase
 {
     /**
      * @var RenderingService

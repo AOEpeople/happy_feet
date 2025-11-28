@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Typo3\Hooks;
 
 /***************************************************************
@@ -37,22 +39,19 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class TcemainTest extends UnitTestCase
+final class TcemainTest extends UnitTestCase
 {
-    /**
-     * @var Tcemain
-     */
-    protected $tcemainHook;
+    private Tcemain $tcemainHook;
 
     /**
      * @var DataHandler
      */
-    protected MockObject $dataHandler;
+    private MockObject $dataHandler;
 
     /**
      * @var FootnoteRepository|MockObject
      */
-    protected MockObject $footnoteRepository;
+    private MockObject $footnoteRepository;
 
     protected function setUp(): void
     {

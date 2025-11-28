@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\ViewHelpers;
 
 /***************************************************************
@@ -29,12 +31,9 @@ namespace AOE\HappyFeet\Tests\Unit\ViewHelpers;
 use AOE\HappyFeet\ViewHelpers\FlatifyViewHelper;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class FlatifyViewHelperTest extends UnitTestCase
+final class FlatifyViewHelperTest extends UnitTestCase
 {
-    /**
-     * @var FlatifyViewHelper
-     */
-    protected $viewHelper;
+    private FlatifyViewHelper $viewHelper;
 
     /**
      * Set up the test case

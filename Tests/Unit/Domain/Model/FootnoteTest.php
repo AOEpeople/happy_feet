@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 
 /***************************************************************
@@ -29,9 +31,9 @@ namespace AOE\HappyFeet\Tests\Unit\Domain\Model;
 use AOE\HappyFeet\Domain\Model\Footnote;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class FootnoteTest extends UnitTestCase
+final class FootnoteTest extends UnitTestCase
 {
-    protected Footnote $footnote;
+    private Footnote $footnote;
 
     protected function setUp(): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Functional\Service;
 
 /***************************************************************
@@ -39,18 +41,18 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-class RenderingServiceTest extends FunctionalTestCase
+final class RenderingServiceTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet',
     ];
 
-    protected RenderingService $renderingService;
+    private RenderingService $renderingService;
 
     /**
      * @var FootnoteRepository
      */
-    protected MockObject $footnoteRepository;
+    private MockObject $footnoteRepository;
 
     protected function setUp(): void
     {

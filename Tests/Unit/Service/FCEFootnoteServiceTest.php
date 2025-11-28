@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Unit\Service;
 
 /***************************************************************
@@ -31,11 +33,11 @@ use AOE\HappyFeet\Service\RenderingService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class FCEFootnoteServiceTest extends UnitTestCase
+final class FCEFootnoteServiceTest extends UnitTestCase
 {
-    protected FCEFootnoteService $service;
+    private FCEFootnoteService $service;
 
-    protected RenderingService $renderingService;
+    private RenderingService $renderingService;
 
     protected function setUp(): void
     {

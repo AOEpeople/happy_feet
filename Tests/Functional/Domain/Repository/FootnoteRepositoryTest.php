@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AOE\HappyFeet\Tests\Functional\Domain\Repository;
 
 /***************************************************************
@@ -34,7 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-class FootnoteRepositoryTest extends FunctionalTestCase
+final class FootnoteRepositoryTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [
         'typo3conf/ext/happy_feet',
